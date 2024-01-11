@@ -1,0 +1,24 @@
+name: app
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+packages:
+  - app/**
+  - common/**
+
+scripts:
+  # build runner build
+  analyze:
+    exec: dart analyze .
+    description: analyze all modules.
+  pub_get:
+    run: dart pub global run melos exec "flutter pub get"
+    description: pub get all modules.
+  test:
+    run: dart pub global run melos exec "flutter test"
+    description: test all modules.
+  build_all:
+    run: dart pub global run melos exec --depends-on="build_runner" "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: build_runner build all modules.
