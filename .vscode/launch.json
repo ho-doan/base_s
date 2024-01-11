@@ -5,26 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "app",
-            "cwd": "app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "app (profile mode)",
-            "cwd": "app",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "app (release mode)",
-            "cwd": "app",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
             "name": "common",
             "cwd": "common",
             "request": "launch",
@@ -63,6 +43,40 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        },
+        {
+            "name": "template",
+            "cwd": "template",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "template (profile mode)",
+            "cwd": "template",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "template (release mode)",
+            "cwd": "template",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+          // {
+        //     "name": "Golden",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "codeLens": {
+        //         "for": [
+        //             "run-test",
+        //             "run-test-file"
+        //         ]
+        //     },
+        //     "args": [
+        //         "--update-goldens"
+        //     ]
+        // },
     ]
 }
