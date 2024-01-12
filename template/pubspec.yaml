@@ -33,7 +33,6 @@ dependencies:
   shimmer: ^3.0.0
 
 dev_dependencies:
-  bdd_widget_test: ^1.4.0
   build_runner: ^2.4.7
   envied_generator: ^0.5.3
   flutter_gen_runner: ^5.4.0
