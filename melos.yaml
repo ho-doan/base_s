@@ -5,20 +5,34 @@ command:
     usePubspecOverrides: true
 
 packages:
-  - app/**
+  - template/**
   - common/**
+  - domain/**
 
 scripts:
-  # build runner build
   analyze:
     exec: dart analyze .
+    failFast: true
     description: analyze all modules.
-  pub_get:
-    run: dart pub global run melos exec "flutter pub get"
+  pub:
+    exec: flutter pub get
+    failFast: true
     description: pub get all modules.
   test:
-    run: dart pub global run melos exec "flutter test"
+    exec: flutter test
+    failFast: true
     description: test all modules.
-  build_all:
-    run: dart pub global run melos exec --depends-on="build_runner" "flutter pub run build_runner build --delete-conflicting-outputs"
+  integration:
+    select-package:
+      # --scope="*template*"
+      scope: "*template*"
+    exec: flutter test integration_test
+    failFast: true
+    description: test all modules.
+  build:
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    # --depends-on="build_runner"
+    select-package:
+      depends-on: build_runner
     description: build_runner build all modules.

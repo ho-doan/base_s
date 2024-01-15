@@ -1,7 +1,7 @@
-import 'package:template/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:template/feature/home/home_screen.dart';
 
 import 'step/i_see_counter.dart';
 import 'step/i_tab_counter.dart';
@@ -33,11 +33,11 @@ void main() {
             Device.iphone11,
           ],
         )
-        ..addScenario(widget: const MyApp());
+        ..addScenario(widget: const HomeScreen());
       await tester.pumpDeviceBuilder(builder);
       await iTapIcon(tester, Icons.add);
       await expectLater(
-        find.byType(MyApp),
+        find.byType(HomeScreen),
         matchesGoldenFile('goldens/counter_1.png'),
       );
     });

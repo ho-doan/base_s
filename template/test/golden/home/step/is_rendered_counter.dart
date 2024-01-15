@@ -1,7 +1,7 @@
-import 'package:template/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:template/feature/home/home_screen.dart';
 
 Future<void> runningRenderedCounter(WidgetTester tester) async {
   await loadAppFonts();
@@ -15,6 +15,6 @@ Future<void> runningRenderedCounter(WidgetTester tester) async {
         Device.iphone11,
       ],
     )
-    ..addScenario(widget: const MyApp());
+    ..addScenario(widget: const HomeScreen());
   await tester.pumpDeviceBuilder(builder);
 }
