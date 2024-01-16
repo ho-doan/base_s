@@ -3,6 +3,136 @@
 part of 'entry_local.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$EntryLocalCWProxy {
+  EntryLocal aPI(String? aPI);
+
+  EntryLocal description(String? description);
+
+  EntryLocal auth(String? auth);
+
+  EntryLocal hTTPS(bool? hTTPS);
+
+  EntryLocal cors(String? cors);
+
+  EntryLocal link(String? link);
+
+  EntryLocal category(String? category);
+
+  EntryLocal key(int? key);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EntryLocal(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// EntryLocal(...).copyWith(id: 12, name: "My name")
+  /// ````
+  EntryLocal call({
+    String? aPI,
+    String? description,
+    String? auth,
+    bool? hTTPS,
+    String? cors,
+    String? link,
+    String? category,
+    int? key,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfEntryLocal.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfEntryLocal.copyWith.fieldName(...)`
+class _$EntryLocalCWProxyImpl implements _$EntryLocalCWProxy {
+  const _$EntryLocalCWProxyImpl(this._value);
+
+  final EntryLocal _value;
+
+  @override
+  EntryLocal aPI(String? aPI) => this(aPI: aPI);
+
+  @override
+  EntryLocal description(String? description) => this(description: description);
+
+  @override
+  EntryLocal auth(String? auth) => this(auth: auth);
+
+  @override
+  EntryLocal hTTPS(bool? hTTPS) => this(hTTPS: hTTPS);
+
+  @override
+  EntryLocal cors(String? cors) => this(cors: cors);
+
+  @override
+  EntryLocal link(String? link) => this(link: link);
+
+  @override
+  EntryLocal category(String? category) => this(category: category);
+
+  @override
+  EntryLocal key(int? key) => this(key: key);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EntryLocal(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// EntryLocal(...).copyWith(id: 12, name: "My name")
+  /// ````
+  EntryLocal call({
+    Object? aPI = const $CopyWithPlaceholder(),
+    Object? description = const $CopyWithPlaceholder(),
+    Object? auth = const $CopyWithPlaceholder(),
+    Object? hTTPS = const $CopyWithPlaceholder(),
+    Object? cors = const $CopyWithPlaceholder(),
+    Object? link = const $CopyWithPlaceholder(),
+    Object? category = const $CopyWithPlaceholder(),
+    Object? key = const $CopyWithPlaceholder(),
+  }) {
+    return EntryLocal(
+      aPI: aPI == const $CopyWithPlaceholder()
+          ? _value.aPI
+          // ignore: cast_nullable_to_non_nullable
+          : aPI as String?,
+      description: description == const $CopyWithPlaceholder()
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String?,
+      auth: auth == const $CopyWithPlaceholder()
+          ? _value.auth
+          // ignore: cast_nullable_to_non_nullable
+          : auth as String?,
+      hTTPS: hTTPS == const $CopyWithPlaceholder()
+          ? _value.hTTPS
+          // ignore: cast_nullable_to_non_nullable
+          : hTTPS as bool?,
+      cors: cors == const $CopyWithPlaceholder()
+          ? _value.cors
+          // ignore: cast_nullable_to_non_nullable
+          : cors as String?,
+      link: link == const $CopyWithPlaceholder()
+          ? _value.link
+          // ignore: cast_nullable_to_non_nullable
+          : link as String?,
+      category: category == const $CopyWithPlaceholder()
+          ? _value.category
+          // ignore: cast_nullable_to_non_nullable
+          : category as String?,
+      key: key == const $CopyWithPlaceholder()
+          ? _value.key
+          // ignore: cast_nullable_to_non_nullable
+          : key as int?,
+    );
+  }
+}
+
+extension $EntryLocalCopyWith on EntryLocal {
+  /// Returns a callable class that can be used as follows: `instanceOfEntryLocal.copyWith(...)` or like so:`instanceOfEntryLocal.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
+  _$EntryLocalCWProxy get copyWith => _$EntryLocalCWProxyImpl(this);
+}
+
+// **************************************************************************
 // IsarCollectionGenerator
 // **************************************************************************
 

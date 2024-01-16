@@ -33,7 +33,7 @@ void configureDependencies(GetIt getIt) {
 }
 
 @visibleForTesting
-void configureDependenciesTest() {
-  getItTesting.registerLazySingleton<ApiClient>(() => ApiClient(Dio()));
+void configureDependenciesTest(ApiClient apiClient) {
+  getItTesting.registerLazySingleton<ApiClient>(() => apiClient);
   $initGetIt(getItTesting);
 }

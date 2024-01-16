@@ -39,7 +39,7 @@ mixin LocalDatabase {
     //TODO (everyone): add more delete calls for other collections as needed
 
     await isar?.writeTxn<void>(() async {
-      await isar?.entryLocals.where().deleteAll();
+      await isar?.entryLocals.clear();
     });
   }
 
