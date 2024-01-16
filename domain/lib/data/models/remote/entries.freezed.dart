@@ -107,7 +107,8 @@ class __$$EntriesImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$EntriesImpl implements _Entries {
   const _$EntriesImpl({this.count = 0, final List<Entry> entries = const []})
-      : _entries = entries;
+      : assert(entries.length == count, 'data invalid'),
+        _entries = entries;
 
   factory _$EntriesImpl.fromJson(Map<String, dynamic> json) =>
       _$$EntriesImplFromJson(json);

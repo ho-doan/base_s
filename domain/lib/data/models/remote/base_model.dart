@@ -11,7 +11,7 @@ class BaseModel<T> extends Equatable {
     T Function(Object? json) fromJsonT,
   ) =>
       _$BaseModelFromJson(json, fromJsonT);
-  final T data;
+  final T? data;
 
   Map<String, dynamic> toJson(T Function(Object? json) toJsonT) =>
       _$BaseModelToJson(this, toJsonT);

@@ -8,6 +8,7 @@ part 'entries.g.dart';
 @freezed
 class Entries with _$Entries {
   @JsonSerializable(explicitToJson: true)
+  @Assert('entries.length == count', 'data invalid')
   const factory Entries({
     @Default(0) int count,
     @Default([]) List<Entry> entries,
