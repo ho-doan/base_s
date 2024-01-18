@@ -10,7 +10,7 @@ _$EntriesImpl _$$EntriesImplFromJson(Map<String, dynamic> json) =>
     _$EntriesImpl(
       count: json['count'] as int? ?? 0,
       entries: (json['entries'] as List<dynamic>?)
-              ?.map((e) => Entry.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => EntryRemote.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
     );

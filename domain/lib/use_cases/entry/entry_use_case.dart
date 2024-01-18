@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../data/models/models.dart';
+import '../../models/models.dart';
 import '../../repositories/repositories.dart';
 
 class EntryUseCase {
@@ -8,7 +9,7 @@ class EntryUseCase {
 
   final EntryRepository _repository;
 
-  Future<Either<ErrorState, List<Entry>>> fetch({
+  Future<Either<ErrorState, List<EntryModel>>> fetch({
     bool forceRefresh = false,
   }) =>
       _repository.fetch(forceRefresh: forceRefresh);

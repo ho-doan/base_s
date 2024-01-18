@@ -15,13 +15,15 @@ final getItTesting = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-void configureDependencies(GetIt getIt) {
+void configureDomainDependencies(GetIt getIt) {
   final dio = Dio();
 
   dio.options.connectTimeout = const Duration(seconds: 30);
   dio.options.headers['Content-Type'] = 'application/json';
 
   dio.options.headers['Accept'] = 'text/json';
+
+  dio.interceptors.add(LogInterceptor());
 
   getIt.registerLazySingleton<ApiClient>(
     () => ApiClient(
@@ -33,13 +35,13 @@ void configureDependencies(GetIt getIt) {
 }
 
 @visibleForTesting
-void configureDependenciesTest([ApiClient? apiClient]) {
+void configureDomainDependenciesTest([ApiClient? apiClient, GetIt? getIt]) {
   if (apiClient != null) {
-    getItTesting.registerLazySingleton<ApiClient>(() => apiClient);
+    (getIt ?? getItTesting).registerLazySingleton<ApiClient>(() => apiClient);
   } else {
-    getItTesting.registerLazySingleton<ApiClient>(
+    (getIt ?? getItTesting).registerLazySingleton<ApiClient>(
       () => ApiClient(Dio(), baseUrl: 'https://example.com/'),
     );
   }
-  $initGetIt(getItTesting);
+  $initGetIt(getIt ?? getItTesting);
 }

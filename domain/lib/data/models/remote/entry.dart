@@ -6,8 +6,8 @@ part 'entry.freezed.dart';
 part 'entry.g.dart';
 
 @Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.pascal)
-class Entry with _$Entry {
-  const factory Entry({
+class EntryRemote with _$EntryRemote {
+  const factory EntryRemote({
     @JsonKey(name: 'API') String? aPI,
     @JsonKey(name: 'Description') String? description,
     @JsonKey(name: 'Auth') String? auth,
@@ -17,9 +17,10 @@ class Entry with _$Entry {
     @JsonKey(name: 'Category') String? category,
   }) = _Entry;
 
-  factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
+  factory EntryRemote.fromJson(Map<String, dynamic> json) =>
+      _$EntryRemoteFromJson(json);
 
-  factory Entry.fromEntryLocal(EntryLocal entry) => Entry(
+  factory EntryRemote.fromEntryLocal(EntryLocal entry) => EntryRemote(
         aPI: entry.aPI,
         auth: entry.auth,
         category: entry.category,

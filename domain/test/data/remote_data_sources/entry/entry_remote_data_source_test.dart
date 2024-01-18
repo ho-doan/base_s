@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:domain/data/models/models.dart';
 import 'package:domain/data/remote_data_sources/entry/entries_remote_data_source.dart';
 import 'package:domain/domain.dart';
 import 'package:domain/services/networks/api_client.dart';
@@ -18,7 +17,7 @@ Future<void> main() async {
   late EntryRemoteDataSource remote;
   setUpAll(() {
     apiClient = MockMockApiClient();
-    configureDependenciesTest(apiClient);
+    configureDomainDependenciesTest(apiClient);
     remote = getItTesting<EntryRemoteDataSource>();
   });
   group('test entries', () {

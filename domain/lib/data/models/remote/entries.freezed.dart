@@ -21,7 +21,7 @@ Entries _$EntriesFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Entries {
   int get count => throw _privateConstructorUsedError;
-  List<Entry> get entries => throw _privateConstructorUsedError;
+  List<EntryRemote> get entries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +33,7 @@ abstract class $EntriesCopyWith<$Res> {
   factory $EntriesCopyWith(Entries value, $Res Function(Entries) then) =
       _$EntriesCopyWithImpl<$Res, Entries>;
   @useResult
-  $Res call({int count, List<Entry> entries});
+  $Res call({int count, List<EntryRemote> entries});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$EntriesCopyWithImpl<$Res, $Val extends Entries>
       entries: null == entries
           ? _value.entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<Entry>,
+              as List<EntryRemote>,
     ) as $Val);
   }
 }
@@ -72,7 +72,7 @@ abstract class _$$EntriesImplCopyWith<$Res> implements $EntriesCopyWith<$Res> {
       __$$EntriesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int count, List<Entry> entries});
+  $Res call({int count, List<EntryRemote> entries});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$EntriesImplCopyWithImpl<$Res>
       entries: null == entries
           ? _value._entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<Entry>,
+              as List<EntryRemote>,
     ));
   }
 }
@@ -106,7 +106,8 @@ class __$$EntriesImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$EntriesImpl implements _Entries {
-  const _$EntriesImpl({this.count = 0, final List<Entry> entries = const []})
+  const _$EntriesImpl(
+      {this.count = 0, final List<EntryRemote> entries = const []})
       : assert(entries.length == count, 'data invalid'),
         _entries = entries;
 
@@ -116,10 +117,10 @@ class _$EntriesImpl implements _Entries {
   @override
   @JsonKey()
   final int count;
-  final List<Entry> _entries;
+  final List<EntryRemote> _entries;
   @override
   @JsonKey()
-  List<Entry> get entries {
+  List<EntryRemote> get entries {
     if (_entries is EqualUnmodifiableListView) return _entries;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entries);
@@ -159,7 +160,7 @@ class _$EntriesImpl implements _Entries {
 }
 
 abstract class _Entries implements Entries {
-  const factory _Entries({final int count, final List<Entry> entries}) =
+  const factory _Entries({final int count, final List<EntryRemote> entries}) =
       _$EntriesImpl;
 
   factory _Entries.fromJson(Map<String, dynamic> json) = _$EntriesImpl.fromJson;
@@ -167,7 +168,7 @@ abstract class _Entries implements Entries {
   @override
   int get count;
   @override
-  List<Entry> get entries;
+  List<EntryRemote> get entries;
   @override
   @JsonKey(ignore: true)
   _$$EntriesImplCopyWith<_$EntriesImpl> get copyWith =>

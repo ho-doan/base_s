@@ -6,12 +6,12 @@ import '../../../utils/dummy/entry_dummy.dart';
 void main() {
   group('entry model remote test', () {
     test('success from json test', () {
-      final entry = Entry.fromJson(dummyEntry);
-      expect(entry, isA<Entry>());
+      final entry = EntryRemote.fromJson(dummyEntry);
+      expect(entry, isA<EntryRemote>());
     });
     test('fail from json test', () {
       expect(
-        () => Entry.fromJson({
+        () => EntryRemote.fromJson({
           ...dummyEntry,
           'HTTPS': 1,
         }),

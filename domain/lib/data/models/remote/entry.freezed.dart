@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Entry _$EntryFromJson(Map<String, dynamic> json) {
+EntryRemote _$EntryRemoteFromJson(Map<String, dynamic> json) {
   return _Entry.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Entry {
+mixin _$EntryRemote {
   @JsonKey(name: 'API')
   String? get aPI => throw _privateConstructorUsedError;
   @JsonKey(name: 'Description')
@@ -37,13 +37,15 @@ mixin _$Entry {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $EntryCopyWith<Entry> get copyWith => throw _privateConstructorUsedError;
+  $EntryRemoteCopyWith<EntryRemote> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EntryCopyWith<$Res> {
-  factory $EntryCopyWith(Entry value, $Res Function(Entry) then) =
-      _$EntryCopyWithImpl<$Res, Entry>;
+abstract class $EntryRemoteCopyWith<$Res> {
+  factory $EntryRemoteCopyWith(
+          EntryRemote value, $Res Function(EntryRemote) then) =
+      _$EntryRemoteCopyWithImpl<$Res, EntryRemote>;
   @useResult
   $Res call(
       {@JsonKey(name: 'API') String? aPI,
@@ -56,9 +58,9 @@ abstract class $EntryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EntryCopyWithImpl<$Res, $Val extends Entry>
-    implements $EntryCopyWith<$Res> {
-  _$EntryCopyWithImpl(this._value, this._then);
+class _$EntryRemoteCopyWithImpl<$Res, $Val extends EntryRemote>
+    implements $EntryRemoteCopyWith<$Res> {
+  _$EntryRemoteCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -110,7 +112,8 @@ class _$EntryCopyWithImpl<$Res, $Val extends Entry>
 }
 
 /// @nodoc
-abstract class _$$EntryImplCopyWith<$Res> implements $EntryCopyWith<$Res> {
+abstract class _$$EntryImplCopyWith<$Res>
+    implements $EntryRemoteCopyWith<$Res> {
   factory _$$EntryImplCopyWith(
           _$EntryImpl value, $Res Function(_$EntryImpl) then) =
       __$$EntryImplCopyWithImpl<$Res>;
@@ -128,7 +131,7 @@ abstract class _$$EntryImplCopyWith<$Res> implements $EntryCopyWith<$Res> {
 
 /// @nodoc
 class __$$EntryImplCopyWithImpl<$Res>
-    extends _$EntryCopyWithImpl<$Res, _$EntryImpl>
+    extends _$EntryRemoteCopyWithImpl<$Res, _$EntryImpl>
     implements _$$EntryImplCopyWith<$Res> {
   __$$EntryImplCopyWithImpl(
       _$EntryImpl _value, $Res Function(_$EntryImpl) _then)
@@ -217,7 +220,7 @@ class _$EntryImpl implements _Entry {
 
   @override
   String toString() {
-    return 'Entry(aPI: $aPI, description: $description, auth: $auth, hTTPS: $hTTPS, cors: $cors, link: $link, category: $category)';
+    return 'EntryRemote(aPI: $aPI, description: $description, auth: $auth, hTTPS: $hTTPS, cors: $cors, link: $link, category: $category)';
   }
 
   @override
@@ -255,7 +258,7 @@ class _$EntryImpl implements _Entry {
   }
 }
 
-abstract class _Entry implements Entry {
+abstract class _Entry implements EntryRemote {
   const factory _Entry(
       {@JsonKey(name: 'API') final String? aPI,
       @JsonKey(name: 'Description') final String? description,

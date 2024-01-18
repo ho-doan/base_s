@@ -10,7 +10,9 @@ class BaseModel<T> extends Equatable {
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
   ) =>
-      _$BaseModelFromJson(json, fromJsonT);
+      BaseModel(data: _$nullableGenericFromJson(json, fromJsonT));
+  // _$BaseModelFromJson(json, fromJsonT);
+  @JsonKey(name: null)
   final T? data;
 
   Map<String, dynamic> toJson(T Function(Object? json) toJsonT) =>

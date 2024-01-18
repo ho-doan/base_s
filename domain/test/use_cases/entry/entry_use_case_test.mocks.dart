@@ -7,6 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:domain/data/models/models.dart' as _i5;
+import 'package:domain/models/models.dart' as _i6;
 import 'package:domain/repositories/entry/entry_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -38,7 +39,7 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
   @override
-  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>>> fetch(
+  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>> fetch(
           {bool? forceRefresh = false}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -46,9 +47,10 @@ class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
           [],
           {#forceRefresh: forceRefresh},
         ),
-        returnValue: _i4
-            .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.Entry>>(
+        returnValue: _i4.Future<
+                _i2
+                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
+            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
@@ -56,9 +58,10 @@ class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
             {#forceRefresh: forceRefresh},
           ),
         )),
-        returnValueForMissingStub: _i4
-            .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.Entry>>(
+        returnValueForMissingStub: _i4.Future<
+                _i2
+                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
+            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
@@ -66,19 +69,20 @@ class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
             {#forceRefresh: forceRefresh},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>>>);
+      ) as _i4
+          .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>?>>
+  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.EntryRemote>?>>
       fetchLocal() => (super.noSuchMethod(
             Invocation.method(
               #fetchLocal,
               [],
             ),
             returnValue: _i4.Future<
-                    _i2
-                    .Either<_i5.ErrorState<dynamic>, List<_i5.Entry>?>>.value(
-                _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.Entry>?>(
+                    _i2.Either<_i5.ErrorState<dynamic>,
+                        List<_i5.EntryRemote>?>>.value(
+                _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.EntryRemote>?>(
               this,
               Invocation.method(
                 #fetchLocal,
@@ -86,15 +90,15 @@ class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
               ),
             )),
             returnValueForMissingStub: _i4.Future<
-                    _i2
-                    .Either<_i5.ErrorState<dynamic>, List<_i5.Entry>?>>.value(
-                _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.Entry>?>(
+                    _i2.Either<_i5.ErrorState<dynamic>,
+                        List<_i5.EntryRemote>?>>.value(
+                _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.EntryRemote>?>(
               this,
               Invocation.method(
                 #fetchLocal,
                 [],
               ),
             )),
-          ) as _i4
-              .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.Entry>?>>);
+          ) as _i4.Future<
+              _i2.Either<_i5.ErrorState<dynamic>, List<_i5.EntryRemote>?>>);
 }

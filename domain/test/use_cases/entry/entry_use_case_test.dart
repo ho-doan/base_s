@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:domain/data/models/models.dart';
 import 'package:domain/domain.dart';
 import 'package:domain/repositories/repositories.dart';
-import 'package:domain/services/local_database/local_database.dart';
-import 'package:domain/services/networks/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
@@ -12,8 +9,6 @@ import 'package:mockito/mockito.dart';
 
 import '../../utils/dummy/entries_dummy.dart';
 import 'entry_use_case_test.mocks.dart';
-
-class MockApiClient extends Mock implements ApiClient {}
 
 @GenerateNiceMocks([
   MockSpec<EntryRepository>(),
@@ -37,7 +32,7 @@ Future<void> main() async {
 
     repository = MockEntryRepository();
 
-    configureDependenciesTest();
+    configureDomainDependenciesTest();
   });
   tearDownAll(() => isar.close(deleteFromDisk: true));
   group('test entry repository', () {
@@ -53,15 +48,19 @@ Future<void> main() async {
       test('test get entries', () async {
         final model = Entries.fromJson(dummyEntries);
         when(repository.fetch()).thenAnswer(
-          (_) async => Right(model.entries),
+          (_) async => Right(
+            [
+              for (final i in model.entries) EntryModel.fromEntryRemote(i),
+            ],
+          ),
         );
         final res = await useCase.fetch();
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
-        expect(resultCast.first, model.entries.first);
+        expect(resultCast.first.aPI, model.entries.first.aPI);
         addTearDown(
           () async {
             await isar.writeTxn<void>(() async {
@@ -73,15 +72,19 @@ Future<void> main() async {
       test('test get forceRefresh', () async {
         final model = Entries.fromJson(dummyEntries);
         when(repository.fetch()).thenAnswer(
-          (_) async => Right(model.entries),
+          (_) async => Right(
+            [
+              for (final i in model.entries) EntryModel.fromEntryRemote(i),
+            ],
+          ),
         );
         final res = await useCase.fetch();
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
-        expect(resultCast.first, model.entries.first);
+        expect(resultCast.first.aPI, model.entries.first.aPI);
         addTearDown(
           () async {
             await isar.writeTxn<void>(() async {
@@ -91,15 +94,14 @@ Future<void> main() async {
         );
       });
       test('test get entries empty', () async {
-        final model = Entries.fromJson(dummyEntries);
         when(repository.fetch()).thenAnswer(
-          (_) async => Right(model.copyWith(count: 0, entries: []).entries),
+          (_) async => const Right([]),
         );
         final res = await useCase.fetch();
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, 0);
         addTearDown(
           () async {

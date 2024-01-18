@@ -1,11 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:domain/data/local_data_sources/entry/entry_local_data_source.dart';
-import 'package:domain/data/models/models.dart';
 import 'package:domain/data/remote_data_sources/entry/entries_remote_data_source.dart';
 import 'package:domain/domain.dart';
 import 'package:domain/repositories/repositories.dart';
-import 'package:domain/services/local_database/local_database.dart';
-import 'package:domain/services/networks/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
@@ -14,8 +11,6 @@ import 'package:mockito/mockito.dart';
 
 import '../../utils/dummy/entries_dummy.dart';
 import 'entry_repository_test.mocks.dart';
-
-class MockApiClient extends Mock implements ApiClient {}
 
 @GenerateNiceMocks([
   MockSpec<EntryRemoteDataSource>(),
@@ -39,7 +34,7 @@ Future<void> main() async {
 
     remoteDataSource = MockEntryRemoteDataSource();
 
-    configureDependenciesTest();
+    configureDomainDependenciesTest();
   });
   tearDownAll(() => isar.close(deleteFromDisk: true));
   group('test entry repository', () {
@@ -63,10 +58,10 @@ Future<void> main() async {
         final res = await repository.fetch();
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
-        expect(resultCast.first, model.entries.first);
+        expect(resultCast.first.aPI, model.entries.first.aPI);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
         for (final item in resultCast) {
           expect(local.any((e) => e.aPI == item.aPI), true);
@@ -87,10 +82,10 @@ Future<void> main() async {
         final res = await repository.fetch(forceRefresh: true);
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
-        expect(resultCast.first, model.entries.first);
+        expect(resultCast.first.aPI, model.entries.first.aPI);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
         for (final item in resultCast) {
           expect(local.any((e) => e.aPI == item.aPI), true);
@@ -111,8 +106,8 @@ Future<void> main() async {
         final res = await repository.fetch();
         final result = res.fold((l) => l, (r) => r);
         expect(res.isRight(), true);
-        expect(result, isA<List<Entry>>());
-        final resultCast = result as List<Entry>;
+        expect(result, isA<List<EntryModel>>());
+        final resultCast = result as List<EntryModel>;
         expect(resultCast.length, 0);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
 

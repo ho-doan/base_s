@@ -18,7 +18,7 @@ class EntryLocal {
     this.category,
     this.key = Isar.autoIncrement,
   });
-  factory EntryLocal.fromEntry(Entry entry) => EntryLocal(
+  factory EntryLocal.fromEntry(EntryRemote entry) => EntryLocal(
         aPI: entry.aPI,
         auth: entry.auth,
         category: entry.category,
@@ -37,8 +37,4 @@ class EntryLocal {
   final String? cors;
   final String? link;
   final String? category;
-
-  String getName() {
-    return aPI ?? description ?? '--';
-  }
 }

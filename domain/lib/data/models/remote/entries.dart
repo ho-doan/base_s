@@ -11,7 +11,7 @@ class Entries with _$Entries {
   @Assert('entries.length == count', 'data invalid')
   const factory Entries({
     @Default(0) int count,
-    @Default([]) List<Entry> entries,
+    @Default([]) List<EntryRemote> entries,
   }) = _Entries;
 
   factory Entries.fromJson(Map<String, dynamic> json) =>

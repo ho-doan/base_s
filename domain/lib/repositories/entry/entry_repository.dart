@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import '../../data/local_data_sources/entry/entry_local_data_source.dart';
 import '../../data/models/models.dart';
 import '../../data/remote_data_sources/entry/entries_remote_data_source.dart';
+import '../../models/models.dart';
 
 class EntryRepository {
   EntryRepository(this._local, this._remote);
@@ -12,7 +13,7 @@ class EntryRepository {
   final EntryLocalDataSource _local;
   final EntryRemoteDataSource _remote;
 
-  Future<Either<ErrorState, List<Entry>>> fetch({
+  Future<Either<ErrorState, List<EntryModel>>> fetch({
     bool forceRefresh = false,
   }) async {
     try {
@@ -27,11 +28,13 @@ class EntryRepository {
             for (final i in r.entries) EntryLocal.fromEntry(i),
           ];
           await _local.insertAll(models);
-          return Right(r.entries);
+          return Right(
+            [for (final i in r.entries) EntryModel.fromEntryRemote(i)],
+          );
         });
       }
 
-      return Right([for (final i in cache) Entry.fromEntryLocal(i)]);
+      return Right([for (final i in cache) EntryModel.fromEntryLocal(i)]);
     } on Exception catch (error, stackTrace) {
       log(
         'Fetch entries info list failed: $error',
@@ -41,11 +44,11 @@ class EntryRepository {
     }
   }
 
-  Future<Either<ErrorState, List<Entry>?>> fetchLocal() async {
+  Future<Either<ErrorState, List<EntryRemote>?>> fetchLocal() async {
     try {
       final cache = await _local.getAll();
 
-      return Right([for (final i in cache) Entry.fromEntryLocal(i)]);
+      return Right([for (final i in cache) EntryRemote.fromEntryLocal(i)]);
     } on Exception catch (error, stackTrace) {
       log(
         'Fetch entries info list failed: $error',

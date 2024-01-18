@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('di test', () async {
-    configureDependenciesTest();
+    configureDomainDependenciesTest();
     //#region api client
     expect(getItTesting<ApiClient>(), isA<ApiClient>());
     //#endregion
