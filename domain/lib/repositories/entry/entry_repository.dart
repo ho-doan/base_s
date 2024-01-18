@@ -40,4 +40,18 @@ class EntryRepository {
       return Left(ErrorState(error: error, stackTrace: stackTrace));
     }
   }
+
+  Future<Either<ErrorState, List<Entry>?>> fetchLocal() async {
+    try {
+      final cache = await _local.getAll();
+
+      return Right([for (final i in cache) Entry.fromEntryLocal(i)]);
+    } on Exception catch (error, stackTrace) {
+      log(
+        'Fetch entries info list failed: $error',
+        stackTrace: stackTrace,
+      );
+      return Left(ErrorState(error: error, stackTrace: stackTrace));
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:domain/data/models/models.dart';
 import 'package:domain/data/remote_data_sources/entry/entries_remote_data_source.dart';
 import 'package:domain/domain.dart';
@@ -6,26 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../utils/dummy/entries_dummy.dart';
 import 'entry_remote_data_source_test.mocks.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
 
 @GenerateMocks([MockApiClient])
 Future<void> main() async {
-  final json = {
-    'count': 1,
-    'entries': [
-      {
-        'API': 'aPI',
-        'Auth': 'auth',
-        'Category': 'category',
-        'Cors': 'cors',
-        'Description': 'description',
-        'HTTPS': false,
-        'Link': 'link',
-      }
-    ],
-  };
   late MockMockApiClient apiClient;
   late EntryRemoteDataSource remote;
   setUpAll(() {
@@ -36,7 +24,7 @@ Future<void> main() async {
   group('test entries', () {
     group('api client', () {
       test('test get entries', () async {
-        final model = Entries.fromJson(json);
+        final model = Entries.fromJson(dummyEntries);
         when(apiClient.entries()).thenAnswer(
           (_) async => BaseModel(data: model),
         );
@@ -54,10 +42,38 @@ Future<void> main() async {
         final res = await apiClient.entries();
         expect(res.data, null);
       });
+      test('test get entries with 404', () async {
+        when(apiClient.entries()).thenAnswer(
+          (_) async => throw DioException.badResponse(
+            statusCode: 404,
+            requestOptions: RequestOptions(),
+            response: Response(requestOptions: RequestOptions()),
+          ),
+        );
+
+        await expectLater(
+          apiClient.entries,
+          throwsA(isA<DioException>()),
+        );
+      });
+      test('test get entries with 500', () async {
+        when(apiClient.entries()).thenAnswer(
+          (_) async => throw DioException.badResponse(
+            statusCode: 500,
+            requestOptions: RequestOptions(),
+            response: Response(requestOptions: RequestOptions()),
+          ),
+        );
+
+        await expectLater(
+          apiClient.entries,
+          throwsA(isA<DioException>()),
+        );
+      });
     });
     group('remote data source', () {
       test('test get entries', () async {
-        final model = Entries.fromJson(json);
+        final model = Entries.fromJson(dummyEntries);
         when(apiClient.entries()).thenAnswer(
           (_) async => BaseModel(data: model),
         );
@@ -78,6 +94,36 @@ Future<void> main() async {
         when(apiClient.entries())
             .thenAnswer((_) async => const BaseModel(data: null));
         expect(remote.fetchEntries, throwsA(isA<AssertionError>()));
+      });
+      test('test get entries with 404', () async {
+        when(apiClient.entries()).thenAnswer(
+          (_) async => throw DioException.badResponse(
+            statusCode: 404,
+            requestOptions: RequestOptions(),
+            response: Response(requestOptions: RequestOptions()),
+          ),
+        );
+
+        final res = await remote.fetchEntries();
+        final result = res.fold((l) => l, (r) => r);
+
+        expect(res.isLeft(), true);
+        expect(result, isA<ErrorState>());
+      });
+      test('test get entries with 500', () async {
+        when(apiClient.entries()).thenAnswer(
+          (_) async => throw DioException.badResponse(
+            statusCode: 500,
+            requestOptions: RequestOptions(),
+            response: Response(requestOptions: RequestOptions()),
+          ),
+        );
+
+        final res = await remote.fetchEntries();
+        final result = res.fold((l) => l, (r) => r);
+
+        expect(res.isLeft(), true);
+        expect(result, isA<ErrorState>());
       });
     });
   });

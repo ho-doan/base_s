@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,8 +11,12 @@ mixin LocalDatabase {
   static late Isar? isar;
   Isar? get instance => isar;
 
-  static Future<void> init() async {
+  static Future<void> init([@visibleForTesting Isar? isarTesting]) async {
     try {
+      if (isarTesting != null) {
+        isar = isarTesting;
+        return;
+      }
       if (Isar.instanceNames.isNotEmpty) return;
 
       isar = await openIsar();
@@ -36,7 +41,7 @@ mixin LocalDatabase {
   }
 
   static Future clearDatabase() async {
-    //TODO (everyone): add more delete calls for other collections as needed
+    // TODO(everyone): add more delete calls for other collections as needed
 
     await isar?.writeTxn<void>(() async {
       await isar?.entryLocals.clear();

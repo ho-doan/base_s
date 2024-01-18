@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 import '../../data/models/models.dart';
 import '../../repositories/repositories.dart';
 
-class ProfileUseCase {
-  ProfileUseCase(this._repository);
+class EntryUseCase {
+  EntryUseCase(this._repository);
 
   final EntryRepository _repository;
 

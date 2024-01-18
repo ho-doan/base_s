@@ -38,7 +38,7 @@ _i1.GetIt $initGetIt(
         gh<_i3.EntryLocalDataSource>(),
         gh<_i4.EntryRemoteDataSource>(),
       ));
-  gh.factory<_i7.ProfileUseCase>(
-      () => _i7.ProfileUseCase(gh<_i8.EntryRepository>()));
+  gh.factory<_i7.EntryUseCase>(
+      () => _i7.EntryUseCase(gh<_i8.EntryRepository>()));
   return getIt;
 }
