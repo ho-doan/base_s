@@ -1,9 +1,23 @@
+import 'dart:async';
+
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import 'core/router/router.dart';
+import 'core/services/dependency_injection/service_locator.dart';
 
 void main() {
-  runApp(const MyApp());
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      //#region config
+      await LocalDatabase.init();
+      configureDependencies();
+      //#endregion
+      runApp(const MyApp());
+    },
+    (error, stack) {},
+  );
 }
 
 class MyApp extends StatelessWidget {

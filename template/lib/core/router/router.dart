@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../feature/home/bloc/home_bloc.dart';
 import '../../feature/home/home_screen.dart';
+import '../services/dependency_injection/service_locator.dart';
 import 'router_path.dart';
 
 part 'router.g.dart';
@@ -43,7 +44,7 @@ class RootApp extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(const HomeEvent.started()),
+      create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
       child: const HomeScreen(),
     );
   }
@@ -54,7 +55,7 @@ class HomeRouter extends GoRouteData {
   final String id;
   @override
   Widget build(BuildContext context, GoRouterState state) => BlocProvider(
-        create: (context) => HomeBloc()..add(const HomeEvent.started()),
+        create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
         child: const HomeScreen(),
       );
 }
@@ -64,7 +65,7 @@ class ProductRouter extends GoRouteData {
   final String id;
   @override
   Widget build(BuildContext context, GoRouterState state) => BlocProvider(
-        create: (context) => HomeBloc()..add(const HomeEvent.started()),
+        create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
         child: const HomeScreen(),
       );
 }
@@ -74,7 +75,7 @@ class ProfileRouter extends GoRouteData {
   final String id;
   @override
   Widget build(BuildContext context, GoRouterState state) => BlocProvider(
-        create: (context) => HomeBloc()..add(const HomeEvent.started()),
+        create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
         child: const HomeScreen(),
       );
 }
@@ -84,7 +85,7 @@ class SettingRouter extends GoRouteData {
   final String id;
   @override
   Widget build(BuildContext context, GoRouterState state) => BlocProvider(
-        create: (context) => HomeBloc()..add(const HomeEvent.started()),
+        create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
         child: const HomeScreen(),
       );
 }

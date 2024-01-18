@@ -1,4 +1,8 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,52 +12,57 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _counter = Counter();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            ValueListenableBuilder(
-              valueListenable: _counter,
-              builder: (_, counter, __) {
-                return Text(
-                  '$counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              },
-            ),
-          ],
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          loading: () {
+            // TODO(hodoan): handle loading
+          },
+          error: (e) {
+            // TODO(hodoan): handle error
+          },
+          data: (e) {
+            // TODO(hodona): handle data
+          },
+        );
+      },
+      builder: (context, state) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Home Screen'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              state.maybeWhen(
+                orElse: () => const SizedBox.shrink(),
+                error: (e) => const Text('Error'),
+                data: (entries) {
+                  if (entries.isEmpty) {
+                    return const Text('Data empty');
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: entries.length,
+                      itemBuilder: (_, index) => Text(
+                        entries[index].getName(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _counter.increment,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
-  }
-}
-
-class Counter extends ValueNotifier<int> {
-  Counter() : super(0);
-  void increment() {
-    value++;
-    notifyListeners();
-  }
-
-  void decrement() {
-    if (value < 1) return;
-    value--;
-    notifyListeners();
   }
 }

@@ -1,0 +1,15 @@
+targets:
+  $default:
+    builders:
+      injectable_generator:injectable_builder:
+        options:
+          auto_register: true
+          class_name_pattern: "Bloc$|Cubit"
+      mockito|mockBuilder:
+        generate_for:
+          - test/**.dart
+          - integration_test/**.dart
+    sources:
+      - lib/**.dart
+      - test/**.dart
+      - integration_test/**.dart

@@ -44,3 +44,11 @@ scripts:
       scope: "*domain*"
       depends-on: build_runner
     description: build_runner build all modules.
+  template:
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    # --depends-on="build_runner"
+    select-package:
+      scope: "*template*"
+      depends-on: build_runner
+    description: build_runner build all modules.
