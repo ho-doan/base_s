@@ -22,6 +22,18 @@
 
 ## Getting Started
 
+### Git flow
+
+#### Branch Rule
+
+```sh
+- master    # main branch
+- stg       # stg branch
+- dev       # dev branch
+- feature/* # code feature
+- bug/*     # code feature
+```
+
 ### Requirements
 
 - Dart: 3.2.0
@@ -64,6 +76,9 @@ melos test
 |-- common
 |   |-- lib
 |   |   |-- language
+|   |   |-- utils
+|   |   |   |-- constant
+|   |   |   |-- extensions
 |   |   |-- system
 |   |   |   |-- themes
 |   |   |   |-- widgets
