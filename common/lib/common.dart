@@ -1,5 +1,7 @@
 library common;
 
+export 'utils/utils.dart';
+
 /// A Calculator.
 class Calculator {
   /// Returns [value] plus 1.

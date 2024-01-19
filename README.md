@@ -73,117 +73,122 @@ melos test
 ### Directory Structure
 
 ```yml
-|-- common
-|   |-- lib
-|   |   |-- language
-|   |   |-- utils
-|   |   |   |-- constant
-|   |   |   |-- extensions
-|   |   |-- system
-|   |   |   |-- themes
-|   |   |   |-- widgets
-|-- domain
-|   |-- lib
-|   |   |-- core
-|   |   |   |-- env
-|   |   |   |   |-- env.dart
-|   |   |-- data
-|   |   |   |-- models
-|   |   |   |   |-- local
-|   |   |   |   |   |-- local.dart
-|   |   |   |   |-- remote
-|   |   |   |   |   |-- remote.dart
-|   |   |   |   |-- models.dart
-|   |   |   |-- local_data_sources
-|   |   |   |   |-- local_data_sources.dart
-|   |   |   |-- remote_data_sources
-|   |   |   |   |-- remote_data_sources.dart
-|   |   |-- models
-|   |   |   |-- models.dart
-|   |   |-- repositories
-|   |   |   |-- repositories.dart
-|   |   |-- use_cases
-|   |   |   |-- use_cases.dart
-|   |   |-- services
-|   |   |   |-- dependency_injection
-|   |   |   |   |-- service_locator.dart
-|   |   |   |-- local_database
-|   |   |   |   |-- local_database.dart
-|   |   |   |-- network
-|   |   |   |   |-- api_client.dart
-|-- template
-|   |-- lib
-|   |   |-- core
-|   |   |   |-- router
-|   |   |   |   |-- router_path.dart
-|   |   |   |   |-- router.dart
-|   |   |   |-- services
-|   |   |   |   |-- dependency_injection
-|   |   |   |   |   |-- service_locator.dart
-|   |   |-- feature
-|   |   |   |-- feature_a
-|   |   |   |   |-- bloc
-|   |   |   |   |   |-- a_bloc.dart
-|   |   |   |   |   |-- a_event.dart
-|   |   |   |   |   |-- a_state.dart
-|   |   |   |   |-- widgets
-|   |   |   |   |-- feature_a_screen.dart
-|-- CHANGELOG.md
-|-- release-notes.md
-|-- melos.yaml
+|-> common
+|   '-> lib
+|       |-> language
+|       |-> utils
+|       |   |-> constant
+|       |   |   '-> constant
+|       |   |-> extensions
+|       |   |   '-> extensions.dart
+|       |   '-> utils.dart
+|       '-> system
+|           |-> themes
+|           |   '-> themes.dart
+|           '-> widgets
+|               '-> widgets.dart
+|-> domain
+|   '-> lib
+|       |-> core
+|       |   '-> env
+|       |       '-> env.dart
+|       |-> data
+|       |   |-> models
+|       |   |   |-> local
+|       |   |   |   '-> local.dart
+|       |   |   |-> remote
+|       |   |   |   '-> remote.dart
+|       |   |   '-> models.dart
+|       |   |-> local_data_sources
+|       |   |   '-> local_data_sources.dart
+|       |   '-> remote_data_sources
+|       |       '-> remote_data_sources.dart
+|       |-> models
+|       |   '-> models.dart
+|       |-> repositories
+|       |   '-> repositories.dart
+|       |-> use_cases
+|       |   '-> use_cases.dart
+|       '-> services
+|           |-> dependency_injection
+|           |   '-> service_locator.dart
+|           |-> local_database
+|           |   '-> local_database.dart
+|           '-> network
+|               '-> api_client.dart
+|-> template
+|   '-> lib
+|       |-> core
+|       |   |-> router
+|       |   |   |-> router_path.dart
+|       |   |   '-> router.dart
+|       |   '-> services
+|       |       '-> dependency_injection
+|       |           '-> service_locator.dart
+|       '-> feature
+|           '-> feature_a
+|               |-> bloc
+|               |   |-> a_bloc.dart
+|               |   |-> a_event.dart
+|               |   '-> a_state.dart
+|               |-> widgets
+|               '-> feature_a_screen.dart
+|-> CHANGELOG.md
+|-> release-notes.md
+'-> melos.yaml
 ```
 
 ### Test App Directory Structure
 
 ```yml
-|-- integration_test
-|   |-- feature
-|   |   |-- feature_a
-|   |   |   |-- feature_a_test.dart
-|-- test
-|   |-- utils
-|   |   |-- dummy
-|   |   |   |-- model_dummy
-|   |   |   |   |-- model_dummy.dart
-|   |-- golden
-|   |   |-- feature_a
-|   |   |   |-- goldens
-|   |   |   |-- step
-|   |   |   |-- feature_a_test.dart
-|   |-- unit
-|   |   |-- feature_a
-|   |   |   |-- feature_a_test.dart
-|   |-- widget
-|   |   |-- widget_a
-|   |   |   |-- widget_a_test.dart
+|-> integration_test
+|   '-> feature
+|       '-> feature_a
+|           '-> feature_a_test.dart
+'-> test
+    |-> utils
+    |   '-> dummy
+    |       '-> model_dummy
+    |           '-> model_dummy.dart
+    |-> golden
+    |   '-> feature_a
+    |       |-> goldens
+    |       |-> step
+    |       '-> feature_a_test.dart
+    |-> unit
+    |   '-> feature_a
+    |       '-> feature_a_test.dart
+    '-> widget
+        '-> widget_a
+            '-> widget_a_test.dart
 ```
 
 ### Test Domain Directory Structure
 
 ```yml
-|-- data
-|   |-- models
-|   |   |-- model_a
-|   |   |   |-- model_a_test.dart
-|   |-- local_data_sources
-|   |   |-- data_source_a
-|   |   |   |-- data_source_a_test.dart
-|   |-- remote_data_sources
-|   |   |-- data_source_a
-|   |   |   |-- data_source_a_test.dart
-|-- models
-|   |-- model_a
-|   |   |-- model_a_test.dart
-|-- repositories
-|   |-- repository_a
-|   |   |-- repository_a_test.dart
-|-- services
-|   |-- di
-|   |   |-- di_test.dart
-|-- use_cases
-|   |-- use_case_a
-|   |   |-- use_case_a_test.dart
-|-- utils
-|   |-- dummy
-|   |   |-- a_dummy.dart
+|-> data
+|   |-> models
+|   |   '-> model_a
+|   |       '-> model_a_test.dart
+|   |-> local_data_sources
+|   |   '-> data_source_a
+|   |       '-> data_source_a_test.dart
+|   '-> remote_data_sources
+|       '-> data_source_a
+|           '-> data_source_a_test.dart
+|-> models
+|   '-> model_a
+|       '-> model_a_test.dart
+|-> repositories
+|   '-> repository_a
+|       '-> repository_a_test.dart
+|-> services
+|   '-> di
+|       '-> di_test.dart
+|-> use_cases
+|   '-> use_case_a
+|       '-> use_case_a_test.dart
+'-> utils
+    '-> dummy
+        '-> a_dummy.dart
 ```
