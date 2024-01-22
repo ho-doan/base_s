@@ -1,6 +1,7 @@
-import 'package:common/generator/colors.gen.dart';
-import 'package:common/generator/fonts.gen.dart';
 import 'package:flutter/material.dart';
+
+import '../../generator/colors.gen.dart';
+import '../../generator/fonts.gen.dart';
 
 class AppColors extends ThemeExtension<AppColors> {
   const AppColors._({

@@ -1,5 +1,4 @@
-import 'package:common/system/themes/themes.dart';
-import 'package:flutter/material.dart';
+part of 'extensions.dart';
 
 extension ThemeX on ThemeData {
   AppColors get colors {
