@@ -12,6 +12,7 @@ dependencies:
   common:
     path: ../common
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
   domain:
     path: ../domain
   envied: ^0.5.3
@@ -36,7 +37,6 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.5
   build_runner: ^2.4.7
-  dartz: ^0.10.1
   envied_generator: ^0.5.3
   flutter_driver:
     sdk: flutter

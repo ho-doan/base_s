@@ -37,7 +37,7 @@ void main() {
       act: (cubit) => cubit.add(const HomeEvent.started()),
       expect: () => [
         isA<$Loading>(),
-        const $Data([dummyEntryModel]),
+        const $Data(entries3: [dummyEntryModel]),
       ],
     );
     blocTest<HomeBloc, HomeState>(
@@ -58,7 +58,7 @@ void main() {
       act: (cubit) => cubit.add(const HomeEvent.started()),
       expect: () => [
         isA<$Loading>(),
-        const $Data([]),
+        const $Data(),
       ],
     );
     final error = ErrorState<String>(error: 'error');

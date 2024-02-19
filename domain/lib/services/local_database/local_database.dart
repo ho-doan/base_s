@@ -8,33 +8,40 @@ import 'package:path_provider/path_provider.dart';
 import '../../data/models/models.dart';
 
 mixin LocalDatabase {
-  static late Isar? isar;
-  Isar? get instance => isar;
+  static late Isar? _isar;
+  Isar? get instance => _isar;
 
   static Future<void> init([@visibleForTesting Isar? isarTesting]) async {
     try {
       if (isarTesting != null) {
-        isar = isarTesting;
+        _isar = isarTesting;
         return;
       }
       if (Isar.instanceNames.isNotEmpty) return;
 
-      isar = await openIsar();
+      _isar = await openIsar();
     } on Exception catch (e, stacktrace) {
       log('Init local failed: $e', stackTrace: stacktrace);
     }
   }
 
-  static Future<Isar> openIsar() async {
-    final appDir = await getApplicationDocumentsDirectory();
-    final isarDir = Directory('${appDir.path}/isar');
-    await isarDir.create(recursive: true);
+  static Future<Isar> openIsar([Directory? dir]) async {
+    Directory isarDir;
+    if (dir != null) {
+      isarDir = Directory('${dir.path}/isar');
+    } else {
+      final appDir = await getApplicationDocumentsDirectory();
+      isarDir = Directory('${appDir.path}/isar');
+      await isarDir.create(recursive: true);
+    }
 
+    // TODO(everyone): add more schema
     final isar = await Isar.open(
       [
         EntryLocalSchema,
       ],
       directory: isarDir.path,
+      inspector: dir == null,
     );
 
     return isar;
@@ -42,13 +49,12 @@ mixin LocalDatabase {
 
   static Future clearDatabase() async {
     // TODO(everyone): add more delete calls for other collections as needed
-
-    await isar?.writeTxn<void>(() async {
-      await isar?.entryLocals.clear();
+    await _isar?.writeTxn<void>(() async {
+      await _isar?.entryLocals.clear();
     });
   }
 
-  static Future<bool?> dispose() async => isar?.close();
+  static Future<bool?> dispose() async => _isar?.close();
 }
 
 abstract class BaseLocalDatabase<T> {
@@ -56,7 +62,11 @@ abstract class BaseLocalDatabase<T> {
     throw UnimplementedError('listenDb $T');
   }
 
-  Future<List<T>> getAll() {
+  Future<List<T>> getAll([Isar? isar]) {
+    throw UnimplementedError('getAll $T');
+  }
+
+  Future<List<T>> getAllTask([Directory? dir]) async {
     throw UnimplementedError('getAll $T');
   }
 
@@ -84,8 +94,15 @@ abstract class BaseLocalDatabase<T> {
     throw UnimplementedError('insert $T');
   }
 
-  Future<bool> insertAll(List<T> models) {
-    throw UnimplementedError('insert $T');
+  Future<bool> insertAll(List<T> models, [Isar? isar]) {
+    throw UnimplementedError('insertAll $T');
+  }
+
+  Future<bool> insertAllTask(List<T> models) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await LocalDatabase.openIsar(dir);
+    final lst = await insertAll(models, isar);
+    return lst;
   }
 
   Future<List<T>> insertAllModel(List<T> models) async {

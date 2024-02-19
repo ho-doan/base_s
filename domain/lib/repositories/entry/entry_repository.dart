@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../data/local_data_sources/entry/entry_local_data_source.dart';
 import '../../data/models/models.dart';
@@ -15,9 +18,15 @@ class EntryRepository {
 
   Future<Either<ErrorState, List<EntryModel>>> fetch({
     bool forceRefresh = false,
+    Directory? dir,
   }) async {
     try {
-      final cache = await _local.getAll();
+      List<EntryLocal> cache;
+      if (dir != null) {
+        cache = await _local.getAllTask(dir);
+      } else {
+        cache = await _local.getAll();
+      }
 
       final check = forceRefresh || cache.isEmpty;
 
@@ -27,7 +36,7 @@ class EntryRepository {
           final models = [
             for (final i in r.entries) EntryLocal.fromEntry(i),
           ];
-          await _local.insertAll(models);
+          unawaited(compute(_local.insertAllTask, models));
           return Right(
             [for (final i in r.entries) EntryModel.fromEntryRemote(i)],
           );

@@ -21,7 +21,12 @@ mixin _$HomeEvent {
     required TResult Function() started,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +34,9 @@ mixin _$HomeEvent {
     TResult? Function()? started,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +44,9 @@ mixin _$HomeEvent {
     TResult Function()? started,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -103,12 +112,18 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
+class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   const _$StartedImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeEvent.started()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'HomeEvent.started'));
   }
 
   @override
@@ -126,7 +141,12 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return started();
   }
@@ -137,7 +157,9 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return started?.call();
   }
@@ -148,7 +170,9 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -217,12 +241,18 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeEvent.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'HomeEvent.loading'));
   }
 
   @override
@@ -240,7 +270,12 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() started,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return loading();
   }
@@ -251,7 +286,9 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? started,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return loading?.call();
   }
@@ -262,7 +299,9 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? started,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -346,15 +385,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl(this.error);
 
   @override
   final ErrorState<dynamic> error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeEvent.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomeEvent.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -380,7 +427,12 @@ class _$ErrorImpl implements _Error {
     required TResult Function() started,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return error(this.error);
   }
@@ -391,7 +443,9 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? started,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return error?.call(this.error);
   }
@@ -402,7 +456,9 @@ class _$ErrorImpl implements _Error {
     TResult Function()? started,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -464,7 +520,11 @@ abstract class _$$DataImplCopyWith<$Res> {
           _$DataImpl value, $Res Function(_$DataImpl) then) =
       __$$DataImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<EntryModel> entries});
+  $Res call(
+      {List<EntryModel>? entries,
+      List<EntryModel>? entries1,
+      List<EntryModel>? entries2,
+      List<EntryModel>? entries3});
 }
 
 /// @nodoc
@@ -477,33 +537,99 @@ class __$$DataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? entries = null,
+    Object? entries = freezed,
+    Object? entries1 = freezed,
+    Object? entries2 = freezed,
+    Object? entries3 = freezed,
   }) {
     return _then(_$DataImpl(
-      null == entries
+      entries: freezed == entries
           ? _value._entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<EntryModel>,
+              as List<EntryModel>?,
+      entries1: freezed == entries1
+          ? _value._entries1
+          : entries1 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
+      entries2: freezed == entries2
+          ? _value._entries2
+          : entries2 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
+      entries3: freezed == entries3
+          ? _value._entries3
+          : entries3 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$DataImpl implements _Data {
-  const _$DataImpl(final List<EntryModel> entries) : _entries = entries;
+class _$DataImpl with DiagnosticableTreeMixin implements _Data {
+  const _$DataImpl(
+      {final List<EntryModel>? entries,
+      final List<EntryModel>? entries1,
+      final List<EntryModel>? entries2,
+      final List<EntryModel>? entries3})
+      : _entries = entries,
+        _entries1 = entries1,
+        _entries2 = entries2,
+        _entries3 = entries3;
 
-  final List<EntryModel> _entries;
+  final List<EntryModel>? _entries;
   @override
-  List<EntryModel> get entries {
+  List<EntryModel>? get entries {
+    final value = _entries;
+    if (value == null) return null;
     if (_entries is EqualUnmodifiableListView) return _entries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries1;
+  @override
+  List<EntryModel>? get entries1 {
+    final value = _entries1;
+    if (value == null) return null;
+    if (_entries1 is EqualUnmodifiableListView) return _entries1;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries2;
+  @override
+  List<EntryModel>? get entries2 {
+    final value = _entries2;
+    if (value == null) return null;
+    if (_entries2 is EqualUnmodifiableListView) return _entries2;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries3;
+  @override
+  List<EntryModel>? get entries3 {
+    final value = _entries3;
+    if (value == null) return null;
+    if (_entries3 is EqualUnmodifiableListView) return _entries3;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  String toString() {
-    return 'HomeEvent.data(entries: $entries)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'HomeEvent.data(entries: $entries, entries1: $entries1, entries2: $entries2, entries3: $entries3)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomeEvent.data'))
+      ..add(DiagnosticsProperty('entries', entries))
+      ..add(DiagnosticsProperty('entries1', entries1))
+      ..add(DiagnosticsProperty('entries2', entries2))
+      ..add(DiagnosticsProperty('entries3', entries3));
   }
 
   @override
@@ -511,12 +637,19 @@ class _$DataImpl implements _Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DataImpl &&
-            const DeepCollectionEquality().equals(other._entries, _entries));
+            const DeepCollectionEquality().equals(other._entries, _entries) &&
+            const DeepCollectionEquality().equals(other._entries1, _entries1) &&
+            const DeepCollectionEquality().equals(other._entries2, _entries2) &&
+            const DeepCollectionEquality().equals(other._entries3, _entries3));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_entries));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_entries),
+      const DeepCollectionEquality().hash(_entries1),
+      const DeepCollectionEquality().hash(_entries2),
+      const DeepCollectionEquality().hash(_entries3));
 
   @JsonKey(ignore: true)
   @override
@@ -530,9 +663,14 @@ class _$DataImpl implements _Data {
     required TResult Function() started,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
-    return data(entries);
+    return data(entries, entries1, entries2, entries3);
   }
 
   @override
@@ -541,9 +679,11 @@ class _$DataImpl implements _Data {
     TResult? Function()? started,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
-    return data?.call(entries);
+    return data?.call(entries, entries1, entries2, entries3);
   }
 
   @override
@@ -552,11 +692,13 @@ class _$DataImpl implements _Data {
     TResult Function()? started,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(entries);
+      return data(entries, entries1, entries2, entries3);
     }
     return orElse();
   }
@@ -600,9 +742,16 @@ class _$DataImpl implements _Data {
 }
 
 abstract class _Data implements HomeEvent {
-  const factory _Data(final List<EntryModel> entries) = _$DataImpl;
+  const factory _Data(
+      {final List<EntryModel>? entries,
+      final List<EntryModel>? entries1,
+      final List<EntryModel>? entries2,
+      final List<EntryModel>? entries3}) = _$DataImpl;
 
-  List<EntryModel> get entries;
+  List<EntryModel>? get entries;
+  List<EntryModel>? get entries1;
+  List<EntryModel>? get entries2;
+  List<EntryModel>? get entries3;
   @JsonKey(ignore: true)
   _$$DataImplCopyWith<_$DataImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -615,7 +764,12 @@ mixin _$HomeState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -623,7 +777,9 @@ mixin _$HomeState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -631,7 +787,9 @@ mixin _$HomeState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -697,12 +855,18 @@ class __$$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$InitialImpl implements $Initial {
+class _$$InitialImpl with DiagnosticableTreeMixin implements $Initial {
   const _$$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'HomeState.initial'));
   }
 
   @override
@@ -720,7 +884,12 @@ class _$$InitialImpl implements $Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return initial();
   }
@@ -731,7 +900,9 @@ class _$$InitialImpl implements $Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return initial?.call();
   }
@@ -742,7 +913,9 @@ class _$$InitialImpl implements $Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -811,12 +984,18 @@ class __$$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$LoadingImpl implements $Loading {
+class _$$LoadingImpl with DiagnosticableTreeMixin implements $Loading {
   const _$$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'HomeState.loading'));
   }
 
   @override
@@ -834,7 +1013,12 @@ class _$$LoadingImpl implements $Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return loading();
   }
@@ -845,7 +1029,9 @@ class _$$LoadingImpl implements $Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return loading?.call();
   }
@@ -856,7 +1042,9 @@ class _$$LoadingImpl implements $Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -940,15 +1128,23 @@ class __$$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$ErrorImpl implements $Error {
+class _$$ErrorImpl with DiagnosticableTreeMixin implements $Error {
   const _$$ErrorImpl(this.error);
 
   @override
   final ErrorState<dynamic> error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomeState.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomeState.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -974,7 +1170,12 @@ class _$$ErrorImpl implements $Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
     return error(this.error);
   }
@@ -985,7 +1186,9 @@ class _$$ErrorImpl implements $Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
     return error?.call(this.error);
   }
@@ -996,7 +1199,9 @@ class _$$ErrorImpl implements $Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1058,7 +1263,11 @@ abstract class _$$$DataImplCopyWith<$Res> {
           _$$DataImpl value, $Res Function(_$$DataImpl) then) =
       __$$$DataImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<EntryModel> entries});
+  $Res call(
+      {List<EntryModel>? entries,
+      List<EntryModel>? entries1,
+      List<EntryModel>? entries2,
+      List<EntryModel>? entries3});
 }
 
 /// @nodoc
@@ -1072,33 +1281,103 @@ class __$$$DataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? entries = null,
+    Object? entries = freezed,
+    Object? entries1 = freezed,
+    Object? entries2 = freezed,
+    Object? entries3 = freezed,
   }) {
     return _then(_$$DataImpl(
-      null == entries
+      entries: freezed == entries
           ? _value._entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<EntryModel>,
+              as List<EntryModel>?,
+      entries1: freezed == entries1
+          ? _value._entries1
+          : entries1 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
+      entries2: freezed == entries2
+          ? _value._entries2
+          : entries2 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
+      entries3: freezed == entries3
+          ? _value._entries3
+          : entries3 // ignore: cast_nullable_to_non_nullable
+              as List<EntryModel>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$$DataImpl implements $Data {
-  const _$$DataImpl(final List<EntryModel> entries) : _entries = entries;
+class _$$DataImpl with DiagnosticableTreeMixin implements $Data {
+  const _$$DataImpl(
+      {final List<EntryModel>? entries = const [],
+      final List<EntryModel>? entries1 = const [],
+      final List<EntryModel>? entries2 = const [],
+      final List<EntryModel>? entries3 = const []})
+      : _entries = entries,
+        _entries1 = entries1,
+        _entries2 = entries2,
+        _entries3 = entries3;
 
-  final List<EntryModel> _entries;
+  final List<EntryModel>? _entries;
   @override
-  List<EntryModel> get entries {
+  @JsonKey()
+  List<EntryModel>? get entries {
+    final value = _entries;
+    if (value == null) return null;
     if (_entries is EqualUnmodifiableListView) return _entries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries1;
+  @override
+  @JsonKey()
+  List<EntryModel>? get entries1 {
+    final value = _entries1;
+    if (value == null) return null;
+    if (_entries1 is EqualUnmodifiableListView) return _entries1;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries2;
+  @override
+  @JsonKey()
+  List<EntryModel>? get entries2 {
+    final value = _entries2;
+    if (value == null) return null;
+    if (_entries2 is EqualUnmodifiableListView) return _entries2;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<EntryModel>? _entries3;
+  @override
+  @JsonKey()
+  List<EntryModel>? get entries3 {
+    final value = _entries3;
+    if (value == null) return null;
+    if (_entries3 is EqualUnmodifiableListView) return _entries3;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  String toString() {
-    return 'HomeState.data(entries: $entries)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'HomeState.data(entries: $entries, entries1: $entries1, entries2: $entries2, entries3: $entries3)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomeState.data'))
+      ..add(DiagnosticsProperty('entries', entries))
+      ..add(DiagnosticsProperty('entries1', entries1))
+      ..add(DiagnosticsProperty('entries2', entries2))
+      ..add(DiagnosticsProperty('entries3', entries3));
   }
 
   @override
@@ -1106,12 +1385,19 @@ class _$$DataImpl implements $Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$$DataImpl &&
-            const DeepCollectionEquality().equals(other._entries, _entries));
+            const DeepCollectionEquality().equals(other._entries, _entries) &&
+            const DeepCollectionEquality().equals(other._entries1, _entries1) &&
+            const DeepCollectionEquality().equals(other._entries2, _entries2) &&
+            const DeepCollectionEquality().equals(other._entries3, _entries3));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_entries));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_entries),
+      const DeepCollectionEquality().hash(_entries1),
+      const DeepCollectionEquality().hash(_entries2),
+      const DeepCollectionEquality().hash(_entries3));
 
   @JsonKey(ignore: true)
   @override
@@ -1125,9 +1411,14 @@ class _$$DataImpl implements $Data {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(ErrorState<dynamic> error) error,
-    required TResult Function(List<EntryModel> entries) data,
+    required TResult Function(
+            List<EntryModel>? entries,
+            List<EntryModel>? entries1,
+            List<EntryModel>? entries2,
+            List<EntryModel>? entries3)
+        data,
   }) {
-    return data(entries);
+    return data(entries, entries1, entries2, entries3);
   }
 
   @override
@@ -1136,9 +1427,11 @@ class _$$DataImpl implements $Data {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(ErrorState<dynamic> error)? error,
-    TResult? Function(List<EntryModel> entries)? data,
+    TResult? Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
   }) {
-    return data?.call(entries);
+    return data?.call(entries, entries1, entries2, entries3);
   }
 
   @override
@@ -1147,11 +1440,13 @@ class _$$DataImpl implements $Data {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(ErrorState<dynamic> error)? error,
-    TResult Function(List<EntryModel> entries)? data,
+    TResult Function(List<EntryModel>? entries, List<EntryModel>? entries1,
+            List<EntryModel>? entries2, List<EntryModel>? entries3)?
+        data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(entries);
+      return data(entries, entries1, entries2, entries3);
     }
     return orElse();
   }
@@ -1195,9 +1490,16 @@ class _$$DataImpl implements $Data {
 }
 
 abstract class $Data implements HomeState {
-  const factory $Data(final List<EntryModel> entries) = _$$DataImpl;
+  const factory $Data(
+      {final List<EntryModel>? entries,
+      final List<EntryModel>? entries1,
+      final List<EntryModel>? entries2,
+      final List<EntryModel>? entries3}) = _$$DataImpl;
 
-  List<EntryModel> get entries;
+  List<EntryModel>? get entries;
+  List<EntryModel>? get entries1;
+  List<EntryModel>? get entries2;
+  List<EntryModel>? get entries3;
   @JsonKey(ignore: true)
   _$$$DataImplCopyWith<_$$DataImpl> get copyWith =>
       throw _privateConstructorUsedError;

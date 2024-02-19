@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:isar/isar.dart';
 
@@ -8,9 +9,21 @@ import '../../models/models.dart';
 class EntryLocalDataSource extends BaseLocalDatabase<EntryLocal>
     with LocalDatabase {
   @override
-  Future<List<EntryLocal>> getAll() {
-    if (instance == null) throw Exception('isar null');
-    return instance!.entryLocals.where().findAll();
+  Future<List<EntryLocal>> getAll([Isar? isar]) {
+    if (isar != null) {
+      return isar.entryLocals.where().findAll();
+    }
+    if (instance != null) {
+      return instance!.entryLocals.where().findAll();
+    }
+    throw Exception('isar null');
+  }
+
+  @override
+  Future<List<EntryLocal>> getAllTask([Directory? dir]) async {
+    final isar = await LocalDatabase.openIsar(dir);
+    final lst = await getAll(isar);
+    return lst;
   }
 
   @override
@@ -26,18 +39,27 @@ class EntryLocalDataSource extends BaseLocalDatabase<EntryLocal>
     return instance!.writeTxn<Id>(() => instance!.entryLocals.put(model));
   }
 
+  // TODO(everyone): Put by index
   @override
-  Future<bool> insertAll(List<EntryLocal> models) async {
-    if (instance == null) throw Exception('isar null');
+  Future<bool> insertAll(List<EntryLocal> models, [Isar? isar]) async {
     try {
-      // TODO(everyone): Put by index
-      await instance!
-          .writeTxn<List<Id>>(() => instance!.entryLocals.putAll(models));
-      return true;
+      if (isar != null) {
+        await isar.writeTxn<List<Id>>(
+          () => instance!.entryLocals.putAll(models),
+        );
+        return true;
+      }
+      if (instance != null) {
+        await instance!.writeTxn<List<Id>>(
+          () => instance!.entryLocals.putAll(models),
+        );
+        return true;
+      }
     } on Exception catch (e) {
       log('insert all entry local error: $e');
       return false;
     }
+    throw Exception('isar null');
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 
 import '../../data/models/models.dart';
@@ -11,6 +13,7 @@ class EntryUseCase {
 
   Future<Either<ErrorState, List<EntryModel>>> fetch({
     bool forceRefresh = false,
+    Directory? dir,
   }) =>
-      _repository.fetch(forceRefresh: forceRefresh);
+      _repository.fetch(forceRefresh: forceRefresh, dir: dir);
 }
