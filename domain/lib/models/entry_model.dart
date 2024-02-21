@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../data/models/local/entry_local.dart';
-import '../data/models/remote/entry.dart';
+import '../data/models/models.dart';
 
 part 'entry_model.freezed.dart';
 

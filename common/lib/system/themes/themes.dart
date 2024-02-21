@@ -123,15 +123,17 @@ class AppThemes {
           AppColors.light(),
           AppStyles.internal(),
         },
-        textTheme:
-            ThemeData.light().textTheme.apply(fontFamily: FontFamily.sFPro),
+        textTheme: ThemeData.light().textTheme.apply(
+              fontFamily: FontFamily.sFPro,
+            ),
       );
   ThemeData get dartTheme => ThemeData.dark().copyWith(
         extensions: <ThemeExtension<dynamic>>{
           AppColors.dark(),
           AppStyles.internal(),
         },
-        textTheme:
-            ThemeData.light().textTheme.apply(fontFamily: FontFamily.sFPro),
+        textTheme: ThemeData.dark().textTheme.apply(
+              fontFamily: FontFamily.sFPro,
+            ),
       );
 }

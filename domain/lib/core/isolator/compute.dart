@@ -7,7 +7,7 @@ Future<R> computeApp<M, R>(
   M message, {
   String? debugLabel,
 }) async {
-  if (!kIsWeb && kTest) {
+  if (kTest) {
     return await callback(message);
   } else {
     final r = await compute<M, R>(callback, message, debugLabel: debugLabel);

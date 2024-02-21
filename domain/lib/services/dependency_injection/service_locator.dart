@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/env/env.dart';
+import '../../data/local_data_sources/local_data_sources.dart';
 import '../networks/api_client.dart';
 import 'service_locator.config.dart';
 
@@ -25,12 +26,14 @@ void configureDomainDependencies(GetIt getIt) {
 
   dio.interceptors.add(LogInterceptor());
 
-  getIt.registerLazySingleton<ApiClient>(
-    () => ApiClient(
-      dio,
-      baseUrl: Env.apiEndpoint,
-    ),
-  );
+  getIt
+    ..registerLazySingleton<ApiClient>(
+      () => ApiClient(
+        dio,
+        baseUrl: Env.apiEndpoint,
+      ),
+    )
+    ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new);
   $initGetIt(getIt);
 }
 

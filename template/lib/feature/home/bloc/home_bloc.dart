@@ -23,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           final homeFetch = HomeFetch(
             us: _useCase,
-            token: kTest ? null : RootIsolateToken.instance!,
+            token: kIsWeb || kTest ? null : RootIsolateToken.instance!,
           );
 
           final result = await computeApp(_fetchRes, homeFetch);

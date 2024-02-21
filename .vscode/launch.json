@@ -51,6 +51,15 @@
             "type": "dart"
         },
         {
+            "name": "template web",
+            "cwd": "template",
+            "request": "launch",
+            "args": [
+                "--web-browser-flag=--disable-web-security"
+            ],
+            "type": "dart"
+        },
+        {
             "name": "template (profile mode)",
             "cwd": "template",
             "request": "launch",

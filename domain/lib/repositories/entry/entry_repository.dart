@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import '../../data/local_data_sources/entry/entry_local_data_source.dart';
+import '../../data/local_data_sources/local_data_sources.dart';
 import '../../data/remote_data_sources/entry/entries_remote_data_source.dart';
 import '../../domain.dart';
 
@@ -39,7 +40,7 @@ class EntryRepository {
               _local.insertAllTask,
               LocalTaskList(
                 models: models,
-                token: token ?? RootIsolateToken.instance!,
+                token: !kIsWeb ? token ?? RootIsolateToken.instance! : null,
               ),
             ),
           );
