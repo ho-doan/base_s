@@ -2,10 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../data/models/models.dart';
+import '../../utils/is_test.dart';
 
 mixin LocalDatabase {
   static late Isar? _isar;
@@ -25,13 +27,16 @@ mixin LocalDatabase {
     }
   }
 
-  static Future<Isar> openIsar([Directory? dir]) async {
-    Directory isarDir;
-    if (dir != null) {
-      isarDir = Directory('${dir.path}/isar');
-    } else {
-      final appDir = await getApplicationDocumentsDirectory();
-      isarDir = Directory('${appDir.path}/isar');
+  static Future<Isar> openIsar([RootIsolateToken? token]) async {
+    if (token != null) {
+      BackgroundIsolateBinaryMessenger.ensureInitialized(token);
+    }
+
+    final appDir = await getApplicationDocumentsDirectory();
+
+    final isarDir = Directory('${appDir.path}/isar');
+
+    if (token == null) {
       await isarDir.create(recursive: true);
     }
 
@@ -41,7 +46,20 @@ mixin LocalDatabase {
         EntryLocalSchema,
       ],
       directory: isarDir.path,
-      inspector: dir == null,
+      inspector: token == null,
+    );
+
+    return isar;
+  }
+
+  @visibleForTesting
+  static Future<Isar> openIsarTest() async {
+    // TODO(everyone): add more schema
+    final isar = await Isar.open(
+      [
+        EntryLocalSchema,
+      ],
+      directory: kDirectory.path,
     );
 
     return isar;
@@ -66,8 +84,13 @@ abstract class BaseLocalDatabase<T> {
     throw UnimplementedError('getAll $T');
   }
 
-  Future<List<T>> getAllTask([Directory? dir]) async {
-    throw UnimplementedError('getAll $T');
+  Future<List<T>> getAllTask([RootIsolateToken? token]) async {
+    Isar? isar;
+    if (!kTest) {
+      isar = await LocalDatabase.openIsar(token);
+    }
+    final lst = await getAll(isar);
+    return lst;
   }
 
   Future<List<T>> gets({required int limit, required int offset}) {
@@ -98,15 +121,18 @@ abstract class BaseLocalDatabase<T> {
     throw UnimplementedError('insertAll $T');
   }
 
-  Future<bool> insertAllTask(List<T> models) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final isar = await LocalDatabase.openIsar(dir);
-    final lst = await insertAll(models, isar);
-    return lst;
-  }
+  Future<bool> insertAllTask(LocalTaskList<T> model) async {
+    if (model.token == null && !kTest) throw Exception('token null');
+    if (!kTest) {
+      BackgroundIsolateBinaryMessenger.ensureInitialized(model.token!);
+    }
 
-  Future<List<T>> insertAllModel(List<T> models) async {
-    throw UnimplementedError('insert $T');
+    Isar? isar;
+    if (!kTest) {
+      isar = await LocalDatabase.openIsar(model.token);
+    }
+    final lst = await insertAll(model.models, isar);
+    return lst;
   }
 
   Future<Id> update(T model) {
@@ -121,4 +147,18 @@ abstract class BaseLocalDatabase<T> {
   Future<bool> delete(int id) {
     throw UnimplementedError('delete $T');
   }
+}
+
+class LocalTask<T> {
+  LocalTask({required this.model, required this.token});
+
+  final T model;
+  final RootIsolateToken? token;
+}
+
+class LocalTaskList<T> {
+  LocalTaskList({required this.models, required this.token});
+
+  final List<T> models;
+  final RootIsolateToken? token;
 }

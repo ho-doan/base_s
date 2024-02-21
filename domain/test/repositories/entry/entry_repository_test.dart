@@ -22,13 +22,7 @@ Future<void> main() async {
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Isar.initializeIsarCore(download: true);
-    isar = await Isar.open(
-      [EntryLocalSchema],
-      directory: '',
-    );
-    await isar.writeTxn<void>(() async {
-      await isar.entryLocals.clear();
-    });
+    isar = await LocalDatabase.openIsarTest();
 
     await LocalDatabase.init(isar);
 
@@ -44,9 +38,6 @@ Future<void> main() async {
           getItTesting<EntryLocalDataSource>(),
           remoteDataSource,
         );
-        await isar.writeTxn<void>(() async {
-          await isar.entryLocals.clear();
-        });
       },
     );
     group('fetch', () {
@@ -61,7 +52,9 @@ Future<void> main() async {
         expect(result, isA<List<EntryModel>>());
         final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
+        expect(resultCast.length, 1);
         expect(resultCast.first.aPI, model.entries.first.aPI);
+        await Future<void>.delayed(const Duration(seconds: 5));
         final local = await getItTesting<EntryLocalDataSource>().getAll();
         for (final item in resultCast) {
           expect(local.any((e) => e.aPI == item.aPI), true);
@@ -86,6 +79,7 @@ Future<void> main() async {
         final resultCast = result as List<EntryModel>;
         expect(resultCast.length, model.count);
         expect(resultCast.first.aPI, model.entries.first.aPI);
+        await Future<void>.delayed(Durations.extralong4);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
         for (final item in resultCast) {
           expect(local.any((e) => e.aPI == item.aPI), true);
@@ -109,6 +103,7 @@ Future<void> main() async {
         expect(result, isA<List<EntryModel>>());
         final resultCast = result as List<EntryModel>;
         expect(resultCast.length, 0);
+        await Future<void>.delayed(Durations.short4);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
 
         expect(local.length, 0);
@@ -129,9 +124,18 @@ Future<void> main() async {
         final result = res.fold((l) => l, (r) => r);
         expect(res.isLeft(), true);
         expect(result, isA<ErrorState>());
+        await Future<void>.delayed(Durations.short4);
         final local = await getItTesting<EntryLocalDataSource>().getAll();
 
         expect(local.length, 0);
+
+        addTearDown(
+          () async {
+            await isar.writeTxn<void>(() async {
+              await isar.entryLocals.clear();
+            });
+          },
+        );
       });
     });
   });

@@ -11,7 +11,7 @@ import 'package:template/feature/home/bloc/home_bloc.dart';
 import 'package:template/feature/home/home_screen.dart';
 
 import '../../../test/utils/dummy/entry/entry_model.dart';
-import 'counter_test.mocks.dart';
+import 'home_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<EntryUseCase>()])
 void main() {
@@ -35,17 +35,17 @@ void main() {
     ),
   );
 
-  group('Counter Integration', () {
+  group('Home Integration', () {
     testWidgets(
       'when success',
       (tester) async {
-        when(mockEntryUseCase.fetch())
+        when(mockEntryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => const Right([dummyEntryModel]));
         await tester.pumpWidget(homeScreen);
 
-        await tester.pump();
+        await tester.pump(Durations.short4);
 
-        expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
 
         // Finds the floating action button to tap on.
         final fab = find.byIcon(Icons.add);
@@ -56,30 +56,37 @@ void main() {
         // Trigger a frame.
         await tester.pumpAndSettle();
 
-        expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+        await tester.pump(Durations.short4);
+
+        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
 
         await tester.tap(fab);
 
         // Trigger a frame.
         await tester.pumpAndSettle();
 
-        expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+        await tester.pump(Durations.short4);
+
+        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
 
         await tester.tap(fab);
 
         // Trigger a frame.
         await tester.pumpAndSettle();
 
-        expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+        await tester.pump(Durations.short4);
+
+        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
       },
     );
     testWidgets(
       'when success data empty',
       (tester) async {
-        when(mockEntryUseCase.fetch()).thenAnswer((_) async => const Right([]));
+        when(mockEntryUseCase.fetch(token: anyNamed('token')))
+            .thenAnswer((_) async => const Right([]));
         await tester.pumpWidget(homeScreen);
 
-        await tester.pump();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Data empty'), findsOneWidget);
 
@@ -91,6 +98,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Data empty'), findsOneWidget);
 
@@ -98,6 +106,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Data empty'), findsOneWidget);
 
@@ -105,6 +114,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Data empty'), findsOneWidget);
       },
@@ -112,11 +122,11 @@ void main() {
     testWidgets(
       'when failure',
       (tester) async {
-        when(mockEntryUseCase.fetch())
+        when(mockEntryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => Left(ErrorState(error: '')));
         await tester.pumpWidget(homeScreen);
 
-        await tester.pump();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Error'), findsOneWidget);
 
@@ -128,6 +138,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Error'), findsOneWidget);
 
@@ -135,6 +146,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Error'), findsOneWidget);
 
@@ -142,6 +154,7 @@ void main() {
 
         // Trigger a frame.
         await tester.pumpAndSettle();
+        await tester.pump(Durations.extralong3);
 
         expect(find.text('Error'), findsOneWidget);
       },

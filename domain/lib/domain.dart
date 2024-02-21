@@ -1,5 +1,6 @@
 library domain;
 
+export 'core/isolator/isolator.dart';
 export 'data/models/models.dart';
 export 'models/models.dart';
 export 'services/dependency_injection/service_locator.dart';

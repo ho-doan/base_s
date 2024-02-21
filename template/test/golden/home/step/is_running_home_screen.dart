@@ -12,7 +12,7 @@ final homeScreen = MaterialApp(
     child: const HomeScreen(),
   ),
 );
-Future<void> runningCounter(WidgetTester tester) async {
+Future<void> runningHomeScreen(WidgetTester tester) async {
   await tester.pumpWidget(homeScreen);
-  await tester.pump();
+  await tester.pump(Durations.extralong4);
 }

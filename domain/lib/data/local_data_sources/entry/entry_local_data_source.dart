@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:isar/isar.dart';
 
@@ -17,13 +16,6 @@ class EntryLocalDataSource extends BaseLocalDatabase<EntryLocal>
       return instance!.entryLocals.where().findAll();
     }
     throw Exception('isar null');
-  }
-
-  @override
-  Future<List<EntryLocal>> getAllTask([Directory? dir]) async {
-    final isar = await LocalDatabase.openIsar(dir);
-    final lst = await getAll(isar);
-    return lst;
   }
 
   @override
@@ -45,7 +37,7 @@ class EntryLocalDataSource extends BaseLocalDatabase<EntryLocal>
     try {
       if (isar != null) {
         await isar.writeTxn<List<Id>>(
-          () => instance!.entryLocals.putAll(models),
+          () => isar.entryLocals.putAll(models),
         );
         return true;
       }

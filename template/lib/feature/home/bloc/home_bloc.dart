@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:developer' as dev;
-import 'dart:io';
 
 import 'package:domain/domain.dart';
+import 'package:domain/utils/is_test.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'home_bloc.freezed.dart';
 part 'home_event.dart';
@@ -18,16 +18,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       return event.when<void>(
         started: () async {
           dev.Timeline.startSync('test performance home');
+
           add(const HomeEvent.loading());
 
-          final dir = await getApplicationDocumentsDirectory();
+          final homeFetch = HomeFetch(
+            us: _useCase,
+            token: kTest ? null : RootIsolateToken.instance!,
+          );
 
-          final homeFetch = HomeFetch(dir, _useCase);
+          final result = await computeApp(_fetchRes, homeFetch);
+          add(result);
 
-          unawaited(compute(_fetchRes, homeFetch).then(add));
-          unawaited(compute(_fetchRes1, homeFetch).then(add));
-          unawaited(compute(_fetchRes2, homeFetch).then(add));
-          unawaited(compute(_fetchRes3, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes1, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes2, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes3, homeFetch).then(add));
 
           dev.Timeline.finishSync();
         },
@@ -60,15 +64,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final EntryUseCase _useCase;
 }
 
-class HomeFetch {
-  HomeFetch(this.dir, this.us);
-
-  final Directory dir;
-  final EntryUseCase us;
-}
-
-FutureOr<HomeEvent> _fetchRes(HomeFetch m) async {
-  final result = await m.us.fetch(dir: m.dir);
+FutureOr<HomeEvent> _fetchRes(HomeFetch h) async {
+  final result = await h.us.fetch(token: h.token);
   final data = result.fold((l) => l, (r) => r);
   if (data is ErrorState) {
     return HomeEvent.error(data);
@@ -78,8 +75,8 @@ FutureOr<HomeEvent> _fetchRes(HomeFetch m) async {
   return HomeEvent.data(entries: data);
 }
 
-FutureOr<HomeEvent> _fetchRes1(HomeFetch m) async {
-  final result = await m.us.fetch(dir: m.dir);
+FutureOr<HomeEvent> _fetchRes1(HomeFetch h) async {
+  final result = await h.us.fetch(token: h.token);
   final data = result.fold((l) => l, (r) => r);
   if (data is ErrorState) {
     return HomeEvent.error(data);
@@ -89,8 +86,8 @@ FutureOr<HomeEvent> _fetchRes1(HomeFetch m) async {
   return HomeEvent.data(entries1: data);
 }
 
-FutureOr<HomeEvent> _fetchRes2(HomeFetch m) async {
-  final result = await m.us.fetch(dir: m.dir);
+FutureOr<HomeEvent> _fetchRes2(HomeFetch h) async {
+  final result = await h.us.fetch(token: h.token);
   final data = result.fold((l) => l, (r) => r);
   if (data is ErrorState) {
     return HomeEvent.error(data);
@@ -100,8 +97,8 @@ FutureOr<HomeEvent> _fetchRes2(HomeFetch m) async {
   return HomeEvent.data(entries2: data);
 }
 
-FutureOr<HomeEvent> _fetchRes3(HomeFetch m) async {
-  final result = await m.us.fetch(dir: m.dir);
+FutureOr<HomeEvent> _fetchRes3(HomeFetch h) async {
+  final result = await h.us.fetch(token: h.token);
   final data = result.fold((l) => l, (r) => r);
 
   if (data is ErrorState) {
@@ -110,4 +107,32 @@ FutureOr<HomeEvent> _fetchRes3(HomeFetch m) async {
   data as List<EntryModel>;
   if (data.isEmpty) return const HomeEvent.data();
   return HomeEvent.data(entries3: data);
+}
+
+extension HomeStateX on HomeState {
+  bool get isData => maybeMap(orElse: () => false, data: (_) => true);
+  bool get isError => maybeMap(orElse: () => false, error: (_) => true);
+  List<EntryModel> get entries => maybeMap(
+        orElse: () => <EntryModel>[],
+        data: (_) => _.entries ?? <EntryModel>[],
+      );
+  List<EntryModel> get entries1 => maybeMap(
+        orElse: () => <EntryModel>[],
+        data: (_) => _.entries1 ?? <EntryModel>[],
+      );
+  List<EntryModel> get entries2 => maybeMap(
+        orElse: () => <EntryModel>[],
+        data: (_) => _.entries2 ?? <EntryModel>[],
+      );
+  List<EntryModel> get entries3 => maybeMap(
+        orElse: () => <EntryModel>[],
+        data: (_) => _.entries3 ?? <EntryModel>[],
+      );
+}
+
+class HomeFetch {
+  HomeFetch({required this.us, required this.token});
+
+  final EntryUseCase us;
+  final RootIsolateToken? token;
 }

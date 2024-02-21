@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:domain/domain.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,17 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               BlocBuilder<HomeBloc, HomeState>(
                 buildWhen: (p, c) =>
-                    c.maybeMap(data: (_) => true, orElse: () => false) &&
-                    !listEquals(
-                      p.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries,
-                      ),
-                      c.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries,
-                      ),
-                    ),
+                    c.isData && !listEquals(p.entries, c.entries),
                 builder: (context, state) {
                   final data = state.maybeMap(
                     orElse: () => <EntryModel>[],
@@ -80,17 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               BlocBuilder<HomeBloc, HomeState>(
                 buildWhen: (p, c) =>
-                    c.maybeMap(data: (_) => true, orElse: () => false) &&
-                    !listEquals(
-                      p.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries1,
-                      ),
-                      c.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries1,
-                      ),
-                    ),
+                    c.isData && !listEquals(p.entries1, c.entries1),
                 builder: (context, state) {
                   final data = state.maybeMap(
                     orElse: () => <EntryModel>[],
@@ -119,17 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               BlocBuilder<HomeBloc, HomeState>(
                 buildWhen: (p, c) =>
-                    c.maybeMap(data: (_) => true, orElse: () => false) &&
-                    !listEquals(
-                      p.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries2,
-                      ),
-                      c.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries2,
-                      ),
-                    ),
+                    c.isData && !listEquals(p.entries2, c.entries2),
                 builder: (context, state) {
                   final data = state.maybeMap(
                     orElse: () => <EntryModel>[],
@@ -157,19 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               BlocBuilder<HomeBloc, HomeState>(
-                buildWhen: (p, c) =>
-                    c.maybeMap(data: (_) => true, orElse: () => false) &&
-                    !listEquals(
-                      p.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries3,
-                      ),
-                      c.maybeMap(
-                        orElse: () => <EntryModel>[],
-                        data: (p) => p.entries3,
-                      ),
-                    ),
+                buildWhen: (p, c) {
+                  log('message $c');
+                  return true;
+                },
+                // buildWhen: (p, c) =>
+                //     (c.isData && !listEquals(p.entries3, c.entries3)) ||
+                //     c.isError ||
+                //     p.isData && c.isData,
                 builder: (context, state) {
+                  log('message $state');
                   return state.maybeWhen(
                     orElse: () => const SizedBox.shrink(),
                     error: (e) => const Text('Error'),

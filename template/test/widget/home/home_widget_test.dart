@@ -40,12 +40,12 @@ void main() {
 
       await tester.pump();
 
-      expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+      expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
 
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
-      expect(find.text(dummyEntryModel.getName()), findsOneWidget);
+      expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
     },
   );
   testWidgets(

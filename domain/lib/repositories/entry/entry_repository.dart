@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import '../../data/local_data_sources/entry/entry_local_data_source.dart';
-import '../../data/models/models.dart';
 import '../../data/remote_data_sources/entry/entries_remote_data_source.dart';
-import '../../models/models.dart';
+import '../../domain.dart';
 
 class EntryRepository {
   EntryRepository(this._local, this._remote);
@@ -18,14 +16,14 @@ class EntryRepository {
 
   Future<Either<ErrorState, List<EntryModel>>> fetch({
     bool forceRefresh = false,
-    Directory? dir,
+    RootIsolateToken? token,
   }) async {
     try {
       List<EntryLocal> cache;
-      if (dir != null) {
-        cache = await _local.getAllTask(dir);
-      } else {
+      if (token == null) {
         cache = await _local.getAll();
+      } else {
+        cache = await _local.getAllTask(token);
       }
 
       final check = forceRefresh || cache.isEmpty;
@@ -36,7 +34,15 @@ class EntryRepository {
           final models = [
             for (final i in r.entries) EntryLocal.fromEntry(i),
           ];
-          unawaited(compute(_local.insertAllTask, models));
+          unawaited(
+            computeApp(
+              _local.insertAllTask,
+              LocalTaskList(
+                models: models,
+                token: token ?? RootIsolateToken.instance!,
+              ),
+            ),
+          );
           return Right(
             [for (final i in r.entries) EntryModel.fromEntryRemote(i)],
           );

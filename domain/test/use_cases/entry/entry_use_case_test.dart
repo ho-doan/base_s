@@ -20,10 +20,7 @@ Future<void> main() async {
   setUpAll(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Isar.initializeIsarCore(download: true);
-    isar = await Isar.open(
-      [EntryLocalSchema],
-      directory: '',
-    );
+    isar = await LocalDatabase.openIsarTest();
     await isar.writeTxn<void>(() async {
       await isar.entryLocals.clear();
     });
@@ -119,6 +116,14 @@ Future<void> main() async {
         final result = res.fold((l) => l, (r) => r);
         expect(res.isLeft(), true);
         expect(result, isA<ErrorState>());
+
+        addTearDown(
+          () async {
+            await isar.writeTxn<void>(() async {
+              await isar.entryLocals.clear();
+            });
+          },
+        );
       });
     });
   });

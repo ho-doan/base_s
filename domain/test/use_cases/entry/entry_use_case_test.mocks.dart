@@ -4,11 +4,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:io' as _i7;
+import 'dart:ui' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:domain/data/models/models.dart' as _i5;
-import 'package:domain/models/models.dart' as _i6;
+import 'package:domain/domain.dart' as _i5;
 import 'package:domain/repositories/entry/entry_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -40,9 +39,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
   @override
-  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>> fetch({
+  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>> fetch({
     bool? forceRefresh = false,
-    _i7.Directory? dir,
+    _i6.RootIsolateToken? token,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -50,39 +49,39 @@ class MockEntryRepository extends _i1.Mock implements _i3.EntryRepository {
           [],
           {
             #forceRefresh: forceRefresh,
-            #dir: dir,
+            #token: token,
           },
         ),
         returnValue: _i4.Future<
                 _i2
-                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
+                .Either<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>>.value(
+            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
             [],
             {
               #forceRefresh: forceRefresh,
-              #dir: dir,
+              #token: token,
             },
           ),
         )),
         returnValueForMissingStub: _i4.Future<
                 _i2
-                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
+                .Either<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>>.value(
+            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
             [],
             {
               #forceRefresh: forceRefresh,
-              #dir: dir,
+              #token: token,
             },
           ),
         )),
       ) as _i4
-          .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>);
+          .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.EntryModel>>>);
 
   @override
   _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i5.EntryRemote>?>>

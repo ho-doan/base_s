@@ -27,38 +27,40 @@ void main() {
       ..registerFactory<EntryUseCase>(() => mockEntryUseCase);
   });
   tearDownAll(getIt.reset);
-  group('Counter', () {
+  group('Home golden test', () {
     testWidgets('when success', (tester) async {
-      when(mockEntryUseCase.fetch())
+      when(mockEntryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => const Right([dummyEntryModel]));
-      await runningCounter(tester);
-      await iSeeText(tester, dummyEntryModel.getName());
+      await runningHomeScreen(tester);
+      await iSeeNText(tester, dummyEntryModel.getName(), 4);
     });
     testWidgets('when success tab', (tester) async {
-      when(mockEntryUseCase.fetch())
+      when(mockEntryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => const Right([dummyEntryModel]));
-      await runningCounter(tester);
-      await iSeeText(tester, dummyEntryModel.getName());
+      await runningHomeScreen(tester);
+      await iSeeNText(tester, dummyEntryModel.getName(), 4);
       await iTapIcon(tester, Icons.add);
-      await iSeeText(tester, dummyEntryModel.getName());
+      await iSeeNText(tester, dummyEntryModel.getName(), 4);
     });
     testGoldens('when success data is not empty', (tester) async {
-      when(mockEntryUseCase.fetch())
-          .thenAnswer((_) async => const Right([dummyEntryModel]));
-      await runningRenderedCounter(tester);
+      when(mockEntryUseCase.fetch(token: anyNamed('token'))).thenAnswer(
+        (_) async => Right([for (int i = 0; i < 10; i++) dummyEntryModel]),
+      );
+      await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_data');
       addTearDown(() => tester.view.reset());
     });
     testGoldens('when success data is empty', (tester) async {
-      when(mockEntryUseCase.fetch()).thenAnswer((_) async => const Right([]));
-      await runningRenderedCounter(tester);
+      when(mockEntryUseCase.fetch(token: anyNamed('token')))
+          .thenAnswer((_) async => const Right([]));
+      await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_empty');
       addTearDown(() => tester.view.reset());
     });
     testGoldens('when failure', (tester) async {
-      when(mockEntryUseCase.fetch())
+      when(mockEntryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => Left(ErrorState(error: '')));
-      await runningRenderedCounter(tester);
+      await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_failure');
       addTearDown(() => tester.view.reset());
     });
@@ -66,7 +68,7 @@ void main() {
     testWidgets(
       'when success data is empty',
       (tester) async {
-        when(mockEntryUseCase.fetch())
+        when(mockEntryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => const Right([dummyEntryModel]));
         await loadAppFonts();
         final builder = DeviceBuilder()
