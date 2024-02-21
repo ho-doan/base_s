@@ -59,3 +59,58 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+
+flavorizr:
+  flavors:
+    dev:
+      app:
+        name: "Template Dev"
+
+      android:
+        applicationId: "com.hodoan.template.dev"
+        # firebase:
+        #   config: ".firebase/dev/google-services.json"
+
+      ios:
+        bundleId: "com.hodoan.template.dev"
+        # firebase:
+        #   config: ".firebase/dev/GoogleService-Info.plist"
+    test:
+      app:
+        name: "Template test"
+
+      android:
+        applicationId: "com.hodoan.template.test"
+        # firebase:
+        #   config: ".firebase/test/google-services.json"
+
+      ios:
+        bundleId: "com.hodoan.template.test"
+        # firebase:
+        #   config: ".firebase/qc/GoogleService-Info.plist"
+    stg:
+      app:
+        name: "Template Staging"
+
+      android:
+        applicationId: "com.hodoan.template.staging"
+        # firebase:
+        #   config: ".firebase/staging/google-services.json"
+
+      ios:
+        bundleId: "com.hodoan.template.staging"
+        # firebase:
+        #   config: ".firebase/staging/GoogleService-Info.plist"
+
+    prod:
+      app:
+        name: "Template"
+
+      android:
+        applicationId: "com.hodoan.template"
+        # firebase:
+        #   config: ".firebase/production/google-services.json"
+      ios:
+        bundleId: "com.hodoan.template"
+        # firebase:
+        #   config: ".firebase/production/GoogleService-Info.plist"
