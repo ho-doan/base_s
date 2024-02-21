@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared/shared.dart';
 
-import '../../core/env/env.dart';
 import '../../data/local_data_sources/local_data_sources.dart';
 import '../networks/api_client.dart';
 import 'service_locator.config.dart';
@@ -30,7 +30,7 @@ void configureDomainDependencies(GetIt getIt) {
     ..registerLazySingleton<ApiClient>(
       () => ApiClient(
         dio,
-        baseUrl: Env.apiEndpoint,
+        baseUrl: Env.internal.apiEndpoint,
       ),
     )
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new);

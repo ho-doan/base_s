@@ -70,6 +70,16 @@ melos build
 melos test
 ```
 
+```sh
+# run dev
+flutter run --flavor dev -t lib/main_dev.dart
+# run test
+## run server mock
+npm run start:dev --prefix ./mocks
+## run app
+flutter run --flavor test -t lib/main_test.dart
+```
+
 ### Directory Structure
 
 ```yml

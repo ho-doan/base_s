@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
-
-import '../../core/isolator/isolator.dart';
+import 'package:shared/shared.dart';
 
 mixin LocalDatabase {
   static late dynamic _isar;

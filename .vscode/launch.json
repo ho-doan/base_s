@@ -45,9 +45,26 @@
             "flutterMode": "release"
         },
         {
-            "name": "template",
+            "name": "template dev",
             "cwd": "template",
             "request": "launch",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
+            "program": "lib/main_dev.dart",
+            "type": "dart"
+        },
+        // npm run start:dev --prefix ./mocks
+        {
+            "name": "template test",
+            "cwd": "template",
+            "request": "launch",
+            "args": [
+                "--flavor",
+                "test"
+            ],
+            "program": "lib/main_test.dart",
             "type": "dart"
         },
         {
@@ -55,8 +72,11 @@
             "cwd": "template",
             "request": "launch",
             "args": [
+                "--flavor",
+                "dev",
                 "--web-browser-flag=--disable-web-security"
             ],
+            "program": "lib/main_dev.dart",
             "type": "dart"
         },
         {
