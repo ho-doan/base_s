@@ -54,7 +54,7 @@ class ProductItemWidget extends StatelessWidget {
                             child: Column(
                               children: [
                                 AspectRatio(
-                                  aspectRatio: 300 / 150,
+                                  aspectRatio: 200 / 150,
                                   child: Image.network(
                                     item.image ?? '--',
                                     fit: BoxFit.fill,

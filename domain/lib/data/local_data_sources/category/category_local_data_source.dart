@@ -27,11 +27,9 @@ class CategoryLocalDataSource extends BaseLocalDatabase<CategoryLocal>
   @override
   Future<Id> insert(CategoryLocal model) {
     if (instance == null) throw Exception('isar null');
-    // TODO(everyone): Put by index
     return instance!.writeTxn<Id>(() => instance!.categoryLocals.put(model));
   }
 
-  // TODO(everyone): Put by index
   @override
   Future<bool> insertAll(List<CategoryLocal> models, [Isar? isar]) async {
     try {

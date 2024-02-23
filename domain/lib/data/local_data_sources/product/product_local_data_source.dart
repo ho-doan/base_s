@@ -27,11 +27,9 @@ class ProductLocalDataSource extends BaseLocalDatabase<ProductLocal>
   @override
   Future<Id> insert(ProductLocal model) {
     if (instance == null) throw Exception('isar null');
-    // TODO(everyone): Put by index
     return instance!.writeTxn<Id>(() => instance!.productLocals.put(model));
   }
 
-  // TODO(everyone): Put by index
   @override
   Future<bool> insertAll(List<ProductLocal> models, [Isar? isar]) async {
     try {

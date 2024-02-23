@@ -99,16 +99,24 @@ flutter run --flavor test -t lib/main_test.dart
 |               '-> widgets.dart
 |-> domain
 |   '-> lib
-|       |-> core
-|       |   '-> env
-|       |       '-> env.dart
 |       |-> data
 |       |   |-> models
 |       |   |   |-> local
+|       |   |   |   |-> a
+|       |   |   |   |   |-> a_local_data_source_stub.dart # for web
+|       |   |   |   |   '-> a_local_data_source.dart
 |       |   |   |   '-> local.dart
 |       |   |   |-> remote
 |       |   |   |   '-> remote.dart
-|       |   |   '-> models.dart
+|       |   |   '-> models
+|       |   |       |-> local
+|       |   |       |   |-> a_stub.dart
+|       |   |       |   |-> a.dart
+|       |   |       |   '-> local.dart
+|       |   |       |-> remote
+|       |   |       |   |-> a.dart
+|       |   |       |   '-> remote.dart
+|       |   |       '-> models.dart
 |       |   |-> local_data_sources
 |       |   |   '-> local_data_sources.dart
 |       |   '-> remote_data_sources
@@ -126,6 +134,17 @@ flutter run --flavor test -t lib/main_test.dart
 |           |   '-> local_database.dart
 |           '-> network
 |               '-> api_client.dart
+|-> shared
+|   '-> lib
+|       |-> core
+|       |   '-> env
+|       |       '-> env.dart
+|       |   '-> isolator
+|       |       '-> isolator.dart
+|       |-> utils
+|       |   '-> utils.dart
+|       |-> flavors.dart
+|       '-> src
 |-> template
 |   '-> lib
 |       |-> core
