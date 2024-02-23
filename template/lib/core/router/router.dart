@@ -27,12 +27,12 @@ class Routers {
 }
 
 @TypedGoRoute<RootApp>(
-  path: RouterPath.root,
+  path: $RouterPath.root,
   routes: [
-    TypedGoRoute<HomeRouter>(path: RouterPath.home),
-    TypedGoRoute<ProductRouter>(path: RouterPath.products),
-    TypedGoRoute<ProfileRouter>(path: RouterPath.profile),
-    TypedGoRoute<SettingRouter>(path: RouterPath.setting),
+    TypedGoRoute<HomeRouter>(path: $RouterPath.home),
+    TypedGoRoute<ProductRouter>(path: $RouterPath.products),
+    TypedGoRoute<ProfileRouter>(path: $RouterPath.profile),
+    TypedGoRoute<SettingRouter>(path: $RouterPath.setting),
   ],
 )
 class RootApp extends GoRouteData {

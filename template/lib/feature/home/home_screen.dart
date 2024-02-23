@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'package:common/common.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/common/common.dart';
+import '../product/widget/product_item/product_item.dart';
 import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,32 +18,57 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeBloc get _bloc => context.read<HomeBloc>();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
+    return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        state.whenOrNull(
-          loading: () {
+        state.maybeMap(
+          orElse: () {
+            log(state.runtimeType.toString());
+          },
+          loading: (_) {
             // TODO(hodoan): handle loading
           },
           error: (e) {
             // TODO(hodoan): handle error
           },
-          data: (_, __, ___, ____) {
+          data: (_) {
             // TODO(hodoan): handle data
           },
         );
       },
-      buildWhen: (_, __) => false,
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Home Screen'),
-        ),
-        body: Center(
+      child: BScaffold(
+        title: 'Home'.hardcode,
+        body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              BlocBuilder<HomeBloc, HomeState>(
+                buildWhen: (p, c) =>
+                    c.isData && (p.data?.categories != c.data?.categories),
+                builder: (context, state) {
+                  final categories = state.data?.categories;
+                  return switch (categories) {
+                    Categories() => categories.maybeMap(
+                        orElse: SizedBox.shrink,
+                        loading: (_) => const CircularProgressIndicator(),
+                        error: (error) => _CateError(error.error),
+                        data: (data) {
+                          final cateLst = data.categories;
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: cateLst.length,
+                            itemBuilder: (_, index) => ProductItemWidget(
+                              bloc: _bloc.products[index],
+                            ),
+                          );
+                        },
+                      ),
+                    null => Container(),
+                  };
+                },
+              ),
               BlocBuilder<HomeBloc, HomeState>(
                 buildWhen: (p, c) =>
                     c.isData && !listEquals(p.entries, c.entries),
@@ -130,7 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               BlocBuilder<HomeBloc, HomeState>(
                 buildWhen: (p, c) {
-                  log('message $c');
                   return true;
                 },
                 // buildWhen: (p, c) =>
@@ -138,27 +165,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     c.isError ||
                 //     p.isData && c.isData,
                 builder: (context, state) {
-                  log('message $state');
-                  return state.maybeWhen(
+                  return state.maybeMap(
                     orElse: () => const SizedBox.shrink(),
                     error: (e) => const Text('Error'),
-                    data: (_, __, ___, ____) {
-                      final entries = ____ ?? <EntryModel>[];
+                    data: (_) {
+                      final entries = _.entries3 ?? <EntryModel>[];
                       if (entries.isEmpty) {
                         return const Text('Data empty');
                       }
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: entries.length,
-                          itemBuilder: (_, index) => Text(
-                            entries[index].getName(),
-                          ),
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: entries.length,
+                        itemBuilder: (_, index) => Text(
+                          entries[index].getName(),
                         ),
                       );
                     },
                   );
                 },
               ),
+              const Footer(),
             ],
           ),
         ),
@@ -167,6 +194,21 @@ class _HomeScreenState extends State<HomeScreen> {
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ),
+      ),
+    );
+  }
+}
+
+class _CateError extends StatelessWidget {
+  const _CateError(this.errorState);
+
+  final ErrorState errorState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Opp! error ${errorState.errorMessage}.'.hardcode,
       ),
     );
   }

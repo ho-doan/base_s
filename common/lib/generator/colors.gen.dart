@@ -16,6 +16,12 @@ class ColorName {
   /// Color: #000000
   static const Color black = Color(0xFF000000);
 
+  /// Color: #007E3F
+  static const Color borderColorDart = Color(0xFF007E3F);
+
+  /// Color: #007E3F
+  static const Color borderColorLight = Color(0xFF007E3F);
+
   /// Color: #FFFFFF
   static const Color white = Color(0xFFFFFFFF);
 }

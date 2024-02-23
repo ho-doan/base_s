@@ -12,6 +12,8 @@ BaseModel<T> _$BaseModelFromJson<T>(
 ) =>
     BaseModel<T>(
       data: _$nullableGenericFromJson(json['data'], fromJsonT),
+      list: (json['list'] as List<dynamic>?)?.map(fromJsonT).toList(),
+      code: json['code'] as int?,
     );
 
 Map<String, dynamic> _$BaseModelToJson<T>(
@@ -20,6 +22,8 @@ Map<String, dynamic> _$BaseModelToJson<T>(
 ) =>
     <String, dynamic>{
       'data': _$nullableGenericToJson(instance.data, toJsonT),
+      'list': instance.list?.map(toJsonT).toList(),
+      'code': instance.code,
     };
 
 T? _$nullableGenericFromJson<T>(

@@ -7,28 +7,34 @@ class AppColors extends ThemeExtension<AppColors> {
   const AppColors._({
     required this.black,
     required this.white,
+    required this.borderColor,
   });
 
   factory AppColors.light() => const AppColors._(
         black: ColorName.black,
         white: ColorName.white,
+        borderColor: ColorName.borderColorLight,
       );
   factory AppColors.dark() => const AppColors._(
         black: ColorName.black,
         white: ColorName.white,
+        borderColor: ColorName.borderColorDart,
       );
 
   final Color black;
   final Color white;
+  final Color borderColor;
 
   @override
   ThemeExtension<AppColors> copyWith({
     Color? black,
     Color? white,
+    Color? borderColor,
   }) {
     return AppColors._(
       black: black ?? this.black,
       white: white ?? this.white,
+      borderColor: borderColor ?? this.borderColor,
     );
   }
 
@@ -43,6 +49,7 @@ class AppColors extends ThemeExtension<AppColors> {
     return AppColors._(
       black: Color.lerp(black, other.black, t)!,
       white: Color.lerp(white, other.white, t)!,
+      borderColor: Color.lerp(borderColor, other.borderColor, t)!,
     );
   }
 }

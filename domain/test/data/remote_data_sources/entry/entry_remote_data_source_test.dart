@@ -36,8 +36,7 @@ Future<void> main() async {
         expect(apiClient.entries(), throwsException);
       });
       test('test get entries with entries null', () async {
-        when(apiClient.entries())
-            .thenAnswer((_) async => const BaseModel(data: null));
+        when(apiClient.entries()).thenAnswer((_) async => const BaseModel());
         final res = await apiClient.entries();
         expect(res.data, null);
       });
@@ -90,8 +89,7 @@ Future<void> main() async {
         expect(result, isA<ErrorState>());
       });
       test('test get entries with entries null', () async {
-        when(apiClient.entries())
-            .thenAnswer((_) async => const BaseModel(data: null));
+        when(apiClient.entries()).thenAnswer((_) async => const BaseModel());
         expect(remote.fetchEntries, throwsA(isA<AssertionError>()));
       });
       test('test get entries with 404', () async {

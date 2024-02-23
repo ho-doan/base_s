@@ -13,4 +13,8 @@ abstract class ApiClient {
   }) = _ApiClient;
   @GET('/entries')
   Future<BaseModel<Entries>> entries();
+  @GET('/categories')
+  Future<BaseModel<CategoryRemote>> categories();
+  @GET('/categories/{id}/products')
+  Future<BaseModel<ProductRemote>> productsByCate(@Path('id') int id);
 }

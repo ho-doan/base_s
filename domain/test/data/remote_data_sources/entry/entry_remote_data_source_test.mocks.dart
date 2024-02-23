@@ -56,4 +56,38 @@ class MockMockApiClient extends _i1.Mock implements _i3.MockApiClient {
           ),
         )),
       ) as _i4.Future<_i2.BaseModel<_i2.Entries>>);
+
+  @override
+  _i4.Future<_i2.BaseModel<_i2.CategoryRemote>> categories() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #categories,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.BaseModel<_i2.CategoryRemote>>.value(
+            _FakeBaseModel_0<_i2.CategoryRemote>(
+          this,
+          Invocation.method(
+            #categories,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.BaseModel<_i2.CategoryRemote>>);
+
+  @override
+  _i4.Future<_i2.BaseModel<_i2.ProductRemote>> productsByCate(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #productsByCate,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.BaseModel<_i2.ProductRemote>>.value(
+            _FakeBaseModel_0<_i2.ProductRemote>(
+          this,
+          Invocation.method(
+            #productsByCate,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.BaseModel<_i2.ProductRemote>>);
 }

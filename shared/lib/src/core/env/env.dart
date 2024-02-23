@@ -1,46 +1,47 @@
 import 'package:envied/envied.dart';
 
-import '../../flavors.dart';
-
 part 'env.g.dart';
 
-class Env {
-  Env._();
-  static final internal = Env._();
-  String get apiEndpoint {
-    return switch (F.instance.appFlavor) {
-      Flavor.dev => $EnvDev.apiEndpoint,
-      Flavor.prod => $Env.apiEndpoint,
-      Flavor.stg => $EnvStg.apiEndpoint,
-      Flavor.test => $EnvTest.apiEndpoint,
-    };
-  }
+abstract class Env {
+  String get apiEndpoint;
 }
 
 @Envied(path: '.env')
-abstract class $Env {
-  $Env();
+class $Env extends Env {
+  $Env._();
+  static final instance = $Env._();
+
+  @override
   @EnviedField(varName: 'API_ENDPOINT', obfuscate: true)
-  static final String apiEndpoint = _$Env.apiEndpoint;
+  String apiEndpoint = _$Env.apiEndpoint;
 }
 
 @Envied(path: '.env.dev')
-abstract class $EnvDev {
-  $EnvDev();
+class $EnvDev extends Env {
+  $EnvDev._();
+  static final instance = $EnvDev._();
+
+  @override
   @EnviedField(varName: 'API_ENDPOINT', obfuscate: true)
-  static final String apiEndpoint = _$EnvDev.apiEndpoint;
+  String apiEndpoint = _$EnvDev.apiEndpoint;
 }
 
 @Envied(path: '.env.stg')
-abstract class $EnvStg {
-  $EnvStg();
+class $EnvStg extends Env {
+  $EnvStg._();
+  static final instance = $EnvStg._();
+
+  @override
   @EnviedField(varName: 'API_ENDPOINT', obfuscate: true)
-  static final String apiEndpoint = _$EnvStg.apiEndpoint;
+  String apiEndpoint = _$EnvStg.apiEndpoint;
 }
 
 @Envied(path: '.env.test')
-abstract class $EnvTest {
-  $EnvTest();
+class $EnvTest extends Env {
+  $EnvTest._();
+  static final instance = $EnvTest._();
+
+  @override
   @EnviedField(varName: 'API_ENDPOINT', obfuscate: true)
-  static final String apiEndpoint = _$EnvTest.apiEndpoint;
+  String apiEndpoint = _$EnvTest.apiEndpoint;
 }

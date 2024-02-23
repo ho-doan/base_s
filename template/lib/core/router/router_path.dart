@@ -1,5 +1,5 @@
-class RouterPath {
-  RouterPath();
+class $RouterPath {
+  $RouterPath();
   static const String root = '/';
   static const home = 'home';
   static const profile = 'profile';
@@ -20,12 +20,12 @@ enum AppRouter {
 extension AppRouterX on AppRouter {
   String get path {
     return switch (this) {
-      AppRouter.root => RouterPath.root,
-      AppRouter.home => RouterPath.home,
-      AppRouter.profile => RouterPath.profile,
-      AppRouter.setting => RouterPath.setting,
-      AppRouter.products => RouterPath.products,
-      AppRouter.product => RouterPath.product,
+      AppRouter.root => $RouterPath.root,
+      AppRouter.home => $RouterPath.home,
+      AppRouter.profile => $RouterPath.profile,
+      AppRouter.setting => $RouterPath.setting,
+      AppRouter.products => $RouterPath.products,
+      AppRouter.product => $RouterPath.product,
     };
   }
 }

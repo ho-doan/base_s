@@ -80,6 +80,18 @@
             "type": "dart"
         },
         {
+            "name": "template web test",
+            "cwd": "template",
+            "request": "launch",
+            "args": [
+                "--flavor",
+                "test",
+                "--web-browser-flag=--disable-web-security"
+            ],
+            "program": "lib/main_test.dart",
+            "type": "dart"
+        },
+        {
             "name": "template (profile mode)",
             "cwd": "template",
             "request": "launch",

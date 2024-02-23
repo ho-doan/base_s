@@ -30,10 +30,13 @@ void configureDomainDependencies(GetIt getIt) {
     ..registerLazySingleton<ApiClient>(
       () => ApiClient(
         dio,
-        baseUrl: Env.internal.apiEndpoint,
+        baseUrl: F.instance.env.apiEndpoint,
       ),
     )
-    ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new);
+    // TODO(any): register all local data source
+    ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
+    ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)
+    ..registerFactory<CategoryLocalDataSource>(CategoryLocalDataSource.new);
   $initGetIt(getIt);
 }
 

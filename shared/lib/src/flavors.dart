@@ -1,3 +1,5 @@
+import '../shared.dart';
+
 enum Flavor {
   dev,
   test,
@@ -11,4 +13,13 @@ class F {
   Flavor appFlavor = Flavor.dev;
 
   String get name => appFlavor.name;
+
+  Env get env {
+    return switch (appFlavor) {
+      Flavor.dev => $EnvDev.instance,
+      Flavor.test => $EnvTest.instance,
+      Flavor.stg => $EnvStg.instance,
+      Flavor.prod => $Env.instance,
+    };
+  }
 }

@@ -9,3 +9,7 @@ extension ThemeX on ThemeData {
     return extension<AppStyles>()!;
   }
 }
+
+extension BuildContextTheme on BuildContext {
+  ThemeData get theme => Theme.of(this);
+}

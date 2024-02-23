@@ -17,7 +17,7 @@ class EntryRemoteDataSource {
       return Right(result.data!);
     } on Exception catch (error, stackTrace) {
       log(
-        'Fetch profile failed: $error',
+        'Fetch categories failed: $error',
         stackTrace: stackTrace,
       );
       return Left(

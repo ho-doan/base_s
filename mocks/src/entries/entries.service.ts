@@ -21,7 +21,7 @@ export class EntriesService {
     let entries = new Entries()
     entries.count = 1
     entries.entries = [entry]
-    return entries;
+    return { data: entries };
   }
 
   findOne(id: number) {
