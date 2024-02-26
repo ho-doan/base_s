@@ -1,16 +1,17 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:isar/isar.dart';
 
-import '../models.dart';
+import '../../remote/category.dart';
+import 'i_category_local.dart';
 
 part 'category_local.g.dart';
 
 @CopyWith()
 @collection
-class CategoryLocal {
+class CategoryLocal extends ICategoryLocal {
   const CategoryLocal({
-    this.id,
-    this.name,
+    super.id,
+    super.name,
     this.key = Isar.autoIncrement,
   });
   factory CategoryLocal.fromRemote(CategoryRemote model) => CategoryLocal(
@@ -19,7 +20,4 @@ class CategoryLocal {
       );
 
   final Id? key;
-
-  final int? id;
-  final String? name;
 }

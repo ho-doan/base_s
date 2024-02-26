@@ -1,27 +1,19 @@
-import 'package:flutter/foundation.dart';
-import 'package:shared/shared.dart';
+import 'package:flutter/material.dart';
+
+class RootIsolateToken {}
+
+class Isar {}
 
 mixin LocalDatabase {
-  static late dynamic _isar;
-  dynamic get instance => _isar;
+  static late Isar? _isar;
+  Isar? get instance => _isar;
 
-  // ignore: avoid_annotating_with_dynamic
-  static Future<void> init([@visibleForTesting dynamic isarTesting]) async {
+  static Future<void> init([@visibleForTesting Isar? isarTesting]) async {
     _isar = await openIsar();
   }
 
-  // ignore: avoid_annotating_with_dynamic
-  static Future<dynamic> openIsar([dynamic token]) async {
-    if (token != null) {
-      initIsolateToken(token);
-    }
-
-    return null;
-  }
-
-  @visibleForTesting
-  static Future<dynamic> openIsarTest() async {
-    return null;
+  static Future<Isar> openIsar([RootIsolateToken? token]) async {
+    return Isar();
   }
 
   static Future clearDatabase() async {}
@@ -30,67 +22,32 @@ mixin LocalDatabase {
 }
 
 abstract class BaseLocalDatabase<T> {
-  Stream<List<T>> listenDb() {
-    throw UnimplementedError('listenDb $T');
-  }
+  Stream<List<T>> listenDb() => const Stream.empty();
 
-  // ignore: avoid_annotating_with_dynamic
-  Future<List<T>> getAll([dynamic isar]) {
-    throw UnimplementedError('getAll $T');
-  }
+  Future<List<T>> getAll([Isar? isar]) async => [];
 
-  // ignore: avoid_annotating_with_dynamic
-  Future<List<T>> getAllTask([dynamic token]) async {
-    return [];
-  }
+  Future<List<T>> getAllTask([Isar? token]) async => [];
 
-  Future<List<T>> gets({required int limit, required int offset}) {
-    throw UnimplementedError('gets $T');
-  }
+  Future<List<T>> gets({required int limit, required int offset}) async => [];
 
-  Future<T?> get(String id) {
-    throw UnimplementedError('get $T');
-  }
+  Future<T?> get(String id) async => null;
 
-  // ignore: avoid_annotating_with_dynamic
-  Future<T?> getByKey(dynamic id) {
-    throw UnimplementedError('getByKey $T');
-  }
+  Future<T?> getByKey(int id) async => null;
 
-  Future<List<T>> filter() {
-    throw UnimplementedError('filter $T');
-  }
+  Future<List<T>> filter() async => [];
 
-  Future<int> insert(T model) {
-    throw UnimplementedError('insert $T');
-  }
+  Future<int> insert(T model) async => -1;
 
-  Future<T> insertModel(T model) async {
-    throw UnimplementedError('insert $T');
-  }
+  Future<bool> insertAll(List<T> models, [Isar? isar]) async => true;
 
-  // ignore: avoid_annotating_with_dynamic
-  Future<bool> insertAll(List<T> models, [dynamic isar]) {
-    throw UnimplementedError('insertAll $T');
-  }
+  Future<bool> insertAllTask(LocalTaskList<T> model) async => true;
 
-  // ignore: avoid_annotating_with_dynamic
-  Future<bool> insertAllTask(dynamic model) async {
-    return true;
-  }
+  Future<int> update(T model) async => -1;
 
-  Future<int> update(T model) {
-    throw UnimplementedError('update $T');
-  }
+  Future<List<int>> updateAll(List<T> models) async => [];
 
-  Future<List<int>> updateAll(List<T> models) {
-    throw UnimplementedError('update $T');
-  }
-
-  ///Delete by key
-  Future<bool> delete(int id) {
-    throw UnimplementedError('delete $T');
-  }
+  /// Delete by key
+  Future<bool> delete(int id) async => true;
 }
 
 class LocalTask<T> {

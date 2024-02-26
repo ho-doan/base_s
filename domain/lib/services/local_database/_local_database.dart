@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -144,8 +144,8 @@ abstract class BaseLocalDatabase<T> {
     throw UnimplementedError('update $T');
   }
 
-  ///Delete by key
-  Future<bool> delete(int id) {
+  /// Delete by key
+  Future<bool> delete(Id id) {
     throw UnimplementedError('delete $T');
   }
 }

@@ -6,7 +6,7 @@ import '../../../services/networks/api_client.dart';
 import '../../models/models.dart';
 
 class CategoryRemoteDataSource {
-  CategoryRemoteDataSource(this._apiClient);
+  const CategoryRemoteDataSource(this._apiClient);
 
   final ApiClient _apiClient;
 
@@ -16,10 +16,7 @@ class CategoryRemoteDataSource {
       assert(result.list != null, 'Categories model server null');
       return Right(result.list!);
     } on Exception catch (error, stackTrace) {
-      log(
-        'Fetch categories failed: $error',
-        stackTrace: stackTrace,
-      );
+      log('Fetch categories failed: $error', stackTrace: stackTrace);
       return Left(
         ErrorState(
           error: error,

@@ -60,18 +60,4 @@ class CategoryRepository {
       return Left(ErrorState(error: error, stackTrace: stackTrace));
     }
   }
-
-  Future<Either<ErrorState, List<CategoryRemote>?>> fetchLocal() async {
-    try {
-      final cache = await _local.getAll();
-
-      return Right([for (final i in cache) CategoryRemote.fromEntryLocal(i)]);
-    } on Exception catch (error, stackTrace) {
-      log(
-        'Fetch categories info list failed: $error',
-        stackTrace: stackTrace,
-      );
-      return Left(ErrorState(error: error, stackTrace: stackTrace));
-    }
-  }
 }

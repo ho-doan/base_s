@@ -1,9 +1,10 @@
-import '../models.dart';
+import '../../remote/category.dart';
+import 'i_category_local.dart';
 
-class CategoryLocal {
+class CategoryLocal extends ICategoryLocal {
   const CategoryLocal({
-    this.id,
-    this.name,
+    super.id,
+    super.name,
     this.key = -1,
   });
   factory CategoryLocal.fromRemote(CategoryRemote model) => CategoryLocal(
@@ -12,7 +13,4 @@ class CategoryLocal {
       );
 
   final int? key;
-
-  final int? id;
-  final String? name;
 }
