@@ -1,4 +1,4 @@
-import '../models.dart';
+import '../data_models.dart';
 
 class EntryLocal {
   const EntryLocal({

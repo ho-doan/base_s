@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:isar/isar.dart';
 
 import '../../../services/local_database/local_database.dart';
-import '../../models/models.dart';
+import '../../models/data_models.dart';
 
 class ProductLocalDataSource extends BaseLocalDatabase<ProductLocal>
     with LocalDatabase {

@@ -123,7 +123,7 @@ void main() {
       'when failure',
       (tester) async {
         when(mockEntryUseCase.fetch(token: anyNamed('token')))
-            .thenAnswer((_) async => Left(ErrorState(error: '')));
+            .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
         await tester.pumpWidget(homeScreen);
 
         await tester.pump(Durations.extralong3);

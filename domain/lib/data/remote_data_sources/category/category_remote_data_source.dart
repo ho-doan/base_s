@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 
 import '../../../services/networks/api_client.dart';
-import '../../models/models.dart';
+import '../../models/data_models.dart';
 
 class CategoryRemoteDataSource {
   const CategoryRemoteDataSource(this._apiClient);

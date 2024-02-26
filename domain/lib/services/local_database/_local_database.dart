@@ -7,7 +7,12 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared/shared.dart';
 
-import '../../data/models/models.dart';
+import '../../data/models/data_models.dart';
+
+// TODO(everyone): add more schema
+final List<CollectionSchema<dynamic>> _schemas = [
+  EntryLocalSchema,
+];
 
 mixin LocalDatabase {
   static late Isar? _isar;
@@ -40,11 +45,8 @@ mixin LocalDatabase {
       await isarDir.create(recursive: true);
     }
 
-    // TODO(everyone): add more schema
     final isar = await Isar.open(
-      [
-        EntryLocalSchema,
-      ],
+      _schemas,
       directory: isarDir.path,
       inspector: token == null,
     );
@@ -54,11 +56,8 @@ mixin LocalDatabase {
 
   @visibleForTesting
   static Future<Isar> openIsarTest() async {
-    // TODO(everyone): add more schema
     final isar = await Isar.open(
-      [
-        EntryLocalSchema,
-      ],
+      _schemas,
       // ignore: invalid_use_of_visible_for_testing_member
       directory: kDirectory.path,
     );

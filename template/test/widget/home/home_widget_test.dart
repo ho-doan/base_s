@@ -69,7 +69,7 @@ void main() {
     'when failure',
     (WidgetTester tester) async {
       when(mockEntryUseCase.fetch())
-          .thenAnswer((_) async => Left(ErrorState(error: '')));
+          .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
       // Build our app and trigger a frame.
       await tester.pumpWidget(homeScreen);
 

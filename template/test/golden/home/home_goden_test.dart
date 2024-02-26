@@ -59,7 +59,7 @@ void main() {
     });
     testGoldens('when failure', (tester) async {
       when(mockEntryUseCase.fetch(token: anyNamed('token')))
-          .thenAnswer((_) async => Left(ErrorState(error: '')));
+          .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
       await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_failure');
       addTearDown(() => tester.view.reset());

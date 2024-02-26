@@ -1,6 +1,6 @@
 library domain;
 
-export 'data/models/models.dart';
+export 'data/models/data_models.dart';
 export 'models/models.dart';
 export 'services/dependency_injection/service_locator.dart';
 export 'services/local_database/local_database.dart';

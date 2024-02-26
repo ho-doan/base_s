@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../data/models/models.dart';
+import '../../data/models/data_models.dart';
 
 part 'api_client.g.dart';
 

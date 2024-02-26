@@ -32,8 +32,7 @@ export const genRes = async (resName: string, fsPath: string) => {
     createFile(`lib/data/models/local/${resName}/${resName}_local_stub.dart`, fsPath, _resModelLocalStub(resName));
     //#endregion
     //#region create model remote
-    await createDirectory(`${fsPath}/lib/data/models/remote/${resName}`);
-    createFile(`lib/data/models/remote/${resName}/i_${resName}_local.dart`, fsPath, _resModelRemote(resName));
+    createFile(`lib/data/models/remote/${resName}.dart`, fsPath, _resModelRemote(resName));
     //#endregion
     //#region create local data source
     await createDirectory(`${fsPath}/lib/data/local_data_sources/${resName}`);
@@ -49,7 +48,7 @@ export const genRes = async (resName: string, fsPath: string) => {
     //#endregion
     //#region create repository
     await createDirectory(`${fsPath}/lib/repositories/${resName}`);
-    createFile(`lib/repositories/${resName}/${resName}_repository.dart`, fsPath, _resRemoteDataSource(resName));
+    createFile(`lib/repositories/${resName}/${resName}_repository.dart`, fsPath, _resRepository(resName));
     //#endregion
     //#region create use case
     await createDirectory(`${fsPath}/lib/use_cases/${resName}`);
@@ -114,6 +113,9 @@ import '../../models.dart';
 import 'i_${name}_local.dart';
 
 part '${name}_local.g.dart';
+
+// TODO(created): local.dart -> export '${name}/${name}_local.dart' if (dart.library.js) '${name}/${name}_local_stub.dart';
+// TODO(created): _local_database.dart -> ${className}LocalSchema
 
 @CopyWith()
 @collection
@@ -219,6 +221,8 @@ export const _resRemoteDataSource = (name: string) => {
     // WelCome
     let className = changeCase.pascalCase(name);
 
+    let nameGen = changeCase.camelCase(name);
+
     return `import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -227,7 +231,7 @@ import '../../../services/networks/api_client.dart';
 import '../../models/models.dart';
     
 // TODO(created): remote_data_sources.dart: export '${name}/${name}_remote_data_source.dart';
-// TODO(created): api_client.dart: @GET('/${name}') Future<BaseModel<${className}Remote>>  ${className}GetAll();
+// TODO(created): api_client.dart: @GET('/${name}') Future<BaseModel<${className}Remote>>  ${nameGen}GetAll();
 
 class ${className}RemoteDataSource {
 \tconst ${className}RemoteDataSource(this._apiClient);
@@ -236,7 +240,7 @@ class ${className}RemoteDataSource {
 
 \tFuture<Either<ErrorState, List<${className}Remote>>> fetch() async {
 \t\ttry {
-\t\t\tfinal result = await _apiClient.${className}GetAll();
+\t\t\tfinal result = await _apiClient.${nameGen}GetAll();
 \t\t\tassert(result.list != null, '${className} get all remote model server null');
 \t\t\treturn Right(result.list!);
 \t\t} on Exception catch (error, stackTrace) {
@@ -379,11 +383,9 @@ class ${className}Model with _$${className}Model {
 
 \tfactory ${className}Model.fromLocal(${className}Local model) => ${className}Model(
 \t\tid: model.id,
-\t\tname: model.name,
 \t);
 \tfactory ${className}Model.fromRemote(${className}Remote model) => ${className}Model(
 \t\tid: model.id,
-\t\tname: model.name,
 \t);
 }
 

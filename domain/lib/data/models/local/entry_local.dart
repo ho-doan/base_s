@@ -1,7 +1,7 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:isar/isar.dart';
 
-import '../models.dart';
+import '../data_models.dart';
 
 part 'entry_local.g.dart';
 

@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 import 'dart:ui' as _i7;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:domain/data/models/models.dart' as _i5;
+import 'package:domain/data/models/data_models.dart' as _i5;
 import 'package:domain/models/models.dart' as _i6;
 import 'package:domain/use_cases/entry/entry_use_case.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;

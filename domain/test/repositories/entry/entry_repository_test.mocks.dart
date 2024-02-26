@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:domain/data/models/models.dart' as _i5;
+import 'package:domain/data/models/data_models.dart' as _i5;
 import 'package:domain/data/remote_data_sources/entry/entries_remote_data_source.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
