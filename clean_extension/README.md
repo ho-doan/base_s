@@ -2,7 +2,7 @@
 
 ## Features
 
-\![feature create Resource](images/resource.gif)
+![feature create Resource](./images/resource.gif)
 
 ## Requirements
 
