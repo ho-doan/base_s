@@ -1,16 +1,8 @@
 # clean-ext README
 
-This is the README for your extension "clean-ext". After writing up a brief description, we recommend including the following sections.
-
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+\![feature create Resource](images/resource.mov)
 
 ## Requirements
 
@@ -27,6 +19,15 @@ This extension contributes the following settings:
 * `myExtension.enable`: Enable/disable this extension.
 * `myExtension.thing`: Set to `blah` to do something.
 
+### Install
+
+```sh
+# install
+code --install-extension clean-ext-late.vsix
+# build
+vsce package
+```
+
 ## Known Issues
 
 Calling out known issues can help limit users opening duplicate issues against your extension.
@@ -35,17 +36,18 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.1
 
-Initial release of ...
+Initial source
 
-### 1.0.1
+### 0.0.2
 
-Fixed issue #.
+release packages
 
 ### 1.1.0
 
 Added features X, Y, and Z.
+Fixed issue #.
 
 ---
 
