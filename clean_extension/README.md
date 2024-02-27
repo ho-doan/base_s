@@ -2,7 +2,7 @@
 
 ## Features
 
-\![feature create Resource](images/resource.mov)
+\![feature create Resource](images/resource.gif)
 
 ## Requirements
 
