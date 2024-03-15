@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class RootIsolateToken {}
+class RootIsolateToken {
+  RootIsolateToken._();
+  static final instance = RootIsolateToken._();
+}
 
 class Isar {}
 
@@ -26,7 +29,7 @@ abstract class BaseLocalDatabase<T> {
 
   Future<List<T>> getAll([Isar? isar]) async => [];
 
-  Future<List<T>> getAllTask([Isar? token]) async => [];
+  Future<List<T>> getAllTask([RootIsolateToken? token]) async => [];
 
   Future<List<T>> gets({required int limit, required int offset}) async => [];
 

@@ -33,6 +33,12 @@ void configureDomainDependencies(GetIt getIt) {
         baseUrl: F.instance.env.apiEndpoint,
       ),
     )
+    ..registerLazySingleton<ApiClientFigma>(
+      () => ApiClientFigma(
+        dio,
+        baseUrl: F.instance.env.apiEndpointFigma,
+      ),
+    )
     // TODO(any): register all local data source
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
     ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)

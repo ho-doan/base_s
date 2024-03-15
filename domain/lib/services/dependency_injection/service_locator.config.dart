@@ -39,16 +39,20 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
-  gh.factory<_i3.CategoryRemoteDataSource>(
-      () => _i3.CategoryRemoteDataSource(gh<_i4.ApiClient>()));
+  gh.factory<_i3.CategoryRemoteDataSource>(() => _i3.CategoryRemoteDataSource(
+        gh<_i4.ApiClient>(),
+        gh<_i4.ApiClientFigma>(),
+      ));
   gh.factory<_i5.CategoryRepository>(() => _i5.CategoryRepository(
         gh<_i6.CategoryLocalDataSource>(),
         gh<_i7.CategoryRemoteDataSource>(),
       ));
   gh.factory<_i8.CategoryUseCase>(
       () => _i8.CategoryUseCase(gh<_i9.CategoryRepository>()));
-  gh.factory<_i10.EntryRemoteDataSource>(
-      () => _i10.EntryRemoteDataSource(gh<_i4.ApiClient>()));
+  gh.factory<_i10.EntryRemoteDataSource>(() => _i10.EntryRemoteDataSource(
+        gh<_i4.ApiClient>(),
+        gh<_i4.ApiClientFigma>(),
+      ));
   gh.factory<_i11.EntryRepository>(() => _i11.EntryRepository(
         gh<_i6.EntryLocalDataSource>(),
         gh<_i10.EntryRemoteDataSource>(),

@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/services.dart';
 
-import '../../data/models/data_models.dart';
-import '../../models/models.dart';
+import '../../domain.dart';
 import '../../repositories/repositories.dart';
 
 class ProductUseCase {
