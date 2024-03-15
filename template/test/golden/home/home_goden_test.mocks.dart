@@ -4,12 +4,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:ui' as _i7;
+import 'dart:ui' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:domain/data/models/data_models.dart' as _i5;
-import 'package:domain/models/models.dart' as _i6;
-import 'package:domain/use_cases/entry/entry_use_case.dart' as _i3;
+import 'package:domain/domain.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -40,9 +38,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
   @override
-  _i4.Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>> fetch({
+  _i4.Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>> fetch({
     bool? forceRefresh = false,
-    _i7.RootIsolateToken? token,
+    _i5.RootIsolateToken? token,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -55,8 +53,8 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
         ),
         returnValue: _i4.Future<
                 _i2
-                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
+                .Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
@@ -69,8 +67,8 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
         )),
         returnValueForMissingStub: _i4.Future<
                 _i2
-                .Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>.value(
-            _FakeEither_0<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>(
+                .Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>(
           this,
           Invocation.method(
             #fetch,
@@ -82,5 +80,5 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
           ),
         )),
       ) as _i4
-          .Future<_i2.Either<_i5.ErrorState<dynamic>, List<_i6.EntryModel>>>);
+          .Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>);
 }

@@ -3,8 +3,6 @@ import 'dart:developer' as dev;
 
 import 'package:common/utils/extensions/list_ext.dart';
 import 'package:domain/domain.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared/shared.dart';
@@ -30,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           final homeFetch = HomeFetch(
             us: _useCase,
             usCate: _categoryUseCase,
-            token: kIsWeb || kTest ? null : RootIsolateToken.instance!,
+            token: kTest ? null : RootIsolateToken.instance!,
           );
 
           final result = await computeApp(_fetchRes, homeFetch);

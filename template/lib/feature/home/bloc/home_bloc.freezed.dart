@@ -12,7 +12,7 @@ part of 'home_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$HomeEvent {
@@ -121,18 +121,12 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
+class _$StartedImpl implements _Started {
   const _$StartedImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeEvent.started()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeEvent.started'));
   }
 
   @override
@@ -259,18 +253,12 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
+class _$LoadingImpl implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeEvent.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeEvent.loading'));
   }
 
   @override
@@ -412,23 +400,15 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
+class _$ErrorImpl implements _Error {
   const _$ErrorImpl(this.error);
 
   @override
   final ErrorState<dynamic> error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeEvent.error(error: $error)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeEvent.error'))
-      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -621,7 +601,7 @@ class __$$DataImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DataImpl with DiagnosticableTreeMixin implements _Data {
+class _$DataImpl implements _Data {
   const _$DataImpl(
       {final List<EntryModel>? entries = null,
       final List<EntryModel>? entries1 = null,
@@ -682,20 +662,8 @@ class _$DataImpl with DiagnosticableTreeMixin implements _Data {
   final Categories? categories;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeEvent.data(entries: $entries, entries1: $entries1, entries2: $entries2, entries3: $entries3, categories: $categories)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeEvent.data'))
-      ..add(DiagnosticsProperty('entries', entries))
-      ..add(DiagnosticsProperty('entries1', entries1))
-      ..add(DiagnosticsProperty('entries2', entries2))
-      ..add(DiagnosticsProperty('entries3', entries3))
-      ..add(DiagnosticsProperty('categories', categories));
   }
 
   @override
@@ -944,18 +912,12 @@ class __$$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$InitialImpl with DiagnosticableTreeMixin implements $Initial {
+class _$$InitialImpl implements $Initial {
   const _$$InitialImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeState.initial()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeState.initial'));
   }
 
   @override
@@ -1082,18 +1044,12 @@ class __$$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$LoadingImpl with DiagnosticableTreeMixin implements $Loading {
+class _$$LoadingImpl implements $Loading {
   const _$$LoadingImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeState.loading'));
   }
 
   @override
@@ -1235,23 +1191,15 @@ class __$$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$ErrorImpl with DiagnosticableTreeMixin implements $Error {
+class _$$ErrorImpl implements $Error {
   const _$$ErrorImpl(this.error);
 
   @override
   final ErrorState<dynamic> error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeState.error(error: $error)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeState.error'))
-      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -1441,7 +1389,7 @@ class __$$$DataImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$$DataImpl with DiagnosticableTreeMixin implements $Data {
+class _$$DataImpl implements $Data {
   const _$$DataImpl(
       {final List<EntryModel>? entries = const [],
       final List<EntryModel>? entries1 = const [],
@@ -1502,20 +1450,8 @@ class _$$DataImpl with DiagnosticableTreeMixin implements $Data {
   final Categories categories;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'HomeState.data(entries: $entries, entries1: $entries1, entries2: $entries2, entries3: $entries3, categories: $categories)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeState.data'))
-      ..add(DiagnosticsProperty('entries', entries))
-      ..add(DiagnosticsProperty('entries1', entries1))
-      ..add(DiagnosticsProperty('entries2', entries2))
-      ..add(DiagnosticsProperty('entries3', entries3))
-      ..add(DiagnosticsProperty('categories', categories));
   }
 
   @override
@@ -1747,18 +1683,12 @@ class __$$CateStartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CateStartedImpl with DiagnosticableTreeMixin implements _CateStarted {
+class _$CateStartedImpl implements _CateStarted {
   const _$CateStartedImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Categories.started()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'Categories.started'));
   }
 
   @override
@@ -1867,18 +1797,12 @@ class __$$CateLoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CateLoadingImpl with DiagnosticableTreeMixin implements _CateLoading {
+class _$CateLoadingImpl implements _CateLoading {
   const _$CateLoadingImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Categories.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'Categories.loading'));
   }
 
   @override
@@ -2002,23 +1926,15 @@ class __$$CateErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CateErrorImpl with DiagnosticableTreeMixin implements _CateError {
+class _$CateErrorImpl implements _CateError {
   const _$CateErrorImpl(this.error);
 
   @override
   final ErrorState<dynamic> error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Categories.error(error: $error)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Categories.error'))
-      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -2155,7 +2071,7 @@ class __$$CateDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CateDataImpl with DiagnosticableTreeMixin implements _CateData {
+class _$CateDataImpl implements _CateData {
   const _$CateDataImpl(final List<CategoryModel> categories)
       : _categories = categories;
 
@@ -2168,16 +2084,8 @@ class _$CateDataImpl with DiagnosticableTreeMixin implements _CateData {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Categories.data(categories: $categories)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Categories.data'))
-      ..add(DiagnosticsProperty('categories', categories));
   }
 
   @override

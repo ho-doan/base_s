@@ -4,6 +4,7 @@ part 'env.g.dart';
 
 abstract class Env {
   String get apiEndpoint;
+  String get apiEndpointFigma => 'https://api.figma.com/v1';
 }
 
 @Envied(path: '.env')
