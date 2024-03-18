@@ -172,7 +172,7 @@ Style _$StyleFromJson(Map json) => $checkedCreate(
           fontWeight: $checkedConvert('fontWeight', (v) => v as int?),
           textAutoResize:
               $checkedConvert('textAutoResize', (v) => v as String?),
-          fontSize: $checkedConvert('fontSize', (v) => v as double?),
+          fontSize: $checkedConvert('fontSize', (v) => (v as num?)?.toDouble()),
           textAlignHorizontal:
               $checkedConvert('textAlignHorizontal', (v) => v as String?),
           textAlignVertical:

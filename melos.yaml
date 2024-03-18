@@ -9,6 +9,7 @@ packages:
   - common/**
   - domain/**
   - shared/**
+  - '*'
 
 scripts:
   analyze:

@@ -30,12 +30,19 @@ FigmaGen _$FigmaGenFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['figma_key', 'figma_token', 'dir_output'],
+          requiredKeys: const [
+            'figma_key',
+            'figma_token',
+            'dir_output',
+            'langs'
+          ],
         );
         final val = FigmaGen(
           figmaKey: $checkedConvert('figma_key', (v) => v as String),
           figmaToken: $checkedConvert('figma_token', (v) => v as String),
           dirOutput: $checkedConvert('dir_output', (v) => v as String),
+          langs: $checkedConvert('langs',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
         );
         return val;
       },

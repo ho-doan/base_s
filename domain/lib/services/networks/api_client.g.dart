@@ -20,10 +20,10 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<BaseModel<Entries>> entries() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<BaseModel<Entries>>(Options(
       method: 'GET',
@@ -50,10 +50,10 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<BaseModel<CategoryRemote>> categories() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseModel<CategoryRemote>>(Options(
       method: 'GET',
@@ -80,10 +80,10 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<BaseModel<ProductRemote>> productsByCate(int id) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseModel<ProductRemote>>(Options(
       method: 'GET',
@@ -161,7 +161,7 @@ class _ApiClientFigma implements ApiClientFigma {
     String? geometry,
     String? pluginData,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'branch_data': branchData,
       r'version': version,
@@ -172,7 +172,7 @@ class _ApiClientFigma implements ApiClientFigma {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<FigmaFile>(Options(
       method: 'GET',
@@ -203,7 +203,7 @@ class _ApiClientFigma implements ApiClientFigma {
     String? geometry,
     String? pluginData,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'version': version,
       r'ids': ids,
@@ -213,7 +213,7 @@ class _ApiClientFigma implements ApiClientFigma {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'GET',
       headers: _headers,
@@ -246,7 +246,7 @@ class _ApiClientFigma implements ApiClientFigma {
     bool? svgSimplifyStroke,
     bool? useAbsoluteBounds,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'version': version,
       r'ids': ids,
@@ -259,7 +259,7 @@ class _ApiClientFigma implements ApiClientFigma {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'GET',
       headers: _headers,
@@ -282,10 +282,10 @@ class _ApiClientFigma implements ApiClientFigma {
 
   @override
   Future<dynamic> getImageFills(String key) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'GET',
       headers: _headers,

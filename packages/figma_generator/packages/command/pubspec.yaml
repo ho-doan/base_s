@@ -1,22 +1,24 @@
-name: figma_gen
-description: "A new Flutter plugin project."
+name: figma_gen_hd
+description: "Generated properties figma file"
 version: 0.0.1
-publish_to: none
-homepage:
+publish_to: "https://github.com/ho-doan/base_s"
+homepage: "https://github.com/ho-doan/base_s"
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
-  flutter: '>=3.3.0'
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.3.0"
 
-executables: 
+executables:
   figmagen: figma_gen_command
 
 dependencies:
   args: ^2.4.2
-  core:
-    path: ../core
+  figma_gen_core: ^0.0.1
 
 dev_dependencies:
   lints: ^3.0.0
   test: ^1.25.2
   test_process: ^2.1.0
+
+  # figma_gen_core:
+  #   path: ../core

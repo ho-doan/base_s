@@ -1,0 +1,31 @@
+name: app
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+packages:
+  - command/**
+  - core/**
+  - '*'
+
+scripts:
+  analyze:
+    exec: dart analyze .
+    failFast: true
+    description: analyze all modules.
+  pub:
+    exec: dart pub get
+    failFast: true
+    description: pub get all modules.
+  p_pub:
+    exec: dart packages pub get
+    failFast: true
+    description: packages pub get all modules.
+  build:
+    exec: dart pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    # --depends-on="build_runner"
+    select-package:
+      depends-on: build_runner
+    description: build_runner build all modules.

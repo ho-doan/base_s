@@ -1,3 +1,3 @@
-import 'package:core/version.gen.dart';
+import '../version.gen.dart';
 
 String figmaGenVersion = 'FigmaGen v$packageVersion';

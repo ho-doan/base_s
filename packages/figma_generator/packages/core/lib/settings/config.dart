@@ -1,13 +1,9 @@
 import 'dart:io';
-
-import 'package:core/settings/config_default.dart';
-import 'package:core/utils/map.dart';
-import 'package:core/utils/pubspec.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
-import '../utils/error.dart';
-import '../utils/version.dart';
+import '../utils/utils.dart';
+import 'config_default.dart';
 
 class Config {
   Config._({

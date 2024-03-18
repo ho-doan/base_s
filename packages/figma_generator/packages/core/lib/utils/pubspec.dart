@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../translator/translator.dart';
+
 part 'pubspec.g.dart';
 
 @JsonSerializable()
@@ -24,6 +26,7 @@ class FigmaGen {
     required this.figmaKey,
     required this.figmaToken,
     required this.dirOutput,
+    required this.langs,
   });
 
   @JsonKey(name: 'figma_key', required: true)
@@ -32,6 +35,17 @@ class FigmaGen {
   final String figmaToken;
   @JsonKey(name: 'dir_output', required: true)
   final String dirOutput;
+  @JsonKey(name: 'langs', required: true)
+  final List<String> langs;
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<Lang> get enumLangs {
+    return langs.map(getLangByString).toList();
+  }
+
+  @override
+  String toString() =>
+      'figma_key: $figmaKey, figmaToken: $figmaToken, dirOutput: $dirOutput, langs: ${langs.join(', ')}';
 
   factory FigmaGen.fromJson(Map json) => _$FigmaGenFromJson(json);
 }

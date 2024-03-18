@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:core/core_generator.dart';
+import 'package:figma_gen_core/utils/version.dart';
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
 

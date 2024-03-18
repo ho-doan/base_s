@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:core/core_generator.dart';
+import 'package:figma_gen_core/core_generator.dart';
 
 void main(List<String> args) {
   final parser = ArgParser();
