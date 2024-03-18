@@ -4,3 +4,5 @@ export 'category.dart';
 export 'entries.dart';
 export 'entry.dart';
 export 'product.dart';
+
+export 'figma/figma.dart';

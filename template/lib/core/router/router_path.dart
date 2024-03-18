@@ -6,6 +6,7 @@ class $RouterPath {
   static const setting = 'setting';
   static const products = 'product';
   static const product = 'product/:id';
+  static const figma = 'figma';
 }
 
 enum AppRouter {
@@ -15,6 +16,7 @@ enum AppRouter {
   setting,
   products,
   product,
+  figma,
 }
 
 extension AppRouterX on AppRouter {
@@ -26,6 +28,7 @@ extension AppRouterX on AppRouter {
       AppRouter.setting => $RouterPath.setting,
       AppRouter.products => $RouterPath.products,
       AppRouter.product => $RouterPath.product,
+      AppRouter.figma => $RouterPath.figma,
     };
   }
 }

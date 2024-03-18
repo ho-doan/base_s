@@ -19,6 +19,10 @@ scripts:
     exec: flutter pub get
     failFast: true
     description: pub get all modules.
+  p_pub:
+    exec: flutter packages pub get
+    failFast: true
+    description: packages pub get all modules.
   test:
     exec: flutter test
     failFast: true

@@ -11,12 +11,7 @@ import 'service_locator.config.dart';
 @visibleForTesting
 final getItTesting = GetIt.instance;
 
-@InjectableInit(
-  initializerName: r'$initGetIt',
-  preferRelativeImports: true,
-  asExtension: false,
-)
-void configureDomainDependencies(GetIt getIt) {
+Dio get _dio {
   final dio = Dio();
 
   dio.options.connectTimeout = const Duration(seconds: 30);
@@ -24,21 +19,54 @@ void configureDomainDependencies(GetIt getIt) {
 
   dio.options.headers['Accept'] = 'text/json';
 
-  dio.interceptors.add(LogInterceptor());
+  return dio;
+}
 
+ApiClient get _apiClient {
+  final dio = _dio;
+  dio.interceptors.add(LogInterceptor(
+    request: false,
+    requestBody: false,
+    error: false,
+    requestHeader: false,
+    responseBody: false,
+    responseHeader: false,
+  ));
+  return ApiClient(
+    _dio,
+    baseUrl: F.instance.env.apiEndpoint,
+  );
+}
+
+ApiClientFigma get _apiClientFigma {
+  final dio = _dio;
+  dio.interceptors.add(LogInterceptor(
+    request: false,
+    requestBody: true,
+    error: false,
+    requestHeader: false,
+    responseBody: true,
+    responseHeader: false,
+  ));
+  dio.options.headers.addAll({
+    'X-Figma-Token': F.instance.env.figmaToken,
+  });
+
+  return ApiClientFigma(
+    dio,
+    baseUrl: F.instance.env.apiEndpointFigma,
+  );
+}
+
+@InjectableInit(
+  initializerName: r'$initGetIt',
+  preferRelativeImports: true,
+  asExtension: false,
+)
+void configureDomainDependencies(GetIt getIt) {
   getIt
-    ..registerLazySingleton<ApiClient>(
-      () => ApiClient(
-        dio,
-        baseUrl: F.instance.env.apiEndpoint,
-      ),
-    )
-    ..registerLazySingleton<ApiClientFigma>(
-      () => ApiClientFigma(
-        dio,
-        baseUrl: F.instance.env.apiEndpointFigma,
-      ),
-    )
+    ..registerLazySingleton<ApiClient>(() => _apiClient)
+    ..registerLazySingleton<ApiClientFigma>(() => _apiClientFigma)
     // TODO(any): register all local data source
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
     ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)

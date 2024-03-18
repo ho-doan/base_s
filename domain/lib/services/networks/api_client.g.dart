@@ -152,9 +152,8 @@ class _ApiClientFigma implements ApiClientFigma {
   String? baseUrl;
 
   @override
-  Future<dynamic> getNode(
-    String key,
-    String token, {
+  Future<FigmaFile> getFile(
+    String key, {
     bool? branchData,
     String? version,
     List<String>? ids,
@@ -172,8 +171,48 @@ class _ApiClientFigma implements ApiClientFigma {
       r'plugin_data': pluginData,
     };
     queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{r'X-Figma-Token': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<FigmaFile>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/files/${key}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = FigmaFile.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<dynamic> getNode(
+    String key, {
+    String? version,
+    List<String>? ids,
+    int? depth,
+    String? geometry,
+    String? pluginData,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'version': version,
+      r'ids': ids,
+      r'depth': depth,
+      r'geometry': geometry,
+      r'plugin_data': pluginData,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'GET',
@@ -182,7 +221,79 @@ class _ApiClientFigma implements ApiClientFigma {
     )
         .compose(
           _dio.options,
-          '/files/${key}',
+          '/files/${key}/nodes',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> getImage(
+    String key, {
+    String? version,
+    List<String>? ids,
+    int? scale,
+    String? geometry,
+    String? format,
+    bool? svgIncludeId,
+    bool? svgSimplifyStroke,
+    bool? useAbsoluteBounds,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'version': version,
+      r'ids': ids,
+      r'scale': scale,
+      r'geometry': geometry,
+      r'format': format,
+      r'svg_include_id': svgIncludeId,
+      r'svg_simplify_stroke': svgSimplifyStroke,
+      r'use_absolute_bounds': useAbsoluteBounds,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/images/${key}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> getImageFills(String key) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/files/${key}/images',
           queryParameters: queryParameters,
           data: _data,
         )

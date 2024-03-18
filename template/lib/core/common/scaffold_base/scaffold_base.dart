@@ -91,7 +91,9 @@ class BScaffold extends StatelessWidget {
         ActionAppBar(
           icon: const Icon(Icons.child_care_outlined),
           title: 'Blogs'.hardcode,
-          action: () {},
+          action: () {
+            FigmaRouter().go(context);
+          },
         ),
         ActionAppBar(
           icon: const Icon(Icons.search),

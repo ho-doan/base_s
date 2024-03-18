@@ -62,7 +62,9 @@
             "request": "launch",
             "args": [
                 "--flavor",
-                "test"
+                "test",
+                "-t",
+                "lib/main_test.dart"
             ],
             "program": "lib/main_test.dart",
             "type": "dart"
@@ -84,8 +86,8 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--flavor",
-                "test",
+                "-t",
+                "lib/main_test.dart",
                 "--web-browser-flag=--disable-web-security"
             ],
             "program": "lib/main_test.dart",
