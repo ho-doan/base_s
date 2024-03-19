@@ -1,6 +1,6 @@
 name: figma_gen_core
 description: "Generated properties figma file"
-version: 0.0.2
+version: 0.0.3
 homepage: 'https://github.com/ho-doan/base_s'
 
 environment:

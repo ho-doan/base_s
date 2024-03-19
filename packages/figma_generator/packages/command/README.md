@@ -30,7 +30,12 @@ figma_gen:
 ## Use
 
 ```sh
+# read all text to arb file
 figmagen -w
 #or :token = abcdef...
 figmagen -t :token
+# down load all image
+figmagen -i :token
+# down load all icon
+figmagen -n :token
 ```
