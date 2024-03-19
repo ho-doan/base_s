@@ -34,6 +34,8 @@ FigmaGen _$FigmaGenFromJson(Map json) => $checkedCreate(
             'figma_key',
             'figma_token',
             'dir_output',
+            'dir_img',
+            'dir_icons',
             'langs'
           ],
         );
@@ -43,12 +45,28 @@ FigmaGen _$FigmaGenFromJson(Map json) => $checkedCreate(
           dirOutput: $checkedConvert('dir_output', (v) => v as String),
           langs: $checkedConvert('langs',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          dirImg: $checkedConvert(
+              'dir_img', (v) => v as String? ?? 'assets/images'),
+          dirIcons: $checkedConvert(
+              'dir_icons', (v) => v as String? ?? 'assets/icons'),
+          imgs: $checkedConvert(
+              'imgs',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => Map<String, String>.from(e as Map))
+                  .toList()),
+          icons: $checkedConvert(
+              'icons',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => Map<String, String>.from(e as Map))
+                  .toList()),
         );
         return val;
       },
       fieldKeyMap: const {
         'figmaKey': 'figma_key',
         'figmaToken': 'figma_token',
-        'dirOutput': 'dir_output'
+        'dirOutput': 'dir_output',
+        'dirImg': 'dir_img',
+        'dirIcons': 'dir_icons'
       },
     );

@@ -93,6 +93,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  hodoan_lint:
+    dependency: "direct dev"
+    description:
+      name: hodoan_lint
+      sha256: "2827ea45d067d97c705957abb05a21c626fb15b6ac9f10fb650f181ccf08326c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   integration_test:
     dependency: "direct dev"
     description: flutter

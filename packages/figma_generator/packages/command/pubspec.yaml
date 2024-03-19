@@ -12,11 +12,12 @@ executables:
 
 dependencies:
   args: ^2.4.2
-  figma_gen_core: ^0.0.2
-  # figma_gen_core: 
-  #   path: ../command
+  # figma_gen_core: ^0.0.2
+  figma_gen_core: 
+    path: ../command
 
 dev_dependencies:
+  hodoan_lint: ^0.0.4
   lints: ^3.0.0
   test: ^1.25.2
   test_process: ^2.1.0

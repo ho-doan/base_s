@@ -1,21 +1,21 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:path/path.dart';
 
-import 'figma/figma.dart';
+import 'generated/icon_generated.dart';
+import 'generated/image_generated.dart';
 import 'generated/lang_generated.dart';
+import 'services/remote/api_client.dart';
+import 'services/translator/translator.dart';
 import 'settings/config.dart';
-import 'translator/translator.dart';
 import 'utils/file.dart';
 
 export 'utils/utils.dart';
 
 class CoreGenerator {
+  CoreGenerator(this.pubspecFile, [this.tokenFigma]);
   final File pubspecFile;
   final String? tokenFigma;
-
-  CoreGenerator(this.pubspecFile, [this.tokenFigma]);
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile);
@@ -35,10 +35,14 @@ class CoreGenerator {
 
     writer ??= defaultWriter;
 
-    final absoluteOutput = Directory(normalize(join(
-      pubspecFile.parent.path,
-      figmaGen.dirOutput,
-    )));
+    final absoluteOutput = Directory(
+      normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirOutput,
+        ),
+      ),
+    );
 
     if (!absoluteOutput.existsSync()) {
       absoluteOutput.createSync(recursive: true);
@@ -50,7 +54,7 @@ class CoreGenerator {
       stdout.writeln('Token figma is null');
     }
 
-    final figmaContent = await fetch(figmaGen.figmaKey, token!);
+    final figmaContent = await fetchFile(figmaGen.figmaKey, token!);
 
     if (figmaContent == null) return;
 
@@ -81,23 +85,135 @@ class CoreGenerator {
       writer(generated, path);
     }
   }
-}
 
-Future<FigmaFile?> fetch(String key, String token) async {
-  var headers = {'X-Figma-Token': token};
-  var dio = Dio();
-  var response = await dio.request(
-    'https://api.figma.com/v1/files/$key',
-    options: Options(
-      method: 'GET',
-      headers: headers,
-    ),
-  );
+  Future<void> downloadImages({Config? config, ImageWriter? writer}) async {
+    config ??= loadPubspecConfigOrNull(pubspecFile);
+    if (config == null) return;
 
-  if (response.statusCode == 200) {
-    return FigmaFile.fromJson(response.data);
-  } else {
-    print(response.statusMessage);
-    return null;
+    final figmaGen = config.pubspec.figmaGen;
+    // final formatter = DartFormatter(pageWidth: 80, lineEnding: '\n');
+
+    void defaultWriter(List<int> contents, String path, String? oldPath) {
+      final pathF = normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirImg,
+        ),
+      );
+      if (oldPath != null) {
+        final file = File(normalize(join(pathF, oldPath)));
+        if (file.existsSync()) {
+          stdout.writeln('delete old image $oldPath...');
+          file.deleteSync();
+        }
+      }
+      final file = File(normalize(join(pathF, path)));
+      if (!file.existsSync()) {
+        file.createSync(recursive: true);
+      }
+      file.writeAsBytesSync(contents);
+      // file.exists();
+    }
+
+    writer ??= defaultWriter;
+
+    final absoluteOutput = Directory(
+      normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirOutput,
+        ),
+      ),
+    );
+
+    if (!absoluteOutput.existsSync()) {
+      absoluteOutput.createSync(recursive: true);
+    }
+
+    final token = tokenFigma ?? figmaGen.figmaToken;
+
+    if (token == null) {
+      stdout.writeln('Token figma is null');
+    }
+
+    await getAllImage(
+      normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirImg,
+        ),
+      ),
+      token!,
+      figmaGen,
+      writer,
+    );
+  }
+
+  Future<void> downloadIcons({Config? config, ImageWriter? writer}) async {
+    config ??= loadPubspecConfigOrNull(pubspecFile);
+    if (config == null) return;
+
+    final figmaGen = config.pubspec.figmaGen;
+    // final formatter = DartFormatter(pageWidth: 80, lineEnding: '\n');
+
+    void defaultWriter(List<int> contents, String path, String? oldPath) {
+      final pathF = normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirIcons,
+        ),
+      );
+      if (oldPath != null) {
+        final file = File(normalize(join(pathF, oldPath)));
+        if (file.existsSync()) {
+          stdout.writeln('delete old image $oldPath...');
+          file.deleteSync();
+        }
+      }
+      final file = File(normalize(join(pathF, path)));
+      if (!file.existsSync()) {
+        file.createSync(recursive: true);
+      }
+      file.writeAsBytesSync(contents);
+      // file.exists();
+    }
+
+    writer ??= defaultWriter;
+
+    final absoluteOutput = Directory(
+      normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirOutput,
+        ),
+      ),
+    );
+
+    if (!absoluteOutput.existsSync()) {
+      absoluteOutput.createSync(recursive: true);
+    }
+
+    final token = tokenFigma ?? figmaGen.figmaToken;
+
+    if (token == null) {
+      stdout.writeln('Token figma is null');
+    }
+
+    final figmaContent = await fetchFile(figmaGen.figmaKey, token!);
+
+    if (figmaContent == null) return;
+
+    await downloadAllIcon(
+      normalize(
+        join(
+          pubspecFile.parent.path,
+          figmaGen.dirIcons,
+        ),
+      ),
+      token,
+      figmaGen,
+      figmaContent,
+      writer,
+    );
   }
 }

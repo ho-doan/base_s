@@ -4,12 +4,21 @@ name: UNKNOWN
 flutter_gen:
   # Required
   figma_key: ....
-  # Required
+  # Optional
   figma_token: ...
+  # Optional
+  dir_output: gen
+  # Optional
+  dir_img: assets/images
+  # Optional
+  dir_icons: assets/icons
+  # Optional
+  langs:
+    - en
+  # Optional
+  imgs: []
+  # Optional
+  icons: []
 
 flutter:
-  # See: https://flutter.dev/docs/development/ui/assets-and-images#specifying-assets
-  assets: []
-  # See: https://flutter.dev/docs/cookbook/design/fonts#2-declare-the-font-in-the-pubspec
-  fonts: []
 ''';

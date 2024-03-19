@@ -16,13 +16,24 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  hodoan_lint: ^0.0.4
 flutter:
   uses-material-design: true
 figma_gen:
   figma_key: dZ9f3tlRz8ZI3ijMeRxT8q
+  # figma_key: 4gkDegYeUUosqeLoUREmDn
   figma_token: ...
   dir_output: gen
   langs:
     - en
     - vi
     - ja
+  dir_img: assets/images
+  dir_icons: assets/icons
+  # imgs:
+  #   - 3e742e58f7fda439f71096b83f1b5478b6731c3b: thumbnail
+  #   - eb5fc7865a72e4962784034a5c6f72348647c76b: image_32
+  #   - 3b4d9d1008dbb56b6d3ff3a72b42ae1b7fbf710f: image_33
+  #   - eb03607ed2f4375ef3f61f0ce720a16ca7a3ba0d: image_36
+  # icons:
+  #   - 1:27: aaa

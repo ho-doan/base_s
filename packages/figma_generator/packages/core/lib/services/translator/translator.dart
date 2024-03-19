@@ -1,10 +1,15 @@
+// ignore: lines_longer_than_80_chars
+// ignore_for_file: avoid_annotating_with_dynamic, parameter_assignments, avoid_dynamic_calls, always_specify_types, prefer_typing_uninitialized_variables, inference_failure_on_uninitialized_variable, unnecessary_parenthesis, type_annotate_public_apis
+
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 String generateToken(dynamic a) {
-  var tkk = _tKK();
-  var b = tkk[0];
+  final tkk = _tKK();
+  final b = tkk[0];
 
-  var d = []; //List();
+  final d = <dynamic>[]; //List();
 
   for (var f = 0; f < a.toString().length; f++) {
     var g = a.toString().codeUnitAt(f);
@@ -20,8 +25,9 @@ String generateToken(dynamic a) {
           g = 65536 +
               ((g & 1023) << 10) +
               (a.toString().codeUnitAt(++f) & 1023);
-          d.add(g >> 18 | 240);
-          d.add(g >> 12 & 63 | 128);
+          d
+            ..add(g >> 18 | 240)
+            ..add(g >> 12 & 63 | 128);
         } else {
           d.add(g >> 12 | 224);
         }
@@ -54,7 +60,6 @@ List _tKK() {
 }
 
 int wr(dynamic a, dynamic b) {
-  // ignore: prefer_typing_uninitialized_variables
   var d;
   try {
     for (var c = 0; c < b.toString().length - 2; c += 3) {
@@ -66,11 +71,12 @@ int wr(dynamic a, dynamic b) {
       a = '+' == b[c] ? (a + (d as int) & 4294967295) : a ^ d;
     }
     return a;
-  } on Error {
+  } on Exception {
     rethrow;
   }
 }
 
+// ignore: inference_failure_on_untyped_parameter
 int unsignedRightShift(var a, var b) {
   int m;
   if (b >= 32 || b < -32) {
@@ -102,7 +108,7 @@ Future<MTran?> translator(
   Lang from = Lang._auto,
   Lang to = Lang.en,
 }) async {
-  var dio = Dio();
+  final dio = Dio();
   dio.options.queryParameters = {
     'client': 't',
     'sl': from.code,
@@ -116,9 +122,9 @@ Future<MTran?> translator(
     'tsel': '0',
     'kc': '7',
     'tk': generateToken(sourceText),
-    'q': sourceText
+    'q': sourceText,
   };
-  var response = await dio.request(
+  final response = await dio.request<dynamic>(
     'https://translate.googleapis.com/translate_a/single',
     options: Options(
       method: 'GET',
@@ -131,18 +137,17 @@ Future<MTran?> translator(
       type: response.data[2] ?? from.code,
     );
   } else {
-    print(response.statusMessage);
+    stdout.writeln(response.statusMessage);
     return null;
   }
 }
 
 class MTran {
+  MTran({required this.s, required this.type});
   final String s;
   final String type;
   @override
   String toString() => 's=> $s, type: $type';
-
-  MTran({required this.s, required this.type});
 }
 
 enum Lang implements Comparable<Lang> {
@@ -285,6 +290,7 @@ enum Lang implements Comparable<Lang> {
   final String code;
   final String file;
   final String locale;
+  // ignore: sort_constructors_first
   const Lang(this.locale, this.code, this.file);
 
   @override
