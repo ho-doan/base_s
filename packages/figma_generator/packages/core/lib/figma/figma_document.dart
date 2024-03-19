@@ -195,7 +195,7 @@ class ExportSettings {
 @JsonSerializable()
 class Constraint {
   final String? type;
-  final int? value;
+  final double? value;
   factory Constraint.fromJson(Map<String, dynamic> json) =>
       _$ConstraintFromJson(json);
 

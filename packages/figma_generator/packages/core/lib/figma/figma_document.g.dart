@@ -254,7 +254,7 @@ Constraint _$ConstraintFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         final val = Constraint(
           type: $checkedConvert('type', (v) => v as String?),
-          value: $checkedConvert('value', (v) => v as int?),
+          value: $checkedConvert('value', (v) => v as double?),
         );
         return val;
       },

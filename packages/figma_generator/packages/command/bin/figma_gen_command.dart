@@ -12,8 +12,8 @@ void main(List<String> args) {
     defaultsTo: 'pubspec.yaml',
   );
   parser.addOption(
-    'read',
-    abbr: 'r',
+    'token',
+    abbr: 't',
     help: 'Read all text',
     defaultsTo: 'pubspec.yaml',
   );
@@ -39,9 +39,13 @@ void main(List<String> args) {
   try {
     results = parser.parse(args);
 
+    String? tokenFigma;
+
     if (results.wasParsed('help')) {
       stdout.writeln(parser.usage);
       return;
+    } else if (results.wasParsed('token')) {
+      tokenFigma = results['token'];
     } else if (results.wasParsed('version')) {
       stdout.writeln(figmaGenVersion);
       return;
@@ -50,6 +54,11 @@ void main(List<String> args) {
       stdout.write(pubspecPath ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute).build();
       return;
+    }
+    if (tokenFigma != null) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.write(pubspecPath ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute, tokenFigma).build();
     }
   } on FormatException catch (e) {
     stderr.writeAll(

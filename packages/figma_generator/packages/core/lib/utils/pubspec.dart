@@ -32,7 +32,7 @@ class FigmaGen {
   @JsonKey(name: 'figma_key', required: true)
   final String figmaKey;
   @JsonKey(name: 'figma_token', required: true)
-  final String figmaToken;
+  final String? figmaToken;
   @JsonKey(name: 'dir_output', required: true)
   final String dirOutput;
   @JsonKey(name: 'langs', required: true)

@@ -13,8 +13,9 @@ export 'utils/utils.dart';
 
 class CoreGenerator {
   final File pubspecFile;
+  final String? tokenFigma;
 
-  CoreGenerator(this.pubspecFile);
+  CoreGenerator(this.pubspecFile, [this.tokenFigma]);
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile);
@@ -43,7 +44,13 @@ class CoreGenerator {
       absoluteOutput.createSync(recursive: true);
     }
 
-    final figmaContent = await fetch(figmaGen.figmaKey, figmaGen.figmaToken);
+    final token = tokenFigma ?? figmaGen.figmaToken;
+
+    if (token == null) {
+      stdout.writeln('Token figma is null');
+    }
+
+    final figmaContent = await fetch(figmaGen.figmaKey, token!);
 
     if (figmaContent == null) return;
 

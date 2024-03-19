@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 String generateToken(dynamic a) {
-  var tkk = TKK();
+  var tkk = _tKK();
   var b = tkk[0];
 
   var d = []; //List();
@@ -46,14 +46,15 @@ String generateToken(dynamic a) {
   }
   a %= 1E6;
   a = (a as double).round();
-  return a.toString() + '.' + (a ^ int.parse(b)).toString();
+  return '$a.${a ^ int.parse(b)}';
 }
 
-List TKK() {
+List _tKK() {
   return ['406398', (561666268 + 1526272306)];
 }
 
 int wr(dynamic a, dynamic b) {
+  // ignore: prefer_typing_uninitialized_variables
   var d;
   try {
     for (var c = 0; c < b.toString().length - 2; c += 3) {
@@ -71,7 +72,7 @@ int wr(dynamic a, dynamic b) {
 }
 
 int unsignedRightShift(var a, var b) {
-  var m;
+  int m;
   if (b >= 32 || b < -32) {
     m = (b / 32) as int;
     b = b - (m * 32);
@@ -193,7 +194,7 @@ enum Lang implements Comparable<Lang> {
   hi('Hindi', 'hi', 'hi'),
   hmn('Hmong', 'hmn', 'hmn'),
   hu('Hungarian', 'hu', 'hu'),
-  Is('Icelandic', 'is', 'is'),
+  iIs('Icelandic', 'is', 'is'),
   ig('Igbo', 'ig', 'ig'),
   ilo('Ilocano', 'ilo', 'ilo'),
   id('Indonesian', 'id', 'id'),
@@ -296,38 +297,3 @@ Lang getLangByString(String str) {
   }
   throw Exception('$str Invalid!');
 }
-
-final sss = [
-  [
-    [
-      'Hello, I am a tiger',
-      'Xin chào, tôi là Hổ Đoàn',
-      null,
-      null,
-      3,
-      null,
-      null,
-      [
-        [null, 'offline']
-      ],
-      [
-        [
-          ['2f907994ef92b4fdadf4497ac20e691f', 'efficient_models_2022q2.md']
-        ]
-      ]
-    ]
-  ],
-  null,
-  'vi',
-  null,
-  null,
-  null,
-  1,
-  [],
-  [
-    ['vi'],
-    null,
-    [1],
-    ['vi']
-  ]
-];

@@ -5,7 +5,13 @@ Generated properties figma file
 ## Install
 
 ```sh
-dart pub global active figma_gen
+dart pub global activate figma_gen_hd
+```
+
+## Uninstall
+
+```sh
+dart pub global deactivate figma_gen_hd
 ```
 
 ## Getting Started
@@ -13,7 +19,7 @@ dart pub global active figma_gen
 ```yaml
 figma_gen:
   figma_key: ...
-  figma_token: ...
+  figma_token: abcdef...
   dir_output: gen
   langs:
     - en
@@ -25,4 +31,6 @@ figma_gen:
 
 ```sh
 figmagen -w
+#or :token = abcdef...
+figmagen -t :token
 ```

@@ -1,7 +1,6 @@
 name: figma_gen_hd
 description: "Generated properties figma file"
-version: 0.0.1
-publish_to: "https://github.com/ho-doan/base_s"
+version: 0.0.2
 homepage: "https://github.com/ho-doan/base_s"
 
 environment:
@@ -13,7 +12,9 @@ executables:
 
 dependencies:
   args: ^2.4.2
-  figma_gen_core: ^0.0.1
+  figma_gen_core: ^0.0.2
+  # figma_gen_core: 
+  #   path: ../command
 
 dev_dependencies:
   lints: ^3.0.0

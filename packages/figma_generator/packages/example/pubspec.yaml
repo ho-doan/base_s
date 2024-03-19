@@ -19,8 +19,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 figma_gen:
-  figma_key: 4gkDegYeUUosqeLoUREmDn
-  figma_token: figd_JsfT_-mkMcCAtawNtiDDcl-gf1vrCIEBphdFCgWp
+  figma_key: dZ9f3tlRz8ZI3ijMeRxT8q
+  figma_token: ...
   dir_output: gen
   langs:
     - en
