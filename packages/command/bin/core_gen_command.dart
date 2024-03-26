@@ -18,11 +18,6 @@ void main(List<String> args) {
       help: 'Help about command',
     )
     ..addOption(
-      'i_local',
-      abbr: 'i',
-      help: 'Generated interface model local',
-    )
-    ..addOption(
       'local',
       abbr: 'l',
       help: 'Generated model local',
@@ -49,16 +44,6 @@ void main(List<String> args) {
       abbr: 'm',
       help: 'Generated model remote',
     )
-    ..addOption(
-      'local_stub',
-      abbr: 's',
-      help: 'Generated model local',
-    )
-    ..addOption(
-      'export_local',
-      abbr: 'e',
-      help: 'Generated export model local',
-    )
     ..addFlag(
       'version',
       abbr: 'v',
@@ -74,39 +59,13 @@ void main(List<String> args) {
     } else if (results.wasParsed('version')) {
       stdout.writeln(coreGenVersion);
       return;
-    } else if (results.wasParsed('i_local')) {
-      final pubspecPath = safeCast<String>(results['config']);
-      stdout.writeln(pubspecPath ?? 'NONE');
-
-      final modelName = safeCast<String>(results['i_local']);
-      stdout.writeln(modelName ?? 'NONE');
-      CoreGenerator(File(pubspecPath!).absolute).buildIModel(modelName!);
-      return;
     } else if (results.wasParsed('local')) {
       final pubspecPath = safeCast<String>(results['config']);
       stdout.writeln(pubspecPath ?? 'NONE');
 
       final modelName = safeCast<String>(results['local']);
       stdout.writeln(modelName ?? 'NONE');
-      CoreGenerator(File(pubspecPath!).absolute).buildModelLocal(modelName!);
-      return;
-    } else if (results.wasParsed('local_stub')) {
-      final pubspecPath = safeCast<String>(results['config']);
-      stdout.writeln(pubspecPath ?? 'NONE');
-
-      final modelName = safeCast<String>(results['local_stub']);
-      stdout.writeln(modelName ?? 'NONE');
-      CoreGenerator(File(pubspecPath!).absolute)
-          .buildModelLocalStub(modelName!);
-      return;
-    } else if (results.wasParsed('export_local')) {
-      final pubspecPath = safeCast<String>(results['config']);
-      stdout.writeln(pubspecPath ?? 'NONE');
-
-      final modelName = safeCast<String>(results['export_local']);
-      stdout.writeln(modelName ?? 'NONE');
-      CoreGenerator(File(pubspecPath!).absolute)
-          .buildExportModelLocal(modelName!);
+      CoreGenerator(File(pubspecPath!).absolute).buildLocalModel(modelName!);
       return;
     } else if (results.wasParsed('model_remote')) {
       final pubspecPath = safeCast<String>(results['config']);
@@ -114,9 +73,7 @@ void main(List<String> args) {
 
       final modelName = safeCast<String>(results['model_remote']);
       stdout.writeln(modelName ?? 'NONE');
-      CoreGenerator(File(pubspecPath!).absolute).buildModelRemote(modelName!);
-      CoreGenerator(File(pubspecPath).absolute)
-          .buildExportModelRemote(modelName);
+      CoreGenerator(File(pubspecPath!).absolute).buildRemoteModel(modelName!);
       return;
     } else if (results.wasParsed('model')) {
       final pubspecPath = safeCast<String>(results['config']);
@@ -125,7 +82,6 @@ void main(List<String> args) {
       final modelName = safeCast<String>(results['model']);
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute).buildModel(modelName!);
-      CoreGenerator(File(pubspecPath).absolute).buildExportModel(modelName);
       return;
     } else if (results.wasParsed('lds')) {
       final pubspecPath = safeCast<String>(results['config']);
