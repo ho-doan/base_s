@@ -2,7 +2,6 @@ import 'package:change_case/change_case.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
-// TODO(hodoan): doing
 String generatedRemoteDataSource(String modelName) {
   final emitter = DartEmitter(useNullSafetySyntax: true);
 
@@ -44,9 +43,8 @@ String generatedRemoteDataSource(String modelName) {
           (m) => m
             ..name = 'getAll'
             ..returns =
-                refer('Future<Either<ErrorState,List<${className}Local>>>')
+                refer('Future<Either<ErrorState,List<${className}Remote>>>')
             ..modifier = MethodModifier.async
-            ..docs.add('@override')
             ..body = Code(
               [
                 'try {',
@@ -79,7 +77,7 @@ String generatedRemoteDataSource(String modelName) {
 String generatedExportRemoteDataSource(String modelName, String file) {
   final partName = modelName.toSnakeCase();
 
-  if (file.contains('$partName/${partName}_local_data_source.dart')) {
+  if (file.contains('$partName/${partName}_remote_data_source.dart')) {
     return file;
   }
 

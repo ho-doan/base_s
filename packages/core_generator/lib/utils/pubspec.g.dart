@@ -34,7 +34,10 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
             'dir_local_model',
             'dir_remote_model',
             'dir_model',
-            'dir_local_data_source'
+            'dir_local_data_source',
+            'dir_remote_data_source',
+            'dir_repository',
+            'dir_use_case'
           ],
         );
         final val = ConfigModel(
@@ -44,8 +47,14 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
               (v) => v as String? ?? 'domain/lib/data/models/remote'),
           dirLocalDataSource: $checkedConvert('dir_local_data_source',
               (v) => v as String? ?? 'domain/lib/data/local_data_sources'),
+          dirRemoteDataSource: $checkedConvert('dir_remote_data_source',
+              (v) => v as String? ?? 'domain/lib/data/remote_data_sources'),
           dirModel: $checkedConvert(
               'dir_model', (v) => v as String? ?? 'domain/lib/models'),
+          dirRepository: $checkedConvert('dir_repository',
+              (v) => v as String? ?? 'domain/lib/repositories'),
+          dirUseCase: $checkedConvert(
+              'dir_use_case', (v) => v as String? ?? 'domain/lib/use_cases'),
           imgs: $checkedConvert(
               'imgs',
               (v) => (v as List<dynamic>?)
@@ -63,6 +72,9 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
         'dirLocalModel': 'dir_local_model',
         'dirRemoteModel': 'dir_remote_model',
         'dirLocalDataSource': 'dir_local_data_source',
-        'dirModel': 'dir_model'
+        'dirRemoteDataSource': 'dir_remote_data_source',
+        'dirModel': 'dir_model',
+        'dirRepository': 'dir_repository',
+        'dirUseCase': 'dir_use_case'
       },
     );

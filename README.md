@@ -31,7 +31,7 @@
 - stg       # stg branch
 - dev       # dev branch
 - feature/* # code feature
-- bug/*     # code feature
+- bug/*     # code bug
 ```
 
 ### Requirements

@@ -37,6 +37,14 @@ void main(List<String> args) {
       help: 'Generated local data source',
     )
     ..addOption(
+      'rds',
+      help: 'Generated remote data source',
+    )
+    ..addOption(
+      'repo',
+      help: 'Generated repository',
+    )
+    ..addOption(
       'model',
       abbr: 'm',
       help: 'Generated model remote',
@@ -127,6 +135,23 @@ void main(List<String> args) {
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute)
           .buildLocalDataSource(modelName!);
+      return;
+    } else if (results.wasParsed('rds')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['rds']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute)
+          .buildRemoteDataSource(modelName!);
+      return;
+    } else if (results.wasParsed('repo')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['repo']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).buildRepository(modelName!);
       return;
     }
   } on FormatException catch (e) {

@@ -24,7 +24,10 @@ class ConfigModel {
     this.dirLocalModel = 'domain/lib/data/models/local',
     this.dirRemoteModel = 'domain/lib/data/models/remote',
     this.dirLocalDataSource = 'domain/lib/data/local_data_sources',
+    this.dirRemoteDataSource = 'domain/lib/data/remote_data_sources',
     this.dirModel = 'domain/lib/models',
+    this.dirRepository = 'domain/lib/repositories',
+    this.dirUseCase = 'domain/lib/use_cases',
     this.imgs,
     this.icons,
   });
@@ -38,6 +41,12 @@ class ConfigModel {
   final String? dirModel;
   @JsonKey(name: 'dir_local_data_source', required: true)
   final String? dirLocalDataSource;
+  @JsonKey(name: 'dir_remote_data_source', required: true)
+  final String? dirRemoteDataSource;
+  @JsonKey(name: 'dir_repository', required: true)
+  final String? dirRepository;
+  @JsonKey(name: 'dir_use_case', required: true)
+  final String? dirUseCase;
   @JsonKey(name: 'imgs')
   final List<Map<String, String>>? imgs;
   @JsonKey(name: 'icons')
