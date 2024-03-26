@@ -36,6 +36,10 @@ void main(List<String> args) {
       help: 'Generated remote data source',
     )
     ..addOption(
+      'us',
+      help: 'Generated use case',
+    )
+    ..addOption(
       'repo',
       help: 'Generated repository',
     )
@@ -91,6 +95,14 @@ void main(List<String> args) {
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute)
           .buildLocalDataSource(modelName!);
+      return;
+    } else if (results.wasParsed('us')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['us']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).buildUseCase(modelName!);
       return;
     } else if (results.wasParsed('rds')) {
       final pubspecPath = safeCast<String>(results['config']);

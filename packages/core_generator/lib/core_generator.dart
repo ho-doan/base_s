@@ -9,6 +9,7 @@ import 'generated/model_local_generated.dart';
 import 'generated/model_remote_generated.dart';
 import 'generated/remote_data_source_generated.dart';
 import 'generated/repository_generated.dart';
+import 'generated/use_case_generated.dart';
 import 'settings/config.dart';
 import 'utils/utils.dart';
 
@@ -279,6 +280,33 @@ class CoreGenerator {
     const fileExport = 'repositories.dart';
     writer?.call(
       generatedExportRepository(modelName, reader?.call(fileExport) ?? ''),
+      fileExport,
+    );
+    //#endregion
+  }
+
+  void buildUseCase(String modelName, {Config? config, FileWriter? writer}) {
+    final initial = _build(
+      modelName,
+      pathWork: (c) => c.dirUseCase,
+    );
+    writer ??= initial.$1;
+
+    final reader = initial.$2;
+
+    final fileName = modelName.toSnakeCase();
+
+    //#region gen
+    writer?.call(
+      generatedUseCase(modelName),
+      '$fileName/${fileName}_use_case.dart',
+    );
+    //#endregion
+
+    //#region export
+    const fileExport = 'use_cases.dart';
+    writer?.call(
+      generatedExportUseCase(modelName, reader?.call(fileExport) ?? ''),
       fileExport,
     );
     //#endregion
