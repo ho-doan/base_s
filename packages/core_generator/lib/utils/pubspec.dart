@@ -21,7 +21,10 @@ class Pubspec {
 @JsonSerializable()
 class ConfigModel {
   ConfigModel({
-    this.dirLocalModel = 'domain/lib/data/models',
+    this.dirLocalModel = 'domain/lib/data/models/local',
+    this.dirRemoteModel = 'domain/lib/data/models/remote',
+    this.dirLocalDataSource = 'domain/lib/data/local_data_sources',
+    this.dirModel = 'domain/lib/models',
     this.imgs,
     this.icons,
   });
@@ -29,6 +32,12 @@ class ConfigModel {
 
   @JsonKey(name: 'dir_local_model', required: true)
   final String? dirLocalModel;
+  @JsonKey(name: 'dir_remote_model', required: true)
+  final String? dirRemoteModel;
+  @JsonKey(name: 'dir_model', required: true)
+  final String? dirModel;
+  @JsonKey(name: 'dir_local_data_source', required: true)
+  final String? dirLocalDataSource;
   @JsonKey(name: 'imgs')
   final List<Map<String, String>>? imgs;
   @JsonKey(name: 'icons')

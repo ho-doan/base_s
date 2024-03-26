@@ -10,7 +10,7 @@ String generatedModelLocalStub(String modelName) {
   final partName = modelName.toSnakeCase();
 
   final imports = [
-    "import '../../remote/$partName.dart';",
+    "import '../../remote/remote.dart';",
     "import 'i_$partName.dart';",
   ];
 

@@ -5,7 +5,7 @@ import '../local/local.dart';
 part 'category.freezed.dart';
 part 'category.g.dart';
 
-@Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.pascal)
+@Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.none)
 class CategoryRemote with _$CategoryRemote {
   const factory CategoryRemote({
     @JsonKey(name: 'id') int? id,

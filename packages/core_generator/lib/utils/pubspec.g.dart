@@ -30,11 +30,22 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const ['dir_local_model'],
+          requiredKeys: const [
+            'dir_local_model',
+            'dir_remote_model',
+            'dir_model',
+            'dir_local_data_source'
+          ],
         );
         final val = ConfigModel(
           dirLocalModel: $checkedConvert('dir_local_model',
-              (v) => v as String? ?? 'domain/lib/data/models'),
+              (v) => v as String? ?? 'domain/lib/data/models/local'),
+          dirRemoteModel: $checkedConvert('dir_remote_model',
+              (v) => v as String? ?? 'domain/lib/data/models/remote'),
+          dirLocalDataSource: $checkedConvert('dir_local_data_source',
+              (v) => v as String? ?? 'domain/lib/data/local_data_sources'),
+          dirModel: $checkedConvert(
+              'dir_model', (v) => v as String? ?? 'domain/lib/models'),
           imgs: $checkedConvert(
               'imgs',
               (v) => (v as List<dynamic>?)
@@ -48,5 +59,10 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
         );
         return val;
       },
-      fieldKeyMap: const {'dirLocalModel': 'dir_local_model'},
+      fieldKeyMap: const {
+        'dirLocalModel': 'dir_local_model',
+        'dirRemoteModel': 'dir_remote_model',
+        'dirLocalDataSource': 'dir_local_data_source',
+        'dirModel': 'dir_model'
+      },
     );

@@ -1,4 +1,4 @@
-import '../../remote/hihi.dart';
+import '../../remote/remote.dart';
 import 'i_hihi.dart';
 
 class HihiLocal extends IHihi {

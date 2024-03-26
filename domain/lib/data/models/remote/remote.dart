@@ -6,3 +6,5 @@ export 'entry.dart';
 export 'product.dart';
 
 export 'figma/figma.dart';
+
+export 'hihi/hihi.dart';

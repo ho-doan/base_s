@@ -1,6 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:isar/isar.dart';
-import '../../remote/hihi.dart';
+import '../../remote/remote.dart';
 import 'i_hihi.dart';
 part 'hihi_local.g.dart';
 

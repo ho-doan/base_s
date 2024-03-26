@@ -12,7 +12,7 @@ String generatedModelLocal(String modelName) {
   final imports = [
     "import 'package:copy_with_extension/copy_with_extension.dart';",
     "import 'package:isar/isar.dart';",
-    "import '../../remote/$partName.dart';",
+    "import '../../remote/remote.dart';",
     "import 'i_$partName.dart';",
     "part '${partName}_local.g.dart';",
   ];

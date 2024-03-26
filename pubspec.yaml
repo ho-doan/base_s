@@ -4,6 +4,9 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies:
   melos: ^5.1.0
-
+# melos exec -- dart ./packages/command/bin/core_gen_command.dart -e model_a
 core_generator:
   dir_local_model: domain/lib/data/models/local
+  dir_remote_model: domain/lib/data/models/remote
+  dir_local_data_source: domain/lib/data/local_data_sources
+  dir_model: domain/lib/models

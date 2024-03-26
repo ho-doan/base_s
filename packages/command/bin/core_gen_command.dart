@@ -28,6 +28,20 @@ void main(List<String> args) {
       help: 'Generated model local',
     )
     ..addOption(
+      'model_remote',
+      abbr: 'r',
+      help: 'Generated model remote',
+    )
+    ..addOption(
+      'lds',
+      help: 'Generated local data source',
+    )
+    ..addOption(
+      'model',
+      abbr: 'm',
+      help: 'Generated model remote',
+    )
+    ..addOption(
       'local_stub',
       abbr: 's',
       help: 'Generated model local',
@@ -84,7 +98,35 @@ void main(List<String> args) {
       final modelName = safeCast<String>(results['export_local']);
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute)
-          .buildExportModelLocalStub(modelName!);
+          .buildExportModelLocal(modelName!);
+      return;
+    } else if (results.wasParsed('model_remote')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['model_remote']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).buildModelRemote(modelName!);
+      CoreGenerator(File(pubspecPath).absolute)
+          .buildExportModelRemote(modelName);
+      return;
+    } else if (results.wasParsed('model')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['model']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).buildModel(modelName!);
+      CoreGenerator(File(pubspecPath).absolute).buildExportModel(modelName);
+      return;
+    } else if (results.wasParsed('lds')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['lds']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute)
+          .buildLocalDataSource(modelName!);
       return;
     }
   } on FormatException catch (e) {
