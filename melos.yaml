@@ -9,6 +9,8 @@ packages:
   - common/**
   - domain/**
   - shared/**
+  - packages/core_generator/**
+  - packages/command/**
   - '*'
 
 scripts:
@@ -17,6 +19,10 @@ scripts:
     failFast: true
     description: analyze all modules.
   pub:
+    exec: flutter pub get
+    failFast: true
+    description: pub get all modules.
+  d_pub:
     exec: flutter pub get
     failFast: true
     description: pub get all modules.

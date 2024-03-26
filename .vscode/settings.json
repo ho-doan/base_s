@@ -9,7 +9,8 @@
         "goden",
         "Goldens",
         "otf",
-        "Txn"
+        "Txn",
+        "writeln"
     ],
     "files.exclude": {
         "**/.git": true,

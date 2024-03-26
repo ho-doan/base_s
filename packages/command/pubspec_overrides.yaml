@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: figma_gen_core
+dependency_overrides:
+  core_generator:
+    path: ../core_generator

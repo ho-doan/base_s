@@ -4,3 +4,6 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies:
   melos: ^5.1.0
+
+core_generator:
+  dir_local_model: domain/lib/data/models/local

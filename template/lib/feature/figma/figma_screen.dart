@@ -146,6 +146,7 @@ class _Error extends StatelessWidget {
 }
 
 extension on FigmaDocument? {
+  // ignore: unused_element
   List<String> get allText {
     if (this == null) return [];
     final lst = <String>[];

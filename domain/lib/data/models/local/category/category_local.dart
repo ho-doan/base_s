@@ -10,14 +10,19 @@ part 'category_local.g.dart';
 @collection
 class CategoryLocal extends ICategoryLocal {
   const CategoryLocal({
+    required this.primary,
     super.id,
     super.name,
     this.key = Isar.autoIncrement,
   });
   factory CategoryLocal.fromRemote(CategoryRemote model) => CategoryLocal(
+        primary: model.id,
         id: model.id,
         name: model.name,
       );
 
   final Id? key;
+
+  @Index(unique: true)
+  final int? primary;
 }
