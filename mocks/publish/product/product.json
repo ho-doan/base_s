@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "product 1",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 1
+    },
+    {
+        "id": 2,
+        "name": "product 2",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 2
+    },
+    {
+        "id": 3,
+        "name": "product 3",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 3
+    },
+    {
+        "id": 4,
+        "name": "product 4",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 4
+    },
+    {
+        "id": 5,
+        "name": "product 5",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 5
+    },
+    {
+        "id": 6,
+        "name": "product 6",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 6
+    },
+    {
+        "id": 7,
+        "name": "product 7",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 7
+    },
+    {
+        "id": 8,
+        "name": "product 8",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 8
+    },
+    {
+        "id": 9,
+        "name": "product 9",
+        "image": "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        "categoryId": 9
+    }
+]

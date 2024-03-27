@@ -17,25 +17,23 @@ dart pub global deactivate figma_gen_hd
 ## Getting Started
 
 ```yaml
-figma_gen:
-  figma_key: ...
-  figma_token: abcdef...
-  dir_output: gen
-  langs:
-    - en
-    - vi
-    - ja
+  dir_local_model: domain/lib/data/models/local
+  dir_remote_model: domain/lib/data/models/remote
+  dir_local_data_source: domain/lib/data/local_data_sources
+  dir_remote_data_source: domain/lib/data/remote_data_sources
+  dir_repository: domain/lib/repositories
+  dir_use_case: domain/lib/use_cases
+  dir_model: domain/lib/models
+  web_locator: domain/lib/services/dependency_injection/service_locator.dart
+  local_schema: domain/lib/services/local_database/_local_database.dart
+  replace: false
 ```
 
 ## Use
 
 ```sh
-# read all text to arb file
-figmagen -w
-#or :token = abcdef...
-figmagen -t :token
-# down load all image
-figmagen -i :token
-# down load all icon
-figmagen -n :token
+# read me
+core_gen -h
+#sample
+core_gen --all product
 ```

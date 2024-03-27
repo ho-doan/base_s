@@ -56,7 +56,7 @@ void main(List<String> args) {
     ..addFlag(
       'version',
       abbr: 'v',
-      help: 'FigmaGen version',
+      help: 'Core Gen version',
     );
   ArgResults results;
   try {

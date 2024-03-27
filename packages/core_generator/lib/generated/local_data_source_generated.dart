@@ -104,7 +104,7 @@ const hardLocal = "/// Don't remove comment - CORE GENERATED FOR WEB";
 String generatedExportLocalDataSourceLocator(String modelName, String file) {
   final classModel = modelName.toPascalCase();
 
-  if (file.contains('..registerFactory<${modelName}DataSource>')) {
+  if (file.contains('..registerFactory<${classModel}LocalDataSource>')) {
     return file;
   }
 

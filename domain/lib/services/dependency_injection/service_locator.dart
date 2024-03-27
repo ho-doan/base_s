@@ -71,8 +71,6 @@ void configureDomainDependencies(GetIt getIt) {
 
     /// Don't remove comment - CORE GENERATED FOR WEB
     ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
-    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
-    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
     ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)
     ..registerFactory<CategoryLocalDataSource>(CategoryLocalDataSource.new);

@@ -75,7 +75,7 @@ melos test
 flutter run --flavor dev -t lib/main_dev.dart
 # run test
 ## run server mock
-npm run start:dev --prefix ./mocks
+melos mock
 ## run app
 flutter run --flavor test -t lib/main_test.dart
 ```

@@ -1,24 +1,27 @@
 const configDefaultYamlContent = '''
 name: UNKNOWN
 
-flutter_gen:
+core_generator:
   # Required
-  figma_key: ....
+  dir_local_model: domain/lib/data/models/local
+  # Required
+  dir_remote_model: domain/lib/data/models/remote
+  # Required
+  dir_local_data_source: domain/lib/data/local_data_sources
+  # Required
+  dir_remote_data_source: domain/lib/data/remote_data_sources
+  # Required
+  dir_repository: domain/lib/repositories
+  # Required
+  dir_use_case: domain/lib/use_cases
+  # Required
+  dir_model: domain/lib/models
   # Optional
-  figma_token: ...
+  web_locator: domain/lib/services/dependency_injection/service_locator.dart
   # Optional
-  dir_output: gen
+  local_schema: domain/lib/services/local_database/_local_database.dart
   # Optional
-  dir_img: assets/images
-  # Optional
-  dir_icons: assets/icons
-  # Optional
-  langs:
-    - en
-  # Optional
-  imgs: []
-  # Optional
-  icons: []
+  replace: false
 
 flutter:
 ''';
