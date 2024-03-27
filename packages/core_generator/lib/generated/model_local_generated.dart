@@ -2,6 +2,8 @@ import 'package:change_case/change_case.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
+const hardLocal = "/// Don't remove comment - CORE GENERATED FOR APP";
+
 String generatedInterfaceModel(String modelName) {
   final emitter = DartEmitter(useNullSafetySyntax: true);
 
@@ -211,13 +213,31 @@ String generatedModelLocalStub(String modelName) {
   );
 }
 
-String generatedExportModelLocal(String modelName, String file) {
+String generatedExportModelLocal(
+    String modelName, String file, String? webLocator) {
   final partName = modelName.toSnakeCase();
 
   if (file.contains('$partName/${partName}_local.dart')) return file;
-
-  final export =
-      "export '$partName/${partName}_local.dart' if (dart.library.js) '$partName/${partName}_local_stub.dart';";
+  String export;
+  if (webLocator != null) {
+    export =
+        "export '$partName/${partName}_local.dart' if (dart.library.js) '$partName/${partName}_local_stub.dart';";
+  } else {
+    export = "export '$partName/${partName}_local.dart';";
+  }
 
   return DartFormatter().format([file, export].join('\n'));
+}
+
+String generatedExportModelLocalSchema(String modelName, String file) {
+  final partName = modelName.toPascalCase();
+
+  if (file.contains('${partName}LocalSchema')) return file;
+
+  final strs = file.split(hardLocal);
+
+  final export = '${partName}LocalSchema,';
+
+  return DartFormatter()
+      .format([strs.first, hardLocal, export, strs.last].join('\n'));
 }

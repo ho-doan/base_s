@@ -41,12 +41,12 @@ class CoreGenerator {
       ),
     );
 
-    void defaultWriter(String contents, String path) {
-      final file = File(
-        normalize(join(parent, path)),
-      );
+    void defaultWriter(String contents, String path, {bool export = false}) {
+      final file = File(normalize(join(parent, path)));
       if (!file.existsSync()) {
         file.createSync(recursive: true);
+      } else if (!export && !(config?.pubspec.config.replace ?? false)) {
+        return;
       }
       file.writeAsStringSync(contents);
       // file.exists();
@@ -54,18 +54,16 @@ class CoreGenerator {
 
     writer ??= defaultWriter;
 
-    final absoluteOutput = Directory(parent);
+    if (!parent.contains('.dart')) {
+      final absoluteOutput = Directory(parent);
 
-    if (!absoluteOutput.existsSync()) {
-      absoluteOutput.createSync(recursive: true);
+      if (!absoluteOutput.existsSync()) {
+        absoluteOutput.createSync(recursive: true);
+      }
     }
 
     String fReader(String path) {
-      final file = File(
-        normalize(
-          join(parent, path),
-        ),
-      );
+      final file = File(normalize(join(parent, path)));
       String strFile = '';
       if (file.existsSync()) {
         strFile = file.readAsStringSync();
@@ -106,6 +104,7 @@ class CoreGenerator {
         reader?.call(fileExport) ?? '',
       ),
       fileExport,
+      export: true,
     );
     //#endregion
   }
@@ -140,6 +139,7 @@ class CoreGenerator {
         reader?.call(fileExport) ?? '',
       ),
       fileExport,
+      export: true,
     );
     //#endregion
   }
@@ -168,10 +168,13 @@ class CoreGenerator {
       generatedModelLocal(modelName),
       '$fileName/${fileName}_local.dart',
     );
-    writer?.call(
-      generatedModelLocalStub(modelName),
-      '$fileName/${fileName}_local_stub.dart',
-    );
+    config ??= loadPubspecConfigOrNull(pubspecFile);
+    if (config?.pubspec.config.webLocator != null) {
+      writer?.call(
+        generatedModelLocalStub(modelName),
+        '$fileName/${fileName}_local_stub.dart',
+      );
+    }
     //#endregion
 
     //#region export
@@ -180,8 +183,60 @@ class CoreGenerator {
       generatedExportModelLocal(
         modelName,
         reader?.call(fileExport) ?? '',
+        config?.pubspec.config.webLocator,
       ),
       fileExport,
+      export: true,
+    );
+    _buildLocalSchema(modelName);
+    //#endregion
+  }
+
+  void _buildLocalDataSourceLocator(
+    String modelName, {
+    FileWriter? writer,
+  }) {
+    final initial = _build(
+      modelName,
+      pathWork: (c) => c.webLocator,
+    );
+    writer ??= initial.$1;
+
+    final reader = initial.$2;
+    //#region export
+    const fileExport = '';
+    writer?.call(
+      generatedExportLocalDataSourceLocator(
+        modelName,
+        reader?.call(fileExport) ?? '',
+      ),
+      fileExport,
+      export: true,
+    );
+    //#endregion
+  }
+
+  void _buildLocalSchema(
+    String modelName, {
+    FileWriter? writer,
+  }) {
+    final initial = _build(
+      modelName,
+      pathWork: (c) => c.localSchema,
+    );
+    writer ??= initial.$1;
+
+    final reader = initial.$2;
+    //#region export
+    const fileExport = '';
+
+    writer?.call(
+      generatedExportModelLocalSchema(
+        modelName,
+        reader?.call(fileExport) ?? '',
+      ),
+      fileExport,
+      export: true,
     );
     //#endregion
   }
@@ -206,10 +261,13 @@ class CoreGenerator {
       generatedLocalDataSource(modelName),
       '$fileName/${fileName}_local_data_source.dart',
     );
-    writer?.call(
-      generatedLocalDataSourceStub(modelName),
-      '$fileName/${fileName}_local_data_source_stub.dart',
-    );
+    config ??= loadPubspecConfigOrNull(pubspecFile);
+    if (config?.pubspec.config.webLocator != null) {
+      writer?.call(
+        generatedLocalDataSourceStub(modelName),
+        '$fileName/${fileName}_local_data_source_stub.dart',
+      );
+    }
     //#endregion
 
     //#region export
@@ -218,9 +276,15 @@ class CoreGenerator {
       generatedExportLocalDataSource(
         modelName,
         reader?.call(fileExport) ?? '',
+        config?.pubspec.config.webLocator,
       ),
       fileExport,
+      export: true,
     );
+    if (config?.pubspec.config.webLocator != null) {
+      _buildLocalDataSourceLocator(modelName);
+    }
+
     //#endregion
   }
 
@@ -254,6 +318,7 @@ class CoreGenerator {
         reader?.call(fileExport) ?? '',
       ),
       fileExport,
+      export: true,
     );
     //#endregion
   }
@@ -281,6 +346,7 @@ class CoreGenerator {
     writer?.call(
       generatedExportRepository(modelName, reader?.call(fileExport) ?? ''),
       fileExport,
+      export: true,
     );
     //#endregion
   }
@@ -308,7 +374,18 @@ class CoreGenerator {
     writer?.call(
       generatedExportUseCase(modelName, reader?.call(fileExport) ?? ''),
       fileExport,
+      export: true,
     );
     //#endregion
+  }
+
+  void build(String modelName, {Config? config, FileWriter? writer}) {
+    buildRemoteModel(modelName);
+    buildLocalModel(modelName);
+    buildModel(modelName);
+    buildLocalDataSource(modelName);
+    buildRemoteDataSource(modelName);
+    buildRepository(modelName);
+    buildUseCase(modelName);
   }
 }

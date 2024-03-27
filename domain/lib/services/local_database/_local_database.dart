@@ -12,9 +12,11 @@ import '../../data/models/data_models.dart';
 export 'package:flutter/services.dart' show RootIsolateToken;
 
 // TODO(everyone): add more schema
-// TODO(hodoan): doing
 final List<CollectionSchema<dynamic>> _schemas = [
   EntryLocalSchema,
+
+  /// Don't remove comment - CORE GENERATED FOR APP
+  HihiLocalSchema,
 ];
 
 mixin LocalDatabase {
@@ -69,10 +71,8 @@ mixin LocalDatabase {
   }
 
   static Future clearDatabase() async {
-    // TODO(everyone): add more delete calls for other collections as needed
-    // TODO(hodoan): doing
     await _isar?.writeTxn<void>(() async {
-      await _isar?.entryLocals.clear();
+      await _isar?.clear();
     });
   }
 

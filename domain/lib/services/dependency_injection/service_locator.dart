@@ -68,7 +68,11 @@ void configureDomainDependencies(GetIt getIt) {
     ..registerLazySingleton<ApiClient>(() => _apiClient)
     ..registerLazySingleton<ApiClientFigma>(() => _apiClientFigma)
     // TODO(any): register all local data source
-    // TODO(hodoan): doing gen with enable web
+
+    /// Don't remove comment - CORE GENERATED FOR WEB
+    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
+    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
+    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
     ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)
     ..registerFactory<CategoryLocalDataSource>(CategoryLocalDataSource.new);

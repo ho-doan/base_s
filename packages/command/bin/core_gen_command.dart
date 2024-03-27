@@ -40,6 +40,11 @@ void main(List<String> args) {
       help: 'Generated use case',
     )
     ..addOption(
+      'all',
+      help: 'Generated resource feature (local model, remote model, model, '
+          'local data source, remote data source, repository, use case)',
+    )
+    ..addOption(
       'repo',
       help: 'Generated repository',
     )
@@ -86,6 +91,14 @@ void main(List<String> args) {
       final modelName = safeCast<String>(results['model']);
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute).buildModel(modelName!);
+      return;
+    } else if (results.wasParsed('all')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['all']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).build(modelName!);
       return;
     } else if (results.wasParsed('lds')) {
       final pubspecPath = safeCast<String>(results['config']);

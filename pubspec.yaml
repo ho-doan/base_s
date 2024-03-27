@@ -13,3 +13,6 @@ core_generator:
   dir_repository: domain/lib/repositories
   dir_use_case: domain/lib/use_cases
   dir_model: domain/lib/models
+  web_locator: domain/lib/services/dependency_injection/service_locator.dart
+  local_schema: domain/lib/services/local_database/_local_database.dart
+  replace: false

@@ -4,4 +4,7 @@ targets:
       injectable_generator:injectable_builder:
         options:
           auto_register: true
+          # for app + web
           class_name_pattern: "Service$|Repository$|UseCase$|RemoteDataSource$|LocalDatabase$"
+          # for app
+          # class_name_pattern: "Service$|Repository$|UseCase$|LocalDataSource$|RemoteDataSource$|LocalDatabase$"

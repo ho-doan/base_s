@@ -77,15 +77,48 @@ String generatedLocalDataSourceStub(String modelName) {
   );
 }
 
-String generatedExportLocalDataSource(String modelName, String file) {
+String generatedExportLocalDataSource(
+  String modelName,
+  String file,
+  String? webLocator,
+) {
   final partName = modelName.toSnakeCase();
 
   if (file.contains('$partName/${partName}_local_data_source.dart')) {
     return file;
   }
 
-  final export = "export '$partName/${partName}_local_data_source.dart'"
-      " if (dart.library.js) '$partName/${partName}_local_data_source_stub.dart';";
+  String export;
+  if (webLocator != null) {
+    export = "export '$partName/${partName}_local_data_source.dart'"
+        " if (dart.library.js) '$partName/${partName}_local_data_source_stub.dart';";
+  } else {
+    export = "export '$partName/${partName}_local_data_source.dart';";
+  }
 
   return DartFormatter().format([file, export].join('\n'));
+}
+
+const hardLocal = "/// Don't remove comment - CORE GENERATED FOR WEB";
+
+String generatedExportLocalDataSourceLocator(String modelName, String file) {
+  final classModel = modelName.toPascalCase();
+
+  if (file.contains('..registerFactory<${modelName}DataSource>')) {
+    return file;
+  }
+
+  final strs = file.split(hardLocal);
+
+  final export = '..registerFactory<${classModel}LocalDataSource>'
+      '(${classModel}LocalDataSource.new)';
+
+  return DartFormatter().format(
+    [
+      strs.first,
+      hardLocal,
+      export,
+      strs.last,
+    ].join('\n'),
+  );
 }

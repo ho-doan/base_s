@@ -18,18 +18,22 @@ import '../../data/remote_data_sources/entry/entries_remote_data_source.dart'
     as _i10;
 import '../../data/remote_data_sources/figma/figma_remote_data_source.dart'
     as _i13;
-import '../../data/remote_data_sources/product/category_remote_data_source.dart'
+import '../../data/remote_data_sources/hihi/hihi_remote_data_source.dart'
     as _i16;
+import '../../data/remote_data_sources/product/category_remote_data_source.dart'
+    as _i19;
 import '../../data/remote_data_sources/remote_data_sources.dart' as _i7;
 import '../../repositories/category/category_repository.dart' as _i5;
 import '../../repositories/entry/entry_repository.dart' as _i11;
 import '../../repositories/figma/figma_repository.dart' as _i14;
-import '../../repositories/product/product_repository.dart' as _i17;
+import '../../repositories/hihi/hihi_repository.dart' as _i17;
+import '../../repositories/product/product_repository.dart' as _i20;
 import '../../repositories/repositories.dart' as _i9;
 import '../../use_cases/category/category_use_case.dart' as _i8;
 import '../../use_cases/entry/entry_use_case.dart' as _i12;
 import '../../use_cases/figma/figma_use_case.dart' as _i15;
-import '../../use_cases/product/product_use_case.dart' as _i18;
+import '../../use_cases/hihi/hihi_use_case.dart' as _i18;
+import '../../use_cases/product/product_use_case.dart' as _i21;
 import '../networks/api_client.dart' as _i4;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -65,13 +69,21 @@ _i1.GetIt $initGetIt(
       () => _i14.FigmaRepository(gh<_i7.FigmaRemoteDataSource>()));
   gh.factory<_i15.FigmaUseCase>(
       () => _i15.FigmaUseCase(gh<_i9.FigmaRepository>()));
-  gh.factory<_i16.ProductRemoteDataSource>(
-      () => _i16.ProductRemoteDataSource(gh<_i4.ApiClient>()));
-  gh.factory<_i17.ProductRepository>(() => _i17.ProductRepository(
+  gh.factory<_i16.HihiRemoteDataSource>(
+      () => _i16.HihiRemoteDataSource(gh<_i4.ApiClient>()));
+  gh.factory<_i17.HihiRepository>(() => _i17.HihiRepository(
+        gh<_i6.HihiLocalDataSource>(),
+        gh<_i7.HihiRemoteDataSource>(),
+      ));
+  gh.factory<_i18.HihiUseCase>(
+      () => _i18.HihiUseCase(gh<_i9.HihiRepository>()));
+  gh.factory<_i19.ProductRemoteDataSource>(
+      () => _i19.ProductRemoteDataSource(gh<_i4.ApiClient>()));
+  gh.factory<_i20.ProductRepository>(() => _i20.ProductRepository(
         gh<_i6.ProductLocalDataSource>(),
         gh<_i7.ProductRemoteDataSource>(),
       ));
-  gh.factory<_i18.ProductUseCase>(
-      () => _i18.ProductUseCase(gh<_i9.ProductRepository>()));
+  gh.factory<_i21.ProductUseCase>(
+      () => _i21.ProductUseCase(gh<_i9.ProductRepository>()));
   return getIt;
 }

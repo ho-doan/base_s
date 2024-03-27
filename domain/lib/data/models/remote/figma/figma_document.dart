@@ -125,7 +125,6 @@ class Style with _$Style {
 )
 class StyleOverrideTable with _$StyleOverrideTable {
   const factory StyleOverrideTable({
-    // TODO(hodoan): any?
     dynamic mm,
   }) = _StyleOverrideTable;
   factory StyleOverrideTable.fromJson(Map<String, dynamic> json) =>

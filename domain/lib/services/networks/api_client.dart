@@ -50,7 +50,6 @@ abstract class ApiClientFigma {
     @Query('version') String? version,
     @Query('ids') List<String>? ids,
     @Query('depth') int? depth,
-    // TODO(hodoan): enum Geometry name
     @Query('geometry') String? geometry,
     @Query('plugin_data') String? pluginData,
   });
@@ -62,7 +61,6 @@ abstract class ApiClientFigma {
     @Query('version') String? version,
     @Query('ids') List<String>? ids,
     @Query('depth') int? depth,
-    // TODO(hodoan): enum Geometry name
     @Query('geometry') String? geometry,
     @Query('plugin_data') String? pluginData,
   });
@@ -83,9 +81,7 @@ abstract class ApiClientFigma {
     @Query('version') String? version,
     @Query('ids') List<String>? ids,
     @Query('scale') int? scale,
-    // TODO(hodoan): enum Geometry name
     @Query('geometry') String? geometry,
-    // TODO(hodoan): enum Format name
     @Query('format') String? format,
     @Query('svg_include_id') bool? svgIncludeId,
     @Query('svg_simplify_stroke') bool? svgSimplifyStroke,

@@ -22,14 +22,16 @@ class Pubspec {
 class ConfigModel {
   ConfigModel({
     this.dirLocalModel = 'domain/lib/data/models/local',
+    this.localSchema =
+        'domain/lib/services/local_database/_local_database.dart',
     this.dirRemoteModel = 'domain/lib/data/models/remote',
     this.dirLocalDataSource = 'domain/lib/data/local_data_sources',
     this.dirRemoteDataSource = 'domain/lib/data/remote_data_sources',
     this.dirModel = 'domain/lib/models',
     this.dirRepository = 'domain/lib/repositories',
     this.dirUseCase = 'domain/lib/use_cases',
-    this.imgs,
-    this.icons,
+    this.webLocator,
+    this.replace = false,
   });
   factory ConfigModel.fromJson(Map json) => _$ConfigModelFromJson(json);
 
@@ -45,30 +47,12 @@ class ConfigModel {
   final String? dirRemoteDataSource;
   @JsonKey(name: 'dir_repository', required: true)
   final String? dirRepository;
+  @JsonKey(name: 'web_locator')
+  final String? webLocator;
+  @JsonKey(name: 'local_schema')
+  final String? localSchema;
+  @JsonKey(name: 'replace')
+  final bool? replace;
   @JsonKey(name: 'dir_use_case', required: true)
   final String? dirUseCase;
-  @JsonKey(name: 'imgs')
-  final List<Map<String, String>>? imgs;
-  @JsonKey(name: 'icons')
-  final List<Map<String, String>>? icons;
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  List<ImageConfig> get imgConfigs => [
-        for (final i in imgs ?? <Map<String, String>>[])
-          for (final j in i.entries) ImageConfig(id: j.key, name: j.value),
-      ];
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  List<ImageConfig> get iconConfigs => [
-        for (final i in icons ?? <Map<String, String>>[])
-          for (final j in i.entries) ImageConfig(id: j.key, name: j.value),
-      ];
-}
-
-class ImageConfig {
-  ImageConfig({required this.id, required this.name});
-  final String id;
-  final String name;
-
-  @override
-  String toString() => 'id: $id, name: $name';
 }

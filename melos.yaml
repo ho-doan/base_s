@@ -31,6 +31,12 @@ scripts:
     exec: flutter packages pub get
     failFast: true
     description: packages pub get all modules.
+  domain_p:
+    exec: flutter packages pub get
+    failFast: true
+    select-package:
+      scope: "*domain*"
+    description: packages pub get all modules.
   test:
     exec: flutter test
     failFast: true
