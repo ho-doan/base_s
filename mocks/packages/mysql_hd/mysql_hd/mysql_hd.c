@@ -16,7 +16,7 @@ void hello_world()
     printf("Hello World\n");
 }
 
-void hello_name(char name[])
+void hello_name(char* name)
 {
     printf("Hello %s\n", name);
 }
