@@ -1,12 +1,16 @@
-# CLEAN ARCHITECTURE
+# Base S
+
+## Feature
+
+### Architecture: Clean Architecture
 
 ![clean architecture](./images/the-clean-architecture.jpg)
 
-## Introduce
+#### Introduce
 
 > The Clean Architecture is a software architecture approach that emphasizes separation of concerns and maintainability through the organization of code into distinct layers.
 
-### Advantages
+##### Advantages
 
 1. Modularity: Clean Architecture promotes modularity by dividing the system into layers, with each layer having its own specific responsibility. This makes it easier to understand, maintain, and extend the system.
 
@@ -20,7 +24,7 @@
 
 6. Decoupling from UI: Clean Architecture separates the business logic from the user interface, which makes it possible to have multiple user interfaces (such as web, mobile, or desktop) without impacting the core functionality of the application.
 
-### Disadvantages
+##### Disadvantages
 
 1. Implementing Clean Architecture requires careful planning and understanding of the system's requirements. The initial setup and adherence to architectural principles may introduce complexity, especially in smaller projects or teams with limited experience.
 
@@ -33,12 +37,6 @@
 5. Performance Overhead: The additional layers and abstractions introduced by Clean Architecture may incur a slight performance overhead compared to simpler architectures. While this overhead is often negligible, it may be a consideration for performance-critical applications.
 
 6. Potential for Over-Engineering: There's a risk of over-engineering with Clean Architecture, especially if the architectural principles are applied too rigorously or if the project's requirements don't warrant such a complex structure. It's important to strike a balance between architectural purity and practicality.
-
-## Feature
-
-### Architecture: Clean Architecture
-
-- `Clean Architecture`
 
 ### State management: flutter_bloc
 
@@ -89,8 +87,6 @@
 
 - a widget provided to the flutter scroll component drop-down refresh and pull up load.
 
-### Utils: rxdart, dartx, async
-
 ### Assets generator: flutter_gen_runner, flutter_launcher_icons, flutter_native_splash
 
 - flutter_gen_runner: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
@@ -108,6 +104,19 @@
 - flutter_flavorizr: A flutter utility to easily create flavors in your flutter application
 - dartz: It is Flutter or Dart package for handling error. This is very suitable when you do clean architecture and want to catch the error or success separately.
 - copy_with_extension: Defines the annotation used by copy_with_extension_gen to generate copyWith extensions.
+
+## Services
+
+### Firebase
+
+#### Firebase Dynamic link
+
+```mermaid
+graph LR
+A("AA AA")-->B;
+B("BB BB")-->C;
+C("CC CC")-->A;
+```
 
 ## Getting Started
 
