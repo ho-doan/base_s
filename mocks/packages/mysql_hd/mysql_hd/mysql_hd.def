@@ -1,4 +1,0 @@
-LIBRARY   mysql_hd
-EXPORTS
-   hello_world
-   hello_name
