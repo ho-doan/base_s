@@ -113,7 +113,8 @@
 
 ```mermaid
 graph LR
-A("AA AA")-->B;
+A("AA AA")--true-->B;
+A("AA AA")-.false.->D(["DD DD"]);
 B("BB BB")-->C;
 C("CC CC")-->A;
 ```
