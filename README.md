@@ -229,14 +229,19 @@ B-->C;
 ```mermaid
 graph LR
 
-A("Feature")-.Code review false.->D(["Fix bug"]);
+A("Feature");
+B("Dev");
+C("Stg")
+D(["Fix bug"]);
+E("Master");
+F("Host Fix");
+
+A-.Code review false.->D;
 D-.review true.->B
 D-.review false.->D
 A--Code review true-->B;
-B("Dev")--Done All Feature-->C;
-C("Stg")--"Release(tag v*.+.+)"-->E;
-F("Host Fix");
-E("Master");
+B--Done All Feature-->C;
+C--"Release(tag v*.+.+)"-->E;
 F-->C;
 E-->F;
 B--New Feature-->A;
