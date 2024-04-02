@@ -16,6 +16,7 @@ dependencies:
   domain:
     path: ../domain
   envied: ^0.5.3
+  firebase_core: ^2.27.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
@@ -72,14 +73,14 @@ flavorizr:
 
       android:
         applicationId: "com.hodoan.template.dev"
-        # firebase:
-        #   config: ".firebase/dev/google-services.json"
+        firebase:
+          config: ".firebase/dev/google-services.json"
 
       ios:
         bundleId: "com.hodoan.template.dev"
-        # firebase:
-        #   config: ".firebase/dev/GoogleService-Info.plist"
-    test:
+        firebase:
+          config: ".firebase/dev/GoogleService-Info.plist"
+    ctest:
       app:
         name: "Template test"
 

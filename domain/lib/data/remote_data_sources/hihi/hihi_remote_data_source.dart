@@ -9,19 +9,20 @@ class HihiRemoteDataSource {
   final ApiClient _apiClient;
 
   Future<Either<ErrorState, List<HihiRemote>>> getAll() async {
-    try {
-      final result = await _apiClient.getAllHihi();
-      assert(result.list != null, 'Categories model server null');
-      return Right(result.list!);
-    } on Exception catch (error, stackTrace) {
-      log('get all Hihi failed: $error', stackTrace: stackTrace);
-      return Left(
-        ErrorState(
-          error: error,
-          type: ErrorType.server,
-          stackTrace: stackTrace,
-        ),
-      );
-    }
+    throw Exception();
+    // try {
+    //   final result = await _apiClient.getAllHihi();
+    //   assert(result.list != null, 'Categories model server null');
+    //   return Right(result.list!);
+    // } on Exception catch (error, stackTrace) {
+    //   log('get all Hihi failed: $error', stackTrace: stackTrace);
+    //   return Left(
+    //     ErrorState(
+    //       error: error,
+    //       type: ErrorType.server,
+    //       stackTrace: stackTrace,
+    //     ),
+    //   );
+    // }
   }
 }

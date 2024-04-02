@@ -14,6 +14,8 @@ export 'package:flutter/services.dart' show RootIsolateToken;
 // TODO(everyone): add more schema
 final List<CollectionSchema<dynamic>> _schemas = [
   EntryLocalSchema,
+  CategoryLocalSchema,
+  ProductLocalSchema,
 
   /// Don't remove comment - CORE GENERATED FOR APP
   HihiLocalSchema,
