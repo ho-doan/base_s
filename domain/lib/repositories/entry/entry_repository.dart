@@ -35,15 +35,15 @@ class EntryRepository {
           final models = [
             for (final i in r.entries) EntryLocal.fromEntry(i),
           ];
-          // unawaited(
-          //   computeApp(
-          //     _local.insertAllTask,
-          //     LocalTaskList(
-          //       models: models,
-          //       token: !kIsWeb ? token ?? RootIsolateToken.instance! : null,
-          //     ),
-          //   ),
-          // );
+          unawaited(
+            computeApp(
+              _local.insertAllTask,
+              LocalTaskList(
+                models: models,
+                token: !kIsWeb ? token ?? RootIsolateToken.instance! : null,
+              ),
+            ),
+          );
           return Right(
             [for (final i in r.entries) EntryModel.fromEntryRemote(i)],
           );
