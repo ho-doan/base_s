@@ -214,7 +214,10 @@ String generatedModelLocalStub(String modelName) {
 }
 
 String generatedExportModelLocal(
-    String modelName, String file, String? webLocator) {
+  String modelName,
+  String file,
+  String? webLocator,
+) {
   final partName = modelName.toSnakeCase();
 
   if (file.contains('$partName/${partName}_local.dart')) return file;

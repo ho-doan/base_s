@@ -109,14 +109,105 @@
 
 ### Firebase
 
-#### Firebase Dynamic link
+#### Firebase Dynamic Links
+
+##### Flow(FDL)
 
 ```mermaid
 graph LR
-A("AA AA")--true-->B;
-A("AA AA")-.false.->D(["DD DD"]);
-B("BB BB")-->C;
-C("CC CC")-->A;
+
+A("Dynamic Link");
+B(["App is install?"]);
+C("Launch App");
+D("Show Content Link");
+E("Download app from store");
+F("Install App");
+
+A-->B;
+B--Yes-->C;
+C-->D;
+B--"No"-->E;
+E-->F;
+F-->C;
+```
+
+#### Firebase Remote Config
+
+##### Flow(FRC)
+
+```mermaid
+graph LR
+
+A("Server");
+B("Tool");
+C("Cloud Functions(Firebase)");
+D(["Remote Config Backend APIs"]);
+E("Firebase Remote Config");
+F("Internet");
+G("Android App");
+G1("Android App");
+H("iOS App");
+H1("iOS App");
+
+A-->D;
+B-->D;
+C-->D;
+D<-->E;
+E<-->F;
+F-->G;
+F-->G1;
+F-->H;
+F-->H1;
+```
+
+#### Firebase Cloud Messaging
+
+##### Flow(FCM)
+
+```mermaid
+graph LR
+
+A("Server\nNotification console GUI");
+C("FCM/APNs");
+E("App(Android, iOS)");
+
+A--Trigger Push(token)-->C;
+C-.FCM Token.->E;
+C--FCM Push-->E;
+E--Upload Token-->A;
+```
+
+#### Firebase Analytics
+
+##### Flow(FAs)
+
+```mermaid
+graph LR
+
+A("Android App");
+B("iOS App");
+C("Firebase Analytics");
+D("Firebase User Interface");
+E("Google Analytics User Interface");
+
+
+A--Event\nCrash Reporting-->C;
+B--Event\nCrash Reporting-->C;
+C-->D;
+C-->E;
+```
+
+##### Flow(BigQuery)
+
+```mermaid
+graph LR
+
+A("Firebase Analytics");
+B("BigQuery");
+C("Data Studio");
+
+A-->B;
+B-->C;
 ```
 
 ## Getting Started
@@ -131,6 +222,24 @@ C("CC CC")-->A;
 - dev       # dev branch
 - feature/* # code feature
 - bug/*     # code bug
+```
+
+#### Flow
+
+```mermaid
+graph LR
+
+A("Feature")-.Code review false.->D(["Fix bug"]);
+D-.review true.->B
+D-.review false.->D
+A--Code review true-->B;
+B("Dev")--Done All Feature-->C;
+C("Stg")--"Release(tag v*.+.+)"-->E;
+F("Host Fix");
+E("Master");
+F-->C;
+E-->F;
+B--New Feature-->A;
 ```
 
 ### Requirements
