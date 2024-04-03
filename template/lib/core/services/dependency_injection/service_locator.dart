@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -12,8 +14,8 @@ final getIt = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-void configureDependencies() {
-  configureDomainDependencies(getIt);
+Future<void> configureDependencies() async {
+  await configureDomainDependencies(getIt);
   $initGetIt(getIt);
 }
 

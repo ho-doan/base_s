@@ -54,6 +54,15 @@ scripts:
     failFast: true
     # --depends-on="build_runner"
     select-package:
+      ignore: "*core_generator*"
+      depends-on: build_runner
+    description: build_runner build all modules.
+  d_build:
+    exec: dart pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    # --depends-on="build_runner"
+    select-package:
+      scope: "*core_generator*"
       depends-on: build_runner
     description: build_runner build all modules.
   domain:

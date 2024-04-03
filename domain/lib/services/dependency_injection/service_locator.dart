@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:domain/services/local_database/share_preference/share_preference_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared/shared.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/local_data_sources/local_data_sources.dart';
 import '../networks/api_client.dart';
@@ -63,10 +67,16 @@ ApiClientFigma get _apiClientFigma {
   preferRelativeImports: true,
   asExtension: false,
 )
-void configureDomainDependencies(GetIt getIt) {
+Future<void> configureDomainDependencies(GetIt getIt) async {
+  getIt.registerLazySingletonAsync(() => SharedPreferences.getInstance());
+  await GetIt.instance.isReady<SharedPreferences>();
   getIt
+    ..registerLazySingleton<SharedPreferenceHelper>(
+      () => SharedPreferenceHelper(getIt<SharedPreferences>()),
+    )
     ..registerLazySingleton<ApiClient>(() => _apiClient)
     ..registerLazySingleton<ApiClientFigma>(() => _apiClientFigma)
+
     // TODO(any): register all local data source
 
     /// Don't remove comment - CORE GENERATED FOR WEB
