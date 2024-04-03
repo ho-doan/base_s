@@ -111,6 +111,8 @@
 
 #### Firebase Dynamic Links
 
+- With Dynamic Links, your users get the best available experience for the platform they open your link on. If a user opens a Dynamic Link on iOS or Android, they can be taken directly to the linked content in your native app at no cost.
+
 ##### Flow(FDL)
 
 ```mermaid
@@ -132,6 +134,8 @@ F-->C;
 ```
 
 #### Firebase Remote Config
+
+- With Remote Config is a cloud service that lets you change the behavior and appearance of your app without requiring users to download an app update. When using Remote Config, you create in-app default values that control the behavior and appearance of your app at no cost.
 
 ##### Flow(FRC)
 
@@ -162,6 +166,8 @@ F-->H1;
 
 #### Firebase Cloud Messaging
 
+- With Firebase Cloud Messaging (FCM) provides a reliable and battery-efficient connection between your server and devices that allows you to deliver and receive messages and notifications on iOS, Android at no cost.
+
 ##### Flow(FCM)
 
 ```mermaid
@@ -179,6 +185,8 @@ E--Upload Token-->A;
 
 #### Firebase Analytics
 
+- With Google Analytics for Firebase provides free, unlimited reporting on up to 500 distinct events. The SDK automatically captures certain key events and user properties, and you can define your own custom events to measure the things that uniquely matter to your business at no cost.
+
 ##### Flow(FAs)
 
 ```mermaid
@@ -191,8 +199,8 @@ D("Firebase User Interface");
 E("Google Analytics User Interface");
 
 
-A--Event\nCrash Reporting-->C;
-B--Event\nCrash Reporting-->C;
+A--Event Reporting-->C;
+B--Event Reporting-->C;
 C-->D;
 C-->E;
 ```
@@ -208,6 +216,28 @@ C("Data Studio");
 
 A-->B;
 B-->C;
+```
+
+#### Firebase Crashlytics
+
+- With Firebase Crashlytics is a lightweight, realtime crash reporter that helps you track, prioritize, and fix stability issues that erode your app quality. Crashlytics saves you troubleshooting time by intelligently grouping crashes and highlighting the circumstances that lead up to them at no cost.
+
+##### Flow(FCs)
+
+```mermaid
+graph LR
+
+A("Android App");
+B("iOS App");
+C("Firebase Analytics");
+D("Firebase User Interface");
+E("Google Analytics User Interface");
+
+
+A--Crash Reporting-->C;
+B--Crash Reporting-->C;
+C-->D;
+C-->E;
 ```
 
 ## Getting Started
