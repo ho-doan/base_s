@@ -34,6 +34,8 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const String package = 'common';
+
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
@@ -42,6 +44,8 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
+
+  static const String package = 'common';
 
   Image image({
     Key? key,
@@ -63,7 +67,8 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    String? package = 'common',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -98,7 +103,8 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    String? package = 'common',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
   }) {
     return AssetImage(
       _assetName,
@@ -117,11 +123,14 @@ class SvgGenImage {
 
   final String _assetName;
 
+  static const String package = 'common';
+
   SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
-    String? package = 'common',
+    @Deprecated('Do not specify package for a generated library asset')
+    String? package = package,
     double? width,
     double? height,
     BoxFit fit = BoxFit.contain,

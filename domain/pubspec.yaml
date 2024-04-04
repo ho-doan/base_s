@@ -45,4 +45,4 @@ dev_dependencies:
   retrofit_generator: ^8.0.6
 
 flutter:
-  generate: true
+  # generate: true

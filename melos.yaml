@@ -28,63 +28,43 @@ scripts:
     exec: dart pub get
     failFast: true
     description: pub get all modules.
-  p_pub:
-    exec: flutter packages pub get
-    failFast: true
-    description: packages pub get all modules.
-  domain_p:
-    exec: flutter packages pub get
-    failFast: true
-    select-package:
-      scope: "*domain*"
-    description: packages pub get all modules.
   test:
     exec: flutter test
     failFast: true
     description: test all modules.
   integration:
-    select-package:
+    packageFilters:
       # --scope="*template*"
       scope: "*template*"
     exec: flutter test integration_test
     failFast: true
     description: test all modules.
   build:
-    exec: flutter pub run build_runner build --delete-conflicting-outputs
-    failFast: true
-    # --depends-on="build_runner"
-    select-package:
-      ignore: "*core_generator*"
-      depends-on: build_runner
-    description: build_runner build all modules.
-  d_build:
     exec: dart pub run build_runner build --delete-conflicting-outputs
     failFast: true
-    # --depends-on="build_runner"
-    select-package:
-      scope: "*core_generator*"
-      depends-on: build_runner
+    packageFilters:
+      dependsOn: build_runner
+      ignore:
+        - example
+        - example_resources
     description: build_runner build all modules.
   domain:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
     failFast: true
-    # --depends-on="build_runner"
-    select-package:
+    packageFilters:
       scope: "*domain*"
-      depends-on: build_runner
+      dependsOn: build_runner
     description: build_runner build all modules.
   mock:
     exec: dart bin/main.dart
     failFast: true
-    # --depends-on="build_runner"
-    select-package:
+    packageFilters:
       scope: "*mocks*"
     description: build_runner build all modules.
   template:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
     failFast: true
-    # --depends-on="build_runner"
-    select-package:
+    packageFilters:
       scope: "*template*"
-      depends-on: build_runner
+      dependsOn: build_runner
     description: build_runner build all modules.
