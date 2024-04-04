@@ -18,7 +18,6 @@ final List<CollectionSchema<dynamic>> _schemas = [
   ProductLocalSchema,
 
   /// Don't remove comment - CORE GENERATED FOR APP
-  HihiLocalSchema,
 ];
 
 mixin LocalDatabase {

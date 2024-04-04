@@ -31,13 +31,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             token: kTest ? null : RootIsolateToken.instance!,
           );
 
-          // final result = await computeApp(_fetchRes, homeFetch);
-          // add(result);
+          final result = await computeApp(_fetchRes, homeFetch);
+          add(result);
 
-          // unawaited(computeApp(_fetchRes1, homeFetch).then(add));
-          // unawaited(computeApp(_fetchRes2, homeFetch).then(add));
-          // unawaited(computeApp(_fetchRes3, homeFetch).then(add));
-          // unawaited(computeApp(_fetchRes4, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes1, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes2, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes3, homeFetch).then(add));
+          unawaited(computeApp(_fetchRes4, homeFetch).then(add));
 
           dev.Timeline.finishSync();
         },

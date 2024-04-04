@@ -80,7 +80,6 @@ Future<void> configureDomainDependencies(GetIt getIt) async {
     // TODO(any): register all local data source
 
     /// Don't remove comment - CORE GENERATED FOR WEB
-    ..registerFactory<HihiLocalDataSource>(HihiLocalDataSource.new)
     ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
     ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)
     ..registerFactory<CategoryLocalDataSource>(CategoryLocalDataSource.new);
