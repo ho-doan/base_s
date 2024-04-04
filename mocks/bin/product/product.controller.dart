@@ -1,16 +1,17 @@
-// ignore_for_file: avoid_dynamic_calls,
-// ignore_for_file: always_specify_types, unused_local_variable,
-// ignore_for_file: inference_failure_on_instance_creation
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
+import 'package:domain/domain.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class ProductController {
-  final List data = json.decode(
+  List<ProductRemote> data = (json.decode(
     File('publish/product/product.json').readAsStringSync(),
-  );
+  ) as List<Map<String, dynamic>>)
+      .map(ProductRemote.fromJson)
+      .toList();
   Router get router {
     final router = Router()
       ..get('/', (Request req) {
@@ -25,10 +26,7 @@ class ProductController {
         );
       })
       ..get('/<id>', (Request req, String id) {
-        final item = data.firstWhere(
-          (e) => e['id'] == int.parse(id),
-          orElse: () => null,
-        );
+        final item = data.firstWhereOrNull((e) => e.id == int.parse(id));
         if (item != null) {
           return Response.ok(
             json.encode(item),
@@ -51,10 +49,7 @@ class ProductController {
       ..patch(
         '/<id>',
         (Request req, String id) async {
-          final item = data.firstWhere(
-            (e) => e['id'] == int.parse(id),
-            orElse: () => null,
-          );
+          final item = data.firstWhereOrNull((e) => e.id == int.parse(id));
           if (item == null) {
             return Response.notFound('Category not found');
           }
@@ -73,9 +68,9 @@ class ProductController {
         '/<id>',
         (Request req, String id) {
           stdout.writeln('delete');
-          final dataCP = List.from(data)
+          data = List<ProductRemote>.from(data)
             ..removeWhere(
-              (e) => e['id'] == int.parse(id),
+              (e) => e.id == int.parse(id),
             );
           return Response.ok('');
         },

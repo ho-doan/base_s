@@ -10,6 +10,9 @@ executables:
   core_gen: core_clean_gen
 
 dependencies:
+  collection: ^1.18.0
+  domain:
+    path: ../domain
   shelf: ^1.4.1
   shelf_router: ^1.1.4
 

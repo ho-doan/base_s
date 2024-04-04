@@ -323,6 +323,28 @@ melos mock
 flutter run --flavor test -t lib/main_test.dart
 ```
 
+```sh
+# core generated
+# Helper
+dart packages/command/bin/core_gen_command.dart -h
+# Generated model local
+melos exec -- dart packages/command/bin/core_gen_command.dart -l feature_a
+# Generated model remote
+melos exec -- dart packages/command/bin/core_gen_command.dart -r feature_a
+# Generated local data source
+melos exec -- dart packages/command/bin/core_gen_command.dart --lds feature_a
+# Generated remote data source
+melos exec -- dart packages/command/bin/core_gen_command.dart --ldr feature_a
+# Generated use case
+melos exec -- dart packages/command/bin/core_gen_command.dart --us feature_a
+# Generated resource feature (local model, remote model, model, local data source, remote data source, repository, use case)
+melos exec -- dart packages/command/bin/core_gen_command.dart --all feature_a
+# Generated repository
+melos exec -- dart packages/command/bin/core_gen_command.dart -repo feature_a
+# Generated model remote
+melos exec -- dart packages/command/bin/core_gen_command.dart -m feature_a
+```
+
 ### Directory Structure
 
 ```yml
