@@ -17,7 +17,7 @@ core_generator:
   # Required
   dir_model: domain/lib/models
   # Optional
-  web_locator: domain/lib/services/dependency_injection/service_locator.dart
+  #web_locator: domain/lib/services/dependency_injection/service_locator.dart
   # Optional
   local_schema: domain/lib/services/local_database/_local_database.dart
   # Optional
