@@ -32,7 +32,7 @@ extension on String {
       'dev' => Flavor.dev,
       'stg' => Flavor.stg,
       'prod' => Flavor.prod,
-      'test' => Flavor.test,
+      'ctest' => Flavor.test,
       String() => Flavor.dev,
     };
   }

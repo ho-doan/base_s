@@ -10,6 +10,7 @@
             "request": "launch",
             "args": [
                 "--dart-define=FLAVOR=dev",
+                "--flavor",
                 "dev"
             ],
             "program": "lib/main.dart",
@@ -21,7 +22,9 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--dart-define=FLAVOR=test",
+                "--dart-define=FLAVOR=ctest",
+                "--flavor",
+                "ctest",
             ],
             "program": "lib/main.dart",
             "type": "dart"
@@ -42,7 +45,7 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--dart-define=FLAVOR=test",
+                "--dart-define=FLAVOR=ctest",
                 "--web-browser-flag=--disable-web-security"
             ],
             "program": "lib/main.dart",
@@ -54,7 +57,9 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=FLAVOR=dev"
+                "--dart-define=FLAVOR=dev",
+                "--flavor",
+                "dev",
             ],
             "program": "lib/main.dart",
             "flutterMode": "profile"
@@ -65,6 +70,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
+                "--flavor",
+                "dev",
                 "--dart-define=FLAVOR=dev"
             ],
             "program": "lib/main.dart",
