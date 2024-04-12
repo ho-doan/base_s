@@ -31,7 +31,7 @@ class ProductRepository {
       final check = forceRefresh || cache.isEmpty;
 
       if (check) {
-        final fetchResult = await _remote.fetchCategories(categoryId);
+        final fetchResult = await _remote.getAllBy(categoryId);
         return fetchResult.fold(Left.new, (r) async {
           final models = [
             for (final i in r) ProductLocal.fromRemote(i),
@@ -54,7 +54,7 @@ class ProductRepository {
       return Right([for (final i in cache) ProductModel.fromLocal(i)]);
     } on Exception catch (error, stackTrace) {
       log(
-        'Fetch categories info list failed: $error',
+        'Fetch products failed: $error',
         stackTrace: stackTrace,
       );
       return Left(ErrorState(error: error, stackTrace: stackTrace));
@@ -65,10 +65,10 @@ class ProductRepository {
     try {
       final cache = await _local.getAll();
 
-      return Right([for (final i in cache) ProductRemote.fromEntryLocal(i)]);
+      return Right([for (final i in cache) ProductRemote.fromLocal(i)]);
     } on Exception catch (error, stackTrace) {
       log(
-        'Fetch categories info list failed: $error',
+        'Fetch products failed: $error',
         stackTrace: stackTrace,
       );
       return Left(ErrorState(error: error, stackTrace: stackTrace));

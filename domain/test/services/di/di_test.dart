@@ -1,5 +1,5 @@
-import 'package:domain/data/local_data_sources/entry/entry_local_data_source.dart';
-import 'package:domain/data/remote_data_sources/entry/entries_remote_data_source.dart';
+import 'package:domain/data/local_data_sources/local_data_sources.dart';
+import 'package:domain/data/remote_data_sources/remote_data_sources.dart';
 import 'package:domain/domain.dart';
 import 'package:domain/services/networks/api_client.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,13 +11,15 @@ void main() {
     expect(getItTesting<ApiClient>(), isA<ApiClient>());
     //#endregion
     //#region remote data source
-    expect(getItTesting<EntryRemoteDataSource>(), isA<EntryRemoteDataSource>());
+    expect(getItTesting<CategoryRemoteDataSource>(),
+        isA<CategoryRemoteDataSource>());
     //#endregion
     //#region local data source
-    expect(getItTesting<EntryLocalDataSource>(), isA<EntryLocalDataSource>());
+    expect(getItTesting<CategoryLocalDataSource>(),
+        isA<CategoryLocalDataSource>());
     //#endregion
     //#region use case
-    expect(getItTesting<EntryUseCase>(), isA<EntryUseCase>());
+    expect(getItTesting<CategoryUseCase>(), isA<CategoryUseCase>());
     //#endregion
   });
 }

@@ -34,9 +34,7 @@ class CategoryRepository {
       if (check) {
         final fetchResult = await _remote.fetchCategories();
         return fetchResult.fold(Left.new, (r) async {
-          final models = [
-            for (final i in r) CategoryLocal.fromRemote(i),
-          ];
+          final models = r.map(CategoryLocal.fromRemote).toList();
           unawaited(
             computeApp(
               _local.insertAllTask,

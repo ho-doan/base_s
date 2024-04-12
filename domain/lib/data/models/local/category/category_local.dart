@@ -1,14 +1,14 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:isar/isar.dart';
 
-import '../../remote/category.dart';
-import 'i_category_local.dart';
+import '../../remote/remote.dart';
+import 'i_category.dart';
 
 part 'category_local.g.dart';
 
 @CopyWith()
 @collection
-class CategoryLocal extends ICategoryLocal {
+class CategoryLocal extends ICategory {
   const CategoryLocal({
     required this.primary,
     super.id,

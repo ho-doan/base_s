@@ -10,7 +10,7 @@ enum Flavor {
 class F {
   F._();
   static final instance = F._();
-  Flavor appFlavor = Flavor.dev;
+  Flavor appFlavor = _flavorStr.flavor;
 
   String get name => appFlavor.name;
 
@@ -20,6 +20,20 @@ class F {
       Flavor.test => $EnvTest.instance,
       Flavor.stg => $EnvStg.instance,
       Flavor.prod => $Env.instance,
+    };
+  }
+}
+
+const _flavorStr = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+
+extension on String {
+  Flavor get flavor {
+    return switch (this) {
+      'dev' => Flavor.dev,
+      'stg' => Flavor.stg,
+      'prod' => Flavor.prod,
+      'test' => Flavor.test,
+      String() => Flavor.dev,
     };
   }
 }

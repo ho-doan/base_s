@@ -10,20 +10,20 @@ import 'package:template/core/services/dependency_injection/service_locator.dart
 import 'package:template/feature/home/bloc/home_bloc.dart';
 import 'package:template/feature/home/home_screen.dart';
 
-import '../../../test/utils/dummy/entry/entry_model.dart';
+import '../../../test/utils/dummy/category/category_model.dart';
 import 'home_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<EntryUseCase>()])
+@GenerateNiceMocks([MockSpec<CategoryUseCase>()])
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockEntryUseCase mockEntryUseCase;
+  late MockCategoryUseCase mockCategoryUseCase;
   setUpAll(() {
-    mockEntryUseCase = MockEntryUseCase();
+    mockCategoryUseCase = MockCategoryUseCase();
     configureDependenciesTest();
     getIt
-      ..unregister<EntryUseCase>()
-      ..registerFactory<EntryUseCase>(() => mockEntryUseCase);
+      ..unregister<CategoryUseCase>()
+      ..registerFactory<CategoryUseCase>(() => mockCategoryUseCase);
   });
   tearDownAll(getIt.reset);
 
@@ -39,13 +39,13 @@ void main() {
     testWidgets(
       'when success',
       (tester) async {
-        when(mockEntryUseCase.fetch(token: anyNamed('token')))
-            .thenAnswer((_) async => const Right([dummyEntryModel]));
+        when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+            .thenAnswer((_) async => const Right([dummyCategoryModel]));
         await tester.pumpWidget(homeScreen);
 
         await tester.pump(Durations.short4);
 
-        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+        expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
 
         // Finds the floating action button to tap on.
         final fab = find.byIcon(Icons.add);
@@ -58,7 +58,7 @@ void main() {
 
         await tester.pump(Durations.short4);
 
-        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+        expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
 
         await tester.tap(fab);
 
@@ -67,7 +67,7 @@ void main() {
 
         await tester.pump(Durations.short4);
 
-        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+        expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
 
         await tester.tap(fab);
 
@@ -76,13 +76,13 @@ void main() {
 
         await tester.pump(Durations.short4);
 
-        expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+        expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
       },
     );
     testWidgets(
       'when success data empty',
       (tester) async {
-        when(mockEntryUseCase.fetch(token: anyNamed('token')))
+        when(mockCategoryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => const Right([]));
         await tester.pumpWidget(homeScreen);
 
@@ -122,7 +122,7 @@ void main() {
     testWidgets(
       'when failure',
       (tester) async {
-        when(mockEntryUseCase.fetch(token: anyNamed('token')))
+        when(mockCategoryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
         await tester.pumpWidget(homeScreen);
 

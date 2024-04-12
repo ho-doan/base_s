@@ -9,10 +9,10 @@ import 'package:template/core/services/dependency_injection/service_locator.dart
 import 'package:template/feature/home/bloc/home_bloc.dart';
 import 'package:template/feature/home/home_screen.dart';
 
-import '../../utils/dummy/entry/entry_model.dart';
+import '../../utils/dummy/category/category_model.dart';
 import 'home_widget_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<EntryUseCase>()])
+@GenerateNiceMocks([MockSpec<CategoryUseCase>()])
 void main() {
   final homeScreen = MaterialApp(
     home: BlocProvider(
@@ -21,37 +21,38 @@ void main() {
       child: const HomeScreen(),
     ),
   );
-  late MockEntryUseCase mockEntryUseCase;
+  late MockCategoryUseCase mockCategoryUseCase;
   setUpAll(() {
-    mockEntryUseCase = MockEntryUseCase();
+    mockCategoryUseCase = MockCategoryUseCase();
     configureDependenciesTest();
     getIt
-      ..unregister<EntryUseCase>()
-      ..registerFactory<EntryUseCase>(() => mockEntryUseCase);
+      ..unregister<CategoryUseCase>()
+      ..registerFactory<CategoryUseCase>(() => mockCategoryUseCase);
   });
   tearDownAll(getIt.reset);
   testWidgets(
     'when success',
     (WidgetTester tester) async {
-      when(mockEntryUseCase.fetch())
-          .thenAnswer((_) async => const Right([dummyEntryModel]));
+      when(mockCategoryUseCase.fetch())
+          .thenAnswer((_) async => const Right([dummyCategoryModel]));
       // Build our app and trigger a frame.
       await tester.pumpWidget(homeScreen);
 
       await tester.pump();
 
-      expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+      expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
 
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
-      expect(find.text(dummyEntryModel.getName()), findsNWidgets(4));
+      expect(find.text(dummyCategoryModel.getName), findsNWidgets(4));
     },
   );
   testWidgets(
     'when entries empty',
     (WidgetTester tester) async {
-      when(mockEntryUseCase.fetch()).thenAnswer((_) async => const Right([]));
+      when(mockCategoryUseCase.fetch())
+          .thenAnswer((_) async => const Right([]));
       // Build our app and trigger a frame.
       await tester.pumpWidget(homeScreen);
 
@@ -68,7 +69,7 @@ void main() {
   testWidgets(
     'when failure',
     (WidgetTester tester) async {
-      when(mockEntryUseCase.fetch())
+      when(mockCategoryUseCase.fetch())
           .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
       // Build our app and trigger a frame.
       await tester.pumpWidget(homeScreen);

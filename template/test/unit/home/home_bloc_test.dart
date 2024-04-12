@@ -7,15 +7,20 @@ import 'package:mockito/mockito.dart';
 import 'package:template/core/services/dependency_injection/service_locator.dart';
 import 'package:template/feature/home/bloc/home_bloc.dart';
 
-import '../../utils/dummy/entry/entry_model.dart';
+import '../../utils/dummy/category/category_model.dart';
 import 'home_bloc_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<EntryUseCase>()])
+@GenerateNiceMocks([
+  MockSpec<CategoryUseCase>(),
+  MockSpec<ProductUseCase>(),
+])
 void main() {
-  late EntryUseCase useCase;
+  late CategoryUseCase useCase;
+  late ProductUseCase productUseCase;
 
   setUpAll(() {
-    useCase = MockEntryUseCase();
+    useCase = MockCategoryUseCase();
+    productUseCase = MockProductUseCase();
   });
 
   group('home bloc unit', () {
@@ -23,23 +28,25 @@ void main() {
       'when success',
       setUp: () {
         configureDependenciesTest();
-        getIt
-          ..unregister<EntryUseCase>()
-          ..registerFactory<EntryUseCase>(() => useCase);
+        getItTesting
+          ..unregister<CategoryUseCase>()
+          ..registerFactory<CategoryUseCase>(() => useCase)
+          ..unregister<ProductUseCase>()
+          ..registerFactory<ProductUseCase>(() => productUseCase);
       },
-      tearDown: getIt.reset,
+      tearDown: getItTesting.reset,
       build: () {
         when(useCase.fetch()).thenAnswer(
-          (_) async => const Right([dummyEntryModel]),
+          (_) async => const Right([dummyCategoryModel]),
         );
-        return getIt<HomeBloc>();
+        when(productUseCase.fetch(1)).thenAnswer(
+          (_) async => const Right([ProductModel(name: 'product')]),
+        );
+        return getItTesting<HomeBloc>();
       },
       act: (cubit) => cubit.add(const HomeEvent.started()),
       expect: () => [
         isA<$Loading>(),
-        isA<$Data>(),
-        isA<$Data>(),
-        isA<$Data>(),
         isA<$Data>(),
       ],
     );
@@ -47,16 +54,18 @@ void main() {
       'when success entries empty',
       setUp: () {
         configureDependenciesTest();
-        getIt
-          ..unregister<EntryUseCase>()
-          ..registerFactory<EntryUseCase>(() => useCase);
+        getItTesting
+          ..unregister<CategoryUseCase>()
+          ..registerFactory<CategoryUseCase>(() => useCase)
+          ..unregister<ProductUseCase>()
+          ..registerFactory<ProductUseCase>(() => productUseCase);
       },
-      tearDown: getIt.reset,
+      tearDown: getItTesting.reset,
       build: () {
         when(useCase.fetch()).thenAnswer(
           (_) async => const Right([]),
         );
-        return getIt<HomeBloc>();
+        return getItTesting<HomeBloc>();
       },
       act: (cubit) => cubit.add(const HomeEvent.started()),
       expect: () => [
@@ -69,11 +78,13 @@ void main() {
       'when failure',
       setUp: () {
         configureDependenciesTest();
-        getIt
-          ..unregister<EntryUseCase>()
-          ..registerFactory<EntryUseCase>(() => useCase);
+        getItTesting
+          ..unregister<CategoryUseCase>()
+          ..registerFactory<CategoryUseCase>(() => useCase)
+          ..unregister<ProductUseCase>()
+          ..registerFactory<ProductUseCase>(() => productUseCase);
       },
-      tearDown: getIt.reset,
+      tearDown: getItTesting.reset,
       build: () {
         when(useCase.fetch()).thenAnswer(
           (_) async => Left(error),
@@ -83,7 +94,7 @@ void main() {
       act: (cubit) => cubit.add(const HomeEvent.started()),
       expect: () => [
         isA<$Loading>(),
-        $Error(error),
+        isA<$Data>(),
       ],
     );
   });

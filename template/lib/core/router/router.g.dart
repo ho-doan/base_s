@@ -30,10 +30,6 @@ RouteBase get $rootApp => GoRouteData.$route(
           path: 'setting',
           factory: $SettingRouterExtension._fromState,
         ),
-        GoRouteData.$route(
-          path: 'figma',
-          factory: $FigmaRouterExtension._fromState,
-        ),
       ],
     );
 
@@ -130,23 +126,6 @@ extension $SettingRouterExtension on SettingRouter {
         queryParams: {
           'id': id,
         },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $FigmaRouterExtension on FigmaRouter {
-  static FigmaRouter _fromState(GoRouterState state) => const FigmaRouter();
-
-  String get location => GoRouteData.$location(
-        '/figma',
       );
 
   void go(BuildContext context) => context.go(location);

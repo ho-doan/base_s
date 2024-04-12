@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 import 'package:shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/local_data_sources/local_data_sources.dart';
 import '../networks/api_client.dart';
 import 'service_locator.config.dart';
 
@@ -42,26 +41,6 @@ ApiClient get _apiClient {
   );
 }
 
-ApiClientFigma get _apiClientFigma {
-  final dio = _dio;
-  dio.interceptors.add(LogInterceptor(
-      // request: false,
-      // requestBody: true,
-      // error: false,
-      // requestHeader: false,
-      // responseBody: true,
-      // responseHeader: false,
-      ));
-  dio.options.headers.addAll({
-    'X-Figma-Token': F.instance.env.figmaToken,
-  });
-
-  return ApiClientFigma(
-    dio,
-    baseUrl: F.instance.env.apiEndpointFigma,
-  );
-}
-
 @InjectableInit(
   initializerName: r'$initGetIt',
   preferRelativeImports: true,
@@ -74,15 +53,7 @@ Future<void> configureDomainDependencies(GetIt getIt) async {
     ..registerLazySingleton<SharedPreferenceHelper>(
       () => SharedPreferenceHelper(getIt<SharedPreferences>()),
     )
-    ..registerLazySingleton<ApiClient>(() => _apiClient)
-    ..registerLazySingleton<ApiClientFigma>(() => _apiClientFigma)
-
-    // TODO(any): register all local data source
-
-    /// Don't remove comment - CORE GENERATED FOR WEB
-    ..registerFactory<EntryLocalDataSource>(EntryLocalDataSource.new)
-    ..registerFactory<ProductLocalDataSource>(ProductLocalDataSource.new)
-    ..registerFactory<CategoryLocalDataSource>(CategoryLocalDataSource.new);
+    ..registerLazySingleton<ApiClient>(() => _apiClient);
   $initGetIt(getIt);
 }
 

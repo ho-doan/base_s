@@ -5,54 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "common",
-            "cwd": "common",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "common (profile mode)",
-            "cwd": "common",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "common (release mode)",
-            "cwd": "common",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "domain",
-            "cwd": "domain",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "domain (profile mode)",
-            "cwd": "domain",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "domain (release mode)",
-            "cwd": "domain",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
             "name": "template dev",
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--flavor",
+                "--dart-define=FLAVOR=dev",
                 "dev"
             ],
-            "program": "lib/main_dev.dart",
+            "program": "lib/main.dart",
             "type": "dart"
         },
         // npm run start:dev --prefix ./mocks
@@ -61,12 +21,9 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--flavor",
-                "test",
-                "-t",
-                "lib/main_test.dart"
+                "--dart-define=FLAVOR=test",
             ],
-            "program": "lib/main_test.dart",
+            "program": "lib/main.dart",
             "type": "dart"
         },
         {
@@ -74,11 +31,10 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "--flavor",
-                "dev",
+                "--dart-define=FLAVOR=dev",
                 "--web-browser-flag=--disable-web-security"
             ],
-            "program": "lib/main_dev.dart",
+            "program": "lib/main.dart",
             "type": "dart"
         },
         {
@@ -86,11 +42,10 @@
             "cwd": "template",
             "request": "launch",
             "args": [
-                "-t",
-                "lib/main_test.dart",
+                "--dart-define=FLAVOR=test",
                 "--web-browser-flag=--disable-web-security"
             ],
-            "program": "lib/main_test.dart",
+            "program": "lib/main.dart",
             "type": "dart"
         },
         {
@@ -98,6 +53,10 @@
             "cwd": "template",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--dart-define=FLAVOR=dev"
+            ],
+            "program": "lib/main.dart",
             "flutterMode": "profile"
         },
         {
@@ -105,6 +64,10 @@
             "cwd": "template",
             "request": "launch",
             "type": "dart",
+            "args": [
+                "--dart-define=FLAVOR=dev"
+            ],
+            "program": "lib/main.dart",
             "flutterMode": "release"
         },
         {

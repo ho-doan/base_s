@@ -33,19 +33,71 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [EntryUseCase].
+/// A class which mocks [CategoryUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
+class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
   @override
-  _i4.Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>> fetch({
+  _i4.Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.CategoryModel>>>
+      fetch({
+    bool? forceRefresh = false,
+    _i5.RootIsolateToken? token,
+  }) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #fetch,
+              [],
+              {
+                #forceRefresh: forceRefresh,
+                #token: token,
+              },
+            ),
+            returnValue: _i4.Future<
+                    _i2.Either<_i3.ErrorState<dynamic>,
+                        List<_i3.CategoryModel>>>.value(
+                _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.CategoryModel>>(
+              this,
+              Invocation.method(
+                #fetch,
+                [],
+                {
+                  #forceRefresh: forceRefresh,
+                  #token: token,
+                },
+              ),
+            )),
+            returnValueForMissingStub: _i4.Future<
+                    _i2.Either<_i3.ErrorState<dynamic>,
+                        List<_i3.CategoryModel>>>.value(
+                _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.CategoryModel>>(
+              this,
+              Invocation.method(
+                #fetch,
+                [],
+                {
+                  #forceRefresh: forceRefresh,
+                  #token: token,
+                },
+              ),
+            )),
+          ) as _i4.Future<
+              _i2.Either<_i3.ErrorState<dynamic>, List<_i3.CategoryModel>>>);
+}
+
+/// A class which mocks [ProductUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductUseCase extends _i1.Mock implements _i3.ProductUseCase {
+  @override
+  _i4.Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>> fetch(
+    int? categoryId, {
     bool? forceRefresh = false,
     _i5.RootIsolateToken? token,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetch,
-          [],
+          [categoryId],
           {
             #forceRefresh: forceRefresh,
             #token: token,
@@ -53,12 +105,12 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
         ),
         returnValue: _i4.Future<
                 _i2
-                .Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>.value(
-            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>(
+                .Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>(
           this,
           Invocation.method(
             #fetch,
-            [],
+            [categoryId],
             {
               #forceRefresh: forceRefresh,
               #token: token,
@@ -67,12 +119,12 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
         )),
         returnValueForMissingStub: _i4.Future<
                 _i2
-                .Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>.value(
-            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>(
+                .Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>(
           this,
           Invocation.method(
             #fetch,
-            [],
+            [categoryId],
             {
               #forceRefresh: forceRefresh,
               #token: token,
@@ -80,5 +132,5 @@ class MockEntryUseCase extends _i1.Mock implements _i3.EntryUseCase {
           ),
         )),
       ) as _i4
-          .Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.EntryModel>>>);
+          .Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>);
 }

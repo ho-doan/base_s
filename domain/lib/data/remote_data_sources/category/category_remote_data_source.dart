@@ -14,8 +14,8 @@ class CategoryRemoteDataSource {
     try {
       final result = await _apiClient.categories();
 
-      assert(result.list != null, 'Categories model server null');
-      return Right(result.list!);
+      assert(result.data != null, 'Categories model server null');
+      return Right(result.data!);
     } on Exception catch (error, stackTrace) {
       log('Fetch categories failed: $error', stackTrace: stackTrace);
       return Left(

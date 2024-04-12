@@ -11,6 +11,7 @@ part 'category_model.freezed.dart';
   toJson: false,
 )
 class CategoryModel with _$CategoryModel {
+  const CategoryModel._();
   const factory CategoryModel({
     int? id,
     String? name,
@@ -24,6 +25,9 @@ class CategoryModel with _$CategoryModel {
         id: model.id,
         name: model.name,
       );
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String get getName => name ?? '--';
 }
 
 extension CategoryModelX on CategoryModel {}
