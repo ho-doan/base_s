@@ -88,26 +88,26 @@ flavorizr:
 
       android:
         applicationId: "com.hodoan.template.test"
-        # firebase:
-        #   config: ".firebase/test/google-services.json"
+        firebase:
+          config: ".firebase/dev/google-services.json"
 
       ios:
         bundleId: "com.hodoan.template.test"
-        # firebase:
-        #   config: ".firebase/qc/GoogleService-Info.plist"
+        firebase:
+          config: ".firebase/dev/GoogleService-Info.plist"
     stg:
       app:
         name: "Template Staging"
 
       android:
         applicationId: "com.hodoan.template.staging"
-        # firebase:
-        #   config: ".firebase/staging/google-services.json"
+        firebase:
+          config: ".firebase/stg/google-services.json"
 
       ios:
         bundleId: "com.hodoan.template.staging"
-        # firebase:
-        #   config: ".firebase/staging/GoogleService-Info.plist"
+        firebase:
+          config: ".firebase/stg/GoogleService-Info.plist"
 
     prod:
       app:
@@ -115,9 +115,9 @@ flavorizr:
 
       android:
         applicationId: "com.hodoan.template"
-        # firebase:
-        #   config: ".firebase/production/google-services.json"
+        firebase:
+          config: ".firebase/prod/google-services.json"
       ios:
         bundleId: "com.hodoan.template"
-        # firebase:
-        #   config: ".firebase/production/GoogleService-Info.plist"
+        firebase:
+          config: ".firebase/prod/GoogleService-Info.plist"
