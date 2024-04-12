@@ -35,8 +35,8 @@ android {
         }
         ctest {
             dimension "flavor-type"
-            applicationId "com.hodoan.template.test"
-            resValue "string", "app_name", "Template test"
+            applicationId "com.hodoan.template.dev"
+            resValue "string", "app_name", "Template Dev"
         }
         stg {
             dimension "flavor-type"

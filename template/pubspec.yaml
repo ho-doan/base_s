@@ -84,15 +84,15 @@ flavorizr:
           config: ".firebase/dev/GoogleService-Info.plist"
     ctest:
       app:
-        name: "Template test"
+        name: "Template Dev"
 
       android:
-        applicationId: "com.hodoan.template.test"
+        applicationId: "com.hodoan.template.dev"
         firebase:
           config: ".firebase/dev/google-services.json"
 
       ios:
-        bundleId: "com.hodoan.template.test"
+        bundleId: "com.hodoan.template.dev"
         firebase:
           config: ".firebase/dev/GoogleService-Info.plist"
     stg:
