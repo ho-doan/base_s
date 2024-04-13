@@ -51,7 +51,7 @@ void main() {
       ],
     );
     blocTest<HomeBloc, HomeState>(
-      'when success entries empty',
+      'when success data empty',
       setUp: () {
         configureDependenciesTest();
         getItTesting

@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../utils/dummy/category_dummy.dart';
 
 void main() {
-  group('entry model remote test', () {
+  group('category model remote test', () {
     test('success from json test', () {
-      final entry = CategoryRemote.fromJson(dummyCategory);
-      expect(entry, isA<CategoryRemote>());
+      final mock = CategoryRemote.fromJson(dummyCategory);
+      expect(mock, isA<CategoryRemote>());
     });
     test('fail from json test', () {
       expect(

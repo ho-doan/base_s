@@ -5,8 +5,8 @@ void main() {
   group('category local', () {
     group('get name test', () {
       test('with desc not null', () {
-        const dummyEntry1 = CategoryLocal(primary: 1, name: 'API');
-        expect(dummyEntry1.name, 'API');
+        const cate = CategoryLocal(primary: 1, name: 'API');
+        expect(cate.name, 'API');
       });
     });
   });

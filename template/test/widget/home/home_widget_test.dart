@@ -73,7 +73,7 @@ void main() {
     },
   );
   testWidgets(
-    'when entries empty',
+    'when data empty',
     (WidgetTester tester) async {
       when(mockCategoryUseCase.fetch())
           .thenAnswer((_) async => const Right([]));

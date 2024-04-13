@@ -29,18 +29,18 @@ void main() {
       );
     });
     test('update success', () async {
-      const entry1 = CategoryLocal(primary: 1, name: 'API');
+      const cate = CategoryLocal(primary: 1, name: 'API');
       await isar.writeTxn(() async {
-        await isar.categoryLocals.put(entry1);
+        await isar.categoryLocals.put(cate);
       });
       final category = await isar.categoryLocals.where().findFirst();
       await isar.writeTxn(() async {
         await isar.categoryLocals.put(category!.copyWith.name('API2'));
       });
 
-      final entries = await isar.categoryLocals.where().findAll();
-      expect(entries.length, 1);
-      expect(entries.first.name, 'API2');
+      final categories = await isar.categoryLocals.where().findAll();
+      expect(categories.length, 1);
+      expect(categories.first.name, 'API2');
 
       addTearDown(
         () => isar.writeTxn<void>(() async {
@@ -49,17 +49,17 @@ void main() {
       );
     });
     test('delete success', () async {
-      const entry1 = CategoryLocal(primary: 1, name: 'API');
+      const cate = CategoryLocal(primary: 1, name: 'API');
       await isar.writeTxn(() async {
-        await isar.categoryLocals.put(entry1);
+        await isar.categoryLocals.put(cate);
       });
-      final entry = await isar.categoryLocals.where().findFirst();
+      final data = await isar.categoryLocals.where().findFirst();
       await isar.writeTxn(() async {
-        await isar.categoryLocals.delete(entry!.key!);
+        await isar.categoryLocals.delete(data!.key!);
       });
 
-      final entries = await isar.categoryLocals.where().findAll();
-      expect(entries.length, 0);
+      final local = await isar.categoryLocals.where().findAll();
+      expect(local.length, 0);
 
       addTearDown(
         () => isar.writeTxn<void>(() async {
