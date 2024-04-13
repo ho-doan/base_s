@@ -83,3 +83,54 @@ class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
           ) as _i4.Future<
               _i2.Either<_i3.ErrorState<dynamic>, List<_i3.CategoryModel>>>);
 }
+
+/// A class which mocks [ProductUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductUseCase extends _i1.Mock implements _i3.ProductUseCase {
+  @override
+  _i4.Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>> fetch(
+    int? categoryId, {
+    bool? forceRefresh = false,
+    _i5.RootIsolateToken? token,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetch,
+          [categoryId],
+          {
+            #forceRefresh: forceRefresh,
+            #token: token,
+          },
+        ),
+        returnValue: _i4.Future<
+                _i2
+                .Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>(
+          this,
+          Invocation.method(
+            #fetch,
+            [categoryId],
+            {
+              #forceRefresh: forceRefresh,
+              #token: token,
+            },
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<
+                _i2
+                .Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>.value(
+            _FakeEither_0<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>(
+          this,
+          Invocation.method(
+            #fetch,
+            [categoryId],
+            {
+              #forceRefresh: forceRefresh,
+              #token: token,
+            },
+          ),
+        )),
+      ) as _i4
+          .Future<_i2.Either<_i3.ErrorState<dynamic>, List<_i3.ProductModel>>>);
+}

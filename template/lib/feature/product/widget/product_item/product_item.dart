@@ -1,12 +1,29 @@
 import 'package:common/common.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/product_item_bloc.dart';
 
-class ProductItemWidget extends StatelessWidget {
-  const ProductItemWidget({required this.bloc, super.key});
+class ProductItemWidget extends StatefulWidget {
+  const ProductItemWidget({
+    required this.bloc,
+    required this.category,
+    super.key,
+  });
   final ProductItemBloc bloc;
+  final CategoryModel category;
+
+  @override
+  State<ProductItemWidget> createState() => _ProductItemWidgetState();
+}
+
+class _ProductItemWidgetState extends State<ProductItemWidget> {
+  @override
+  void initState() {
+    widget.bloc.add(ProductItemEvent.started(widget.category));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +36,14 @@ class ProductItemWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: Text(
-              bloc.category.name ?? '--',
+              widget.category.name ?? '--',
               textAlign: TextAlign.center,
               style: context.theme.styles.c1,
             ),
           ),
           Center(
             child: BlocProvider(
-              create: (context) => bloc,
+              create: (context) => widget.bloc,
               child: BlocBuilder<ProductItemBloc, ProductItemState>(
                 builder: (context, state) {
                   return state.maybeWhen(
@@ -40,7 +57,7 @@ class ProductItemWidget extends StatelessWidget {
                       height: 100,
                       child: Center(
                         child: IconButton(
-                          onPressed: bloc.reload,
+                          onPressed: () => widget.bloc.reload(widget.category),
                           icon: const Icon(Icons.replay_outlined),
                         ),
                       ),

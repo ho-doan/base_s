@@ -427,7 +427,7 @@ packages:
     source: hosted
     version: "4.1.0"
   shared:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       path: "../shared"
       relative: true

@@ -14,10 +14,15 @@ class ProductItemBloc extends Bloc<ProductItemEvent, ProductItemState> {
     on<ProductItemEvent>((event, emit) {
       return event.when<void>(
         started: (cate) {
-          category = cate;
+          if (state is! _Initial) return;
+
+          final fetch = ProductItemFetch(
+            _useCase,
+            cate: cate,
+            token: kTest ? null : RootIsolateToken.instance!,
+          );
           add(const ProductItemEvent.loading());
-          computeApp(_fetchProducts, ProductItemFetch(_useCase, cate: cate))
-              .then(add);
+          computeApp(_fetchProducts, fetch).then(add);
         },
         loading: () => emit(const ProductItemState.loading()),
         error: (error) => emit(ProductItemState.error(error)),
@@ -27,19 +32,23 @@ class ProductItemBloc extends Bloc<ProductItemEvent, ProductItemState> {
   }
   final ProductUseCase _useCase;
 
-  late CategoryModel category;
+  void reload(CategoryModel category) =>
+      add(ProductItemEvent.started(category));
+}
 
-  FutureOr<ProductItemEvent> _fetchProducts(ProductItemFetch m) async {
-    final result = await m._us.fetch(m.cate.id ?? -1);
-    return result.fold(ProductItemEvent.error, ProductItemEvent.data);
-  }
-
-  void reload() => add(ProductItemEvent.started(category));
+FutureOr<ProductItemEvent> _fetchProducts(ProductItemFetch m) async {
+  final result = await m._us.fetch(m.cate.id ?? -1, token: m.token);
+  return result.fold(ProductItemEvent.error, ProductItemEvent.data);
 }
 
 class ProductItemFetch {
-  const ProductItemFetch(this._us, {required this.cate});
+  const ProductItemFetch(
+    this._us, {
+    required this.cate,
+    this.token,
+  });
 
   final ProductUseCase _us;
   final CategoryModel cate;
+  final RootIsolateToken? token;
 }

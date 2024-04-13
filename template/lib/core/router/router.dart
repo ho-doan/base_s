@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +11,15 @@ import 'router_path.dart';
 
 part 'router.g.dart';
 
+@visibleForTesting
+GlobalKey<NavigatorState>? navigatorKeyTesting;
+
 class Routers {
   Routers._() {
+    log('==== key $navigatorKey');
     $router = GoRouter(
       routes: $appRoutes,
-      navigatorKey: navigatorKey,
+      navigatorKey: navigatorKeyTesting ?? navigatorKey,
       redirect: (_, state) {
         return null;
       },

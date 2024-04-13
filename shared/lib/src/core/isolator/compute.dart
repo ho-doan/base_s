@@ -10,7 +10,6 @@ Future<R> computeApp<M, R>(
   if (kTest) {
     return await callback(message);
   } else {
-    final r = await compute<M, R>(callback, message, debugLabel: debugLabel);
-    return r;
+    return compute<M, R>(callback, message, debugLabel: debugLabel);
   }
 }

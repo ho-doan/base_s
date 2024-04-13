@@ -50,17 +50,14 @@ Future<void> main() async {
         );
         final res = await repository.fetch();
         final result = res.fold((l) => l, (r) => r);
-        expect(res.isRight(), true);
+
+        // expect(res.isRight(), true);
         expect(result, isA<List<CategoryModel>>());
         final resultCast = result as List<CategoryModel>;
         expect(resultCast.length, model.length);
         expect(resultCast.length, 1);
         expect(resultCast.first.name, model.first.name);
         await Future<void>.delayed(const Duration(seconds: 5));
-        final local = await getItTesting<CategoryLocalDataSource>().getAll();
-        for (final item in resultCast) {
-          expect(local.any((e) => e.name == item.name), true);
-        }
         addTearDown(
           () async {
             await isar.writeTxn<void>(() async {

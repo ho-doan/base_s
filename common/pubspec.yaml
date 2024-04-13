@@ -23,7 +23,7 @@ dev_dependencies:
     sdk: flutter
   hodoan_lint: ^0.0.2
 flutter:
-  # generate: true
+  generate: true
   assets:
     - assets/icons/
     - assets/images/

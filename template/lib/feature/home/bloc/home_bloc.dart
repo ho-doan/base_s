@@ -47,8 +47,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           if (cate != null && !cate.data.isNullOrEmpty) {
             products = [
-              for (final item in cate.data.lst)
-                getIt<ProductItemBloc>()..add(ProductItemEvent.started(item)),
+              for (final _ in cate.data.lst) getIt<ProductItemBloc>(),
             ];
           }
 

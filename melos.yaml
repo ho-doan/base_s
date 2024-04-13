@@ -31,13 +31,21 @@ scripts:
   test:
     exec: flutter test
     failFast: true
+    packageFilters:
+      dirExists: test
+    description: test all modules.
+  test_run:
+    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+    failFast: true
+    concurrency: 1
     description: test all modules.
   integration:
     packageFilters:
       # --scope="*template*"
       scope: "*template*"
-    exec: flutter test integration_test
+    exec: flutter test integration_test --flavor dev
     failFast: true
+    
     description: test all modules.
   build:
     exec: dart pub run build_runner build --delete-conflicting-outputs

@@ -8,12 +8,13 @@ import '../../models/data_models.dart';
 class CategoryLocalDataSource extends BaseLocalDatabase<CategoryLocal>
     with LocalDatabase {
   @override
-  Future<List<CategoryLocal>> getAll([Isar? isar]) {
+  Future<List<CategoryLocal>> getAll([Isar? isar]) async {
     if (isar != null) {
       return isar.categoryLocals.where().findAll();
     }
     if (instance != null) {
-      return instance!.categoryLocals.where().findAll();
+      final result = await instance!.categoryLocals.where().findAll();
+      return result;
     }
     throw Exception('isar null');
   }

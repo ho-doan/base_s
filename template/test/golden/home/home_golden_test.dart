@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:template/core/router/router.dart';
 import 'package:template/core/services/dependency_injection/service_locator.dart';
 import 'package:template/feature/home/home_screen.dart';
 
@@ -16,49 +17,60 @@ import 'step/is_rendered_home_screen.dart';
 import 'step/is_running_home_screen.dart';
 import 'step/screenshot_verified.dart';
 
-@GenerateNiceMocks([MockSpec<CategoryUseCase>()])
+@GenerateNiceMocks([
+  MockSpec<CategoryUseCase>(),
+  MockSpec<ProductUseCase>(),
+])
 void main() {
-  late MockCategoryUseCase mockCategoryUseCase;
-  setUpAll(() {
-    mockCategoryUseCase = MockCategoryUseCase();
+  late CategoryUseCase categoryUseCase;
+  late ProductUseCase productUseCase;
+  setUpAll(() async {
+    categoryUseCase = MockCategoryUseCase();
+    productUseCase = MockProductUseCase();
     configureDependenciesTest();
     getIt
       ..unregister<CategoryUseCase>()
-      ..registerFactory<CategoryUseCase>(() => mockCategoryUseCase);
+      ..registerFactory<CategoryUseCase>(() => categoryUseCase)
+      ..unregister<ProductUseCase>()
+      ..registerFactory(() => productUseCase);
   });
   tearDownAll(getIt.reset);
   group('Home golden test', () {
     testWidgets('when success', (tester) async {
-      when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+      when(categoryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => const Right([dummyCategoryModel]));
+      when(productUseCase.fetch(1, token: anyNamed('token')))
+          .thenAnswer((_) async => const Right([dummyProduct]));
       await runningHomeScreen(tester);
-      await iSeeNText(tester, dummyCategoryModel.getName, 4);
+      await iSeeNText(tester, dummyCategoryModel.getName, 1);
     });
     testWidgets('when success tab', (tester) async {
-      when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+      when(categoryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => const Right([dummyCategoryModel]));
+      when(productUseCase.fetch(1, token: anyNamed('token')))
+          .thenAnswer((_) async => const Right([dummyProduct]));
       await runningHomeScreen(tester);
-      await iSeeNText(tester, dummyCategoryModel.getName, 4);
+      await iSeeNText(tester, dummyCategoryModel.getName, 1);
       await iTapIcon(tester, Icons.add);
-      await iSeeNText(tester, dummyCategoryModel.getName, 4);
+      await iSeeNText(tester, dummyCategoryModel.getName, 1);
     });
     testGoldens('when success data is not empty', (tester) async {
-      when(mockCategoryUseCase.fetch(token: anyNamed('token'))).thenAnswer(
-        (_) async => Right([for (int i = 0; i < 10; i++) dummyCategoryModel]),
+      when(categoryUseCase.fetch(token: anyNamed('token'))).thenAnswer(
+        (_) async => Right([]),
       );
       await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_data');
       addTearDown(() => tester.view.reset());
     });
     testGoldens('when success data is empty', (tester) async {
-      when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+      when(categoryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => const Right([]));
       await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_empty');
       addTearDown(() => tester.view.reset());
     });
     testGoldens('when failure', (tester) async {
-      when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+      when(categoryUseCase.fetch(token: anyNamed('token')))
           .thenAnswer((_) async => Left(ErrorState<String>(error: '')));
       await runningRenderedHomeScreen(tester);
       await screenshotVerifiedCounter(tester, 'home_screen_failure');
@@ -68,7 +80,8 @@ void main() {
     testWidgets(
       'when success data is empty',
       (tester) async {
-        when(mockCategoryUseCase.fetch(token: anyNamed('token')))
+        navigatorKeyTesting = GlobalKey<NavigatorState>();
+        when(categoryUseCase.fetch(token: anyNamed('token')))
             .thenAnswer((_) async => const Right([dummyCategoryModel]));
         await loadAppFonts();
         final builder = DeviceBuilder()

@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: cateLst.length,
                             itemBuilder: (_, index) => ProductItemWidget(
                               bloc: _bloc.products[index],
+                              category: cateLst[index],
                             ),
                           );
                         },

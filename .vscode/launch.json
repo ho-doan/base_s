@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "integration test",
+            "request": "launch",
+            "type": "dart",
+            // Define your flavor (here: foo) that you use in tests
+            "toolArgs": [
+                "--flavor",
+                "dev",
+            ],
+            // This is important: set it only for integration_test
+            "templateFor": "integration_test",
+        },
+        {
             "name": "template dev",
             "cwd": "template",
             "request": "launch",
