@@ -16,6 +16,7 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       //#region config
+      print('============ ${DefaultFirebaseOptions.name}');
       await Firebase.initializeApp(
         name: DefaultFirebaseOptions.name,
         options: DefaultFirebaseOptions.currentPlatform,

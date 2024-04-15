@@ -11,7 +11,7 @@
             "args": [
                 "--dart-define=FLAVOR=dev",
                 "--flavor",
-                "dev"
+                "dev",
             ],
             "program": "lib/main_dev.dart",
             "type": "dart"
