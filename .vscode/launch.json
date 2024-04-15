@@ -5,18 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "integration test",
-            "request": "launch",
-            "type": "dart",
-            // Define your flavor (here: foo) that you use in tests
-            "toolArgs": [
-                "--flavor",
-                "dev",
-            ],
-            // This is important: set it only for integration_test
-            "templateFor": "integration_test",
-        },
-        {
             "name": "template dev",
             "cwd": "template",
             "request": "launch",
@@ -25,7 +13,7 @@
                 "--flavor",
                 "dev"
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_dev.dart",
             "type": "dart"
         },
         // npm run start:dev --prefix ./mocks
@@ -38,7 +26,7 @@
                 "--flavor",
                 "ctest",
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_test.dart",
             "type": "dart"
         },
         {
@@ -49,7 +37,7 @@
                 "--dart-define=FLAVOR=dev",
                 "--web-browser-flag=--disable-web-security"
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_dev.dart",
             "type": "dart"
         },
         {
@@ -60,7 +48,7 @@
                 "--dart-define=FLAVOR=ctest",
                 "--web-browser-flag=--disable-web-security"
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_test.dart",
             "type": "dart"
         },
         {
@@ -73,7 +61,7 @@
                 "--flavor",
                 "dev",
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_dev.dart",
             "flutterMode": "profile"
         },
         {
@@ -86,7 +74,7 @@
                 "dev",
                 "--dart-define=FLAVOR=dev"
             ],
-            "program": "lib/main.dart",
+            "program": "lib/main_dev.dart",
             "flutterMode": "release"
         },
         {
