@@ -52,9 +52,6 @@ scripts:
     failFast: true
     packageFilters:
       dependsOn: build_runner
-      ignore:
-        - example
-        - example_resources
     description: build_runner build all modules.
   domain:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
