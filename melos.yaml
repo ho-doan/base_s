@@ -34,6 +34,18 @@ scripts:
     packageFilters:
       dirExists: test
     description: test all modules.
+  test_c_c:
+    exec: flutter test --coverage && genhtml coverage/lcov.info -o coverage/html && open -a 'google chrome' ./coverage/html/index.html
+    failFast: true
+    packageFilters:
+      dirExists: test
+    description: test all modules.
+  test_c:
+    exec: flutter test --coverage && genhtml coverage/lcov.info -o coverage/html
+    failFast: true
+    packageFilters:
+      dirExists: test
+    description: test all modules.
   test_run:
     run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
     failFast: true

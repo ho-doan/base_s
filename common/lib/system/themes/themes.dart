@@ -16,8 +16,8 @@ class AppColors extends ThemeExtension<AppColors> {
         borderColor: ColorName.borderColorLight,
       );
   factory AppColors.dark() => const AppColors._(
-        black: ColorName.black,
-        white: ColorName.white,
+        black: ColorName.white,
+        white: ColorName.black,
         borderColor: ColorName.borderColorDart,
       );
 
