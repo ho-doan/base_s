@@ -1,4 +1,5 @@
 import 'package:common/common.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -8,6 +9,8 @@ class HomeCallback {
   void profileCallback() {}
   void settingsCallback() {}
   void productsCallback() {}
+  void infoCallback() {}
+  void openEndDrawer() {}
 }
 
 class MockHomeAction extends Mock implements HomeCallback {}
@@ -19,6 +22,7 @@ class Home extends StatefulWidget {
     required this.profileCallback,
     required this.settingsCallback,
     required this.productsCallback,
+    required this.infoCallback,
     this.location,
   });
 
@@ -26,6 +30,7 @@ class Home extends StatefulWidget {
   final VoidCallback profileCallback;
   final VoidCallback settingsCallback;
   final VoidCallback productsCallback;
+  final VoidCallback infoCallback;
   final String? location;
 
   @override
@@ -63,6 +68,20 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.person),
             title: 'Profile',
             action: widget.profileCallback,
+            children: [
+              ActionAppBar(
+                path: '/info',
+                icon: Icon(Icons.category),
+                title: 'Info',
+                action: widget.infoCallback,
+              ),
+              ActionAppBar(
+                path: '/info2',
+                icon: Icon(Icons.category),
+                title: 'Info2',
+                action: () {},
+              ),
+            ],
           ),
         ],
       ),
@@ -119,7 +138,11 @@ void main() {
 
   testWidgets('BaseAppBar', (tester) async {
     final home = MockHomeAction();
+
+    addTearDown(tester.view.reset);
+    tester.view.physicalSize = Size(5000, 5000);
     TestWidgetsFlutterBinding.ensureInitialized();
+
     await tester.pumpWidget(MaterialApp(
       theme: AppThemes.internal().lightTheme,
       darkTheme: AppThemes.internal().dartTheme,
@@ -128,6 +151,7 @@ void main() {
         profileCallback: home.profileCallback,
         productsCallback: home.productsCallback,
         settingsCallback: home.settingsCallback,
+        infoCallback: home.infoCallback,
       ),
     ));
     await tester.tap(find.byIcon(Icons.home));
@@ -152,7 +176,11 @@ void main() {
   });
   testWidgets('BaseAppBar UI width > 600', (tester) async {
     final home = MockHomeAction();
+
     TestWidgetsFlutterBinding.ensureInitialized();
+    addTearDown(tester.view.reset);
+    tester.view.physicalSize = Size(5000, 5000);
+
     await tester.pumpWidget(MaterialApp(
       theme: AppThemes.internal().lightTheme,
       darkTheme: AppThemes.internal().dartTheme,
@@ -162,6 +190,7 @@ void main() {
         profileCallback: home.profileCallback,
         productsCallback: home.productsCallback,
         settingsCallback: home.settingsCallback,
+        infoCallback: home.infoCallback,
       ),
     ));
 
@@ -175,26 +204,49 @@ void main() {
     final border = (container.decoration as BoxDecoration).border;
     final color = border?.bottom.color;
     expect(color, isNotNull);
+
+    when(home.infoCallback()).thenAnswer((_) {
+      print('info');
+    });
+    await tester.tap(find.byType(DropdownButton2<ActionAppBar>));
+    await tester.pump();
+    await tester.tap(find.text('Info'));
+    await tester.pumpAndSettle();
+    verify(home.infoCallback()).called(1);
   });
+  testWidgets('BaseAppBar UI width < 600', (tester) async {
+    final home = MockHomeAction();
 
-  // testWidgets('BaseAppBar with UI', (tester) async {
-  //   final home = MockHomeAction();
-  //   TestWidgetsFlutterBinding.ensureInitialized();
-  //   await tester.pumpWidget(MaterialApp(
-  //     theme: AppThemes.internal().lightTheme,
-  //     darkTheme: AppThemes.internal().dartTheme,
-  //     home: Home(
-  //       location: '/settings',
-  //       homeCallback: home.homeCallback,
-  //       profileCallback: home.profileCallback,
-  //       productsCallback: home.productsCallback,
-  //       settingsCallback: home.settingsCallback,
-  //     ),
-  //   ));
+    TestWidgetsFlutterBinding.ensureInitialized();
+    addTearDown(tester.view.reset);
+    tester.view.physicalSize = Size(600, 1000);
+    tester.view.devicePixelRatio = 1;
 
-  //   await tester.ensureVisible(find.byIcon(Icons.settings));
-  //   await tester.tap(find.byIcon(Icons.settings));
-  //   await tester.pumpAndSettle();
-  //   verifyNever(home.settingsCallback());
-  // });
+    await tester.pumpWidget(MaterialApp(
+      theme: AppThemes.internal().lightTheme,
+      darkTheme: AppThemes.internal().dartTheme,
+      home: Home(
+        location: '/products',
+        homeCallback: home.homeCallback,
+        profileCallback: home.profileCallback,
+        productsCallback: home.productsCallback,
+        settingsCallback: home.settingsCallback,
+        infoCallback: home.infoCallback,
+      ),
+    ));
+
+    when(home.settingsCallback()).thenAnswer((_) {
+      print('settings');
+    });
+
+    await tester.tap(find.byIcon(Icons.settings));
+    await tester.pump();
+    verify(home.settingsCallback()).called(1);
+
+    openEndDrawer = home.openEndDrawer;
+    when(home.openEndDrawer()).thenAnswer((_) {});
+    await tester.tap(find.byIcon(Icons.list));
+    await tester.pump();
+    verify(home.openEndDrawer()).called(1);
+  });
 }

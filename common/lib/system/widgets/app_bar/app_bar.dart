@@ -32,6 +32,9 @@ extension ActionAppBarList on List<ActionAppBar>? {
   }
 }
 
+@visibleForTesting
+VoidCallback? openEndDrawer;
+
 class BaseAppBar extends StatefulWidget implements PreferredSizeWidget {
   const BaseAppBar({
     super.key,
@@ -166,7 +169,7 @@ class _BaseAppBarState extends State<BaseAppBar> {
                 ),
               IconButton(
                 onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
+                  (openEndDrawer ?? Scaffold.of(context).openEndDrawer).call();
                 },
                 icon: const Icon(Icons.list),
               ),
