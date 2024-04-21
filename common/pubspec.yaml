@@ -22,6 +22,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hodoan_lint: ^0.0.2
+  mockito: ^5.4.4
 flutter:
   generate: true
   assets:
