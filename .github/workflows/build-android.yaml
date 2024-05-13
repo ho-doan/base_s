@@ -16,8 +16,8 @@ on:
 jobs:
   DEV:
     runs-on: ubuntu-20.04
-
-    # environment: ${{ github.event.inputs.environment }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       # https://github.com/actions/checkout
