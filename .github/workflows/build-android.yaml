@@ -24,17 +24,30 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - id: release
-        uses: rymndhng/release-on-push-action@master
-        with:
-          bump_version_scheme: minor
-          tag_prefix: v
-        
+      - name: Tag name
+        id: tag_name
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
       - name: Check Output Parameters
         run: |
-          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
-          echo "Got release version ${{ steps.release.outputs.version }}"
-          echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
+          echo "SOURCE_NAME ${{ steps.tag_name.outputs.SOURCE_NAME }}"
+          echo "SOURCE_BRANCH ${{ steps.tag_name.outputs.SOURCE_BRANCH }}"
+          echo "SOURCE_TAG ${{ steps.tag_name.outputs.SOURCE_TAG }}"
+
+      # - id: release
+      #   uses: rymndhng/release-on-push-action@master
+      #   with:
+      #     bump_version_scheme: minor
+      #     tag_prefix: v
+        
+      # - name: Check Output Parameters
+      #   run: |
+      #     echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+      #     echo "Got release version ${{ steps.release.outputs.version }}"
+      #     echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
 
       # #set up java 17 
       # - name: Set up Java
