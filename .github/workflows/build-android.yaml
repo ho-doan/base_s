@@ -43,9 +43,10 @@ jobs:
         id: version_flutter
         run: |
           echo "SOURCE_TAG ${{ env.SOURCE_TAG }}"
-          echo "{fragment}={${env.SOURCE_TAG#v/*/}}"
-          echo "{fragment}={${env.SOURCE_TAG#v/*/#.dev}}"
-          echo "{fragment}={${env.SOURCE_TAG#v/*.dev}}"
+          echo "SOURCE_TAG $SOURCE_TAG"
+          echo "{fragment}={${$SOURCE_TAG#v/*/}}"
+          echo "{fragment}={${$SOURCE_TAG#v/*/#.dev}}"
+          echo "{fragment}={${$SOURCE_TAG#v/*.dev}}"
       
       # - name: Check Output Parameters
       #   run: |
