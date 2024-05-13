@@ -1,0 +1,142 @@
+name: build android
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       environment:
+#         type: environment
+#         description: 'Environment'
+#         required: true
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  DEV:
+    runs-on: ubuntu-20.04
+
+    # environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - id: release
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: minor
+          tag_prefix: v
+        
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
+          echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
+
+      #set up java 17 
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: "temurin"
+
+      # https://github.com/kuhnroyal/flutter-fvm-config-action
+      # - name: fetch flutter config
+      #   uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      # https://github.com/subosito/flutter-action
+      - name: set up flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: ${{ env.FLUTTER_VERSION }}-${{ env.FLUTTER_CHANNEL }}
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.0
+
+      - name: setup fastlane
+        run: |
+          gem install bundler
+          bundle install --gemfile=.github/fastlane/Gemfile
+
+      # https://github.com/actions/cache
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ env.PUB_CACHE }}
+            ${{ github.workspace }}/.packages
+            ${{ github.workspace }}/.flutter-plugins
+            ${{ github.workspace }}/.flutter-plugin-dependencies
+            ${{ github.workspace }}/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
+          restore-keys: |
+            build-pubspec-
+
+      - name: install dependencies
+        run: flutter pub get
+
+      - name: cache gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: build aab
+        run: |
+          flutter build appbundle \
+          	--release \
+            --flavor dev
+        env:
+          APP_FLAVOR: ${{ secrets.APP_FLAVOR }}
+          APP_ID_SUFFIX: ${{ secrets.APP_ID_SUFFIX }}
+          APP_NAME: ${{ secrets.APP_NAME }}
+
+      - name: save aab to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.aab
+          path: ./build/app/outputs/bundle/release/app-release.aab
+
+      # - name: Create the Keystore
+      #   run: echo -n "$ANDROID_KEY_STORE_BASE_64" | grep -v '^-' | tr -d '\n' | base64 -d > $RUNNER_TEMP/temp.keystore
+      #   env:
+      #     ANDROID_KEY_STORE_BASE_64: ${{ secrets.ANDROID_KEY_STORE_BASE_64 }}
+
+      # - name: Sign Android App Bundle
+      #   run: |
+      #     jarsigner -keystore $RUNNER_TEMP/temp.keystore \
+      #       -storepass $ANDROID_STORE_PASSWORD \
+      #       -keypass $ANDROID_KEY_PASSWORD \
+      #       -sigalg SHA256withRSA \
+      #       -digestalg SHA-256 \
+      #       -signedjar ./build/app/outputs/bundle/release/app-release-signed.aab ./build/app/outputs/bundle/release/*.aab $ANDROID_KEY_ALIAS
+      #   env:
+      #     ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+      #     ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      #     ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
+      # - name: save signed aab to artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: app-release-signed.aab
+      #     path: ./build/app/outputs/bundle/release/app-release-signed.aab
+
+      # - name: Create service-accont.json
+      #   run: echo -n ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_JSON }} | base64 -d > android/service-account.json
+
+      # - name: deploy to googleplay
+      #   run: fastlane deploy_to_google_play_$APP_FLAVOR
+      #   working-directory: ./android
+      #   env:
+      #     APP_FLAVOR: ${{ secrets.APP_FLAVOR }}
