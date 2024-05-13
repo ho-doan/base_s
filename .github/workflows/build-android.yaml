@@ -43,6 +43,7 @@ jobs:
         id: version_flutter
         run: |
           echo "VDEV=${SOURCE_TAG#v}"
+          echo "LVERSION=${VDEV/.dev/}"
           echo "VERSION=${VDEV/.dev/}" >> $GITHUB_OUTPUT
 
       - name: Check Output Parameters
