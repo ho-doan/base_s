@@ -10,8 +10,8 @@ name: build android
 
 on: 
   push:
-    branches:
-      - master
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   DEV:
@@ -36,77 +36,77 @@ jobs:
           echo "Got release version ${{ steps.release.outputs.version }}"
           echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
 
-      #set up java 17 
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 17
-          distribution: "temurin"
+      # #set up java 17 
+      # - name: Set up Java
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     java-version: 17
+      #     distribution: "temurin"
 
-      # https://github.com/kuhnroyal/flutter-fvm-config-action
-      # - name: fetch flutter config
-      #   uses: kuhnroyal/flutter-fvm-config-action@v1
+      # # https://github.com/kuhnroyal/flutter-fvm-config-action
+      # # - name: fetch flutter config
+      # #   uses: kuhnroyal/flutter-fvm-config-action@v1
 
-      # https://github.com/subosito/flutter-action
-      - name: set up flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-          cache: true
-          cache-key: ${{ env.FLUTTER_VERSION }}-${{ env.FLUTTER_CHANNEL }}
+      # # https://github.com/subosito/flutter-action
+      # - name: set up flutter
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: ${{ env.FLUTTER_VERSION }}
+      #     channel: ${{ env.FLUTTER_CHANNEL }}
+      #     cache: true
+      #     cache-key: ${{ env.FLUTTER_VERSION }}-${{ env.FLUTTER_CHANNEL }}
 
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.0.0
+      # - uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: 3.0.0
 
-      - name: setup fastlane
-        run: |
-          gem install bundler
-          bundle install --gemfile=.github/fastlane/Gemfile
+      # - name: setup fastlane
+      #   run: |
+      #     gem install bundler
+      #     bundle install --gemfile=.github/fastlane/Gemfile
 
-      # https://github.com/actions/cache
-      - name: cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ env.PUB_CACHE }}
-            ${{ github.workspace }}/.packages
-            ${{ github.workspace }}/.flutter-plugins
-            ${{ github.workspace }}/.flutter-plugin-dependencies
-            ${{ github.workspace }}/.dart_tool/package_config.json
-          key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
-          restore-keys: |
-            build-pubspec-
+      # # https://github.com/actions/cache
+      # - name: cache dependencies
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       ${{ env.PUB_CACHE }}
+      #       ${{ github.workspace }}/.packages
+      #       ${{ github.workspace }}/.flutter-plugins
+      #       ${{ github.workspace }}/.flutter-plugin-dependencies
+      #       ${{ github.workspace }}/.dart_tool/package_config.json
+      #     key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
+      #     restore-keys: |
+      #       build-pubspec-
 
-      - name: install dependencies
-        run: flutter pub get
+      # - name: install dependencies
+      #   run: flutter pub get
 
-      - name: cache gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      # - name: cache gradle
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gradle-
 
-      - name: build aab
-        run: |
-          flutter build appbundle \
-          	--release \
-            --flavor dev
-        env:
-          APP_FLAVOR: ${{ secrets.APP_FLAVOR }}
-          APP_ID_SUFFIX: ${{ secrets.APP_ID_SUFFIX }}
-          APP_NAME: ${{ secrets.APP_NAME }}
+      # - name: build aab
+      #   run: |
+      #     flutter build appbundle \
+      #     	--release \
+      #       --flavor dev
+      #   env:
+      #     APP_FLAVOR: ${{ secrets.APP_FLAVOR }}
+      #     APP_ID_SUFFIX: ${{ secrets.APP_ID_SUFFIX }}
+      #     APP_NAME: ${{ secrets.APP_NAME }}
 
-      - name: save aab to artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-release.aab
-          path: ./build/app/outputs/bundle/release/app-release.aab
+      # - name: save aab to artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: app-release.aab
+      #     path: ./build/app/outputs/bundle/release/app-release.aab
 
       # - name: Create the Keystore
       #   run: echo -n "$ANDROID_KEY_STORE_BASE_64" | grep -v '^-' | tr -d '\n' | base64 -d > $RUNNER_TEMP/temp.keystore
