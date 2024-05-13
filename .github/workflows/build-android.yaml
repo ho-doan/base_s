@@ -42,10 +42,11 @@ jobs:
       - name: get version build flutter
         env:
           SOURCE_TAG: ${{ steps.tag_name.outputs.SOURCE_TAG }}
+          FLUTTER_VERSION: ${{vars.FLUTTER_VERSION}}
         id: version_flutter
         run: |
           VDEV=${SOURCE_TAG#v}
-          echo "ff: ${{env.FLUTTER_VERSION}}"
+          echo "ff: ${{env.FLUTTER_VERSION}} ${{vars.FLUTTER_VERSION}}"
           echo "VERSION=${VDEV/.dev/}" >> $GITHUB_OUTPUT
 
       - name: Check Output Parameters
