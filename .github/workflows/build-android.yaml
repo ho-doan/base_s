@@ -27,15 +27,25 @@ jobs:
       - name: Tag name
         id: tag_name
         run: |
-          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+          echo "{SOURCE_NAME}={${GITHUB_REF#refs/*/}}" >> $GITHUB_OUTPUT
+          echo "{SOURCE_BRANCH}={${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+          echo "{SOURCE_TAG}={${GITHUB_REF#refs/tags/}}" >> $GITHUB_OUTPUT
 
       - name: Check Output Parameters
         run: |
-          echo "SOURCE_NAME ${{ steps.tag_name.outputs.SOURCE_NAME }}"
-          echo "SOURCE_BRANCH ${{ steps.tag_name.outputs.SOURCE_BRANCH }}"
-          echo "SOURCE_TAG ${{ steps.tag_name.outputs.SOURCE_TAG }}"
+          echo "SOURCE_NAME = {${{ steps.tag_name.outputs.SOURCE_NAME }}}"
+          echo "SOURCE_BRANCH = {${{ steps.tag_name.outputs.SOURCE_BRANCH }}}"
+          echo "SOURCE_TAG = {${{ steps.tag_name.outputs.SOURCE_TAG }}}"
+
+      - name: get version build flutter
+        env:
+          SOURCE_TAG: ${{ steps.tag_name.outputs.SOURCE_TAG }}
+        id: version_flutter
+        run: echo "::set-output name=fragment::${SOURCE_TAG:1:-3}"
+      
+      - name: Check Output Parameters
+        run: |
+          echo "version build flutter = {${{ steps.version_flutter.outputs.fragment }}}"
 
       # - id: release
       #   uses: rymndhng/release-on-push-action@master
