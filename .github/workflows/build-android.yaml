@@ -44,6 +44,7 @@ jobs:
         run: |
           echo "{fragment}={${SOURCE_TAG#v/*/}}"
           echo "{fragment}={${SOURCE_TAG#v/*/#.dev}}"
+          echo "{fragment}={${SOURCE_TAG#v/*.dev}}"
       
       # - name: Check Output Parameters
       #   run: |
