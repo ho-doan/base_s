@@ -110,6 +110,7 @@ jobs:
       #       ${{ runner.os }}-gradle-
 
       - name: build aab
+        working-directory: ./template
         run: |
           flutter build appbundle \
           	--release \
