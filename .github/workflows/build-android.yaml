@@ -44,7 +44,8 @@ jobs:
         run: |
           echo "SOURCE_TAG $SOURCE_TAG ${{steps.tag_name.outputs.SOURCE_TAG}}"
           echo "SOURCE_TAG ${SOURCE_TAG}"
-          echo "${$SOURCE_TAG#v/*} | sed -e 's/.dev//g'"
+          echo "${$SOURCE_TAG#v*} | sed -e 's/.dev//g'"
+          echo "${$SOURCE_TAG#v*.dev}"
 
       # - name: Check Output Parameters
       #   run: |
