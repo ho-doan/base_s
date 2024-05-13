@@ -113,7 +113,8 @@ jobs:
         run: |
           flutter build appbundle \
           	--release \
-            --flavor dev
+            --flavor dev \
+            -t lib/main_dev.dart
 
       # - name: save aab to artifact
       #   uses: actions/upload-artifact@v2
