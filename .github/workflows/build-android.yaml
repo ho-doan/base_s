@@ -42,14 +42,12 @@ jobs:
           SOURCE_TAG: ${{ steps.tag_name.outputs.SOURCE_TAG }}
         id: version_flutter
         run: |
-          echo "SOURCE_TAG $SOURCE_TAG ${{steps.tag_name.outputs.SOURCE_TAG}}"
-          echo "SOURCE_TAG ${SOURCE_TAG}"
-          echo "VDEV=${SOURCE_TAG#v*}"
+          echo "VDEV=${SOURCE_TAG#v}"
           echo "VERSION=${VDEV/.dev/}" >> $GITHUB_OUTPUT
 
       - name: Check Output Parameters
         run: |
-          echo "version build flutter = {${{ steps.version_flutter.outputs.VERSION }}}"
+          echo "version build flutter = ${{ steps.version_flutter.outputs.VERSION }}"
 
       # - id: release
       #   uses: rymndhng/release-on-push-action@master
