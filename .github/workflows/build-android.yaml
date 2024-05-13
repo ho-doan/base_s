@@ -68,10 +68,10 @@ jobs:
       - name: set up flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ github.env.FLUTTER_VERSION }}
-          channel: ${{ github.env.FLUTTER_CHANNEL }}
+          flutter-version: ${{ vars.FLUTTER_VERSION }}
+          channel: ${{ vars.FLUTTER_CHANNEL }}
           cache: true
-          cache-key: ${{ github.env.FLUTTER_VERSION }}-${{ github.env.FLUTTER_CHANNEL }}
+          cache-key: ${{ vars.FLUTTER_VERSION }}-${{ vars.FLUTTER_CHANNEL }}
 
       # - uses: ruby/setup-ruby@v1
       #   with:
@@ -82,22 +82,22 @@ jobs:
       #     gem install bundler
       #     bundle install --gemfile=.github/fastlane/Gemfile
 
-      # # https://github.com/actions/cache
-      # - name: cache dependencies
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       ${{ env.PUB_CACHE }}
-      #       ${{ github.workspace }}/.packages
-      #       ${{ github.workspace }}/.flutter-plugins
-      #       ${{ github.workspace }}/.flutter-plugin-dependencies
-      #       ${{ github.workspace }}/.dart_tool/package_config.json
-      #     key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
-      #     restore-keys: |
-      #       build-pubspec-
+      # https://github.com/actions/cache
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ vars.PUB_CACHE }}
+            ${{ github.workspace }}/.packages
+            ${{ github.workspace }}/.flutter-plugins
+            ${{ github.workspace }}/.flutter-plugin-dependencies
+            ${{ github.workspace }}/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
+          restore-keys: |
+            build-pubspec-
 
-      # - name: install dependencies
-      #   run: flutter pub get
+      - name: install dependencies
+        run: flutter pub get
 
       # - name: cache gradle
       #   uses: actions/cache@v3
@@ -109,15 +109,11 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-gradle-
 
-      # - name: build aab
-      #   run: |
-      #     flutter build appbundle \
-      #     	--release \
-      #       --flavor dev
-      #   env:
-      #     APP_FLAVOR: ${{ secrets.APP_FLAVOR }}
-      #     APP_ID_SUFFIX: ${{ secrets.APP_ID_SUFFIX }}
-      #     APP_NAME: ${{ secrets.APP_NAME }}
+      - name: build aab
+        run: |
+          flutter build appbundle \
+          	--release \
+            --flavor dev
 
       # - name: save aab to artifact
       #   uses: actions/upload-artifact@v2
