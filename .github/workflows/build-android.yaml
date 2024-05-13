@@ -33,19 +33,17 @@ jobs:
 
       - name: Check Output Parameters
         run: |
-          echo "SOURCE_NAME = {${{ steps.tag_name.outputs.SOURCE_NAME }}}"
-          echo "SOURCE_BRANCH = {${{ steps.tag_name.outputs.SOURCE_BRANCH }}}"
-          echo "SOURCE_TAG = {${{ steps.tag_name.outputs.SOURCE_TAG }}}"
+          echo "SOURCE_NAME = ${{ steps.tag_name.outputs.SOURCE_NAME }}"
+          echo "SOURCE_BRANCH = ${{ steps.tag_name.outputs.SOURCE_BRANCH }}"
+          echo "SOURCE_TAG = ${{ steps.tag_name.outputs.SOURCE_TAG }}"
 
       - name: get version build flutter
         env:
           SOURCE_TAG: ${{ steps.tag_name.outputs.SOURCE_TAG }}
         id: version_flutter
         run: |
-          echo "SOURCE_TAG {$SOURCE_TAG} {${{steps.tag_name.outputs.SOURCE_TAG}}}"
+          echo "SOURCE_TAG $SOURCE_TAG ${{steps.tag_name.outputs.SOURCE_TAG}}"
           echo "SOURCE_TAG ${SOURCE_TAG}"
-          echo "{fragment}={${$SOURCE_TAG#v/*/}}"
-          echo "{fragment}={${$SOURCE_TAG#v/*/#.dev}}"
           echo "{fragment}={${$SOURCE_TAG#v/*.dev}}"
 
       # - name: Check Output Parameters
