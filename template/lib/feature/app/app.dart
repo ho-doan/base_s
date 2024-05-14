@@ -28,9 +28,9 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FirebaseAppNotifications().initialize(context);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   FirebaseAppNotifications().initialize(context);
+    // });
     super.initState();
   }
 
