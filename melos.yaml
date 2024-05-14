@@ -7,8 +7,8 @@ command:
 packages:
   - template/**
   - common/**
-  - domain/**
   - shared/**
+  - domain/**
   - mocks/**
   - packages/**
   - packages/core_generator/**
