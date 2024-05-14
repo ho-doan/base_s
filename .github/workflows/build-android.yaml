@@ -33,12 +33,6 @@ jobs:
           echo "SOURCE_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           echo "SOURCE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-      - name: Check Output Parameters
-        run: |
-          echo "SOURCE_NAME = ${{ steps.tag_name.outputs.SOURCE_NAME }}"
-          echo "SOURCE_BRANCH = ${{ steps.tag_name.outputs.SOURCE_BRANCH }}"
-          echo "SOURCE_TAG = ${{ steps.tag_name.outputs.SOURCE_TAG }}"
-
       - name: get version build flutter
         env:
           SOURCE_TAG: ${{ steps.tag_name.outputs.SOURCE_TAG }}
@@ -48,10 +42,6 @@ jobs:
           VDEV=${SOURCE_TAG#v}
           echo "ff: ${{env.FLUTTER_VERSION}} ${{vars.FLUTTER_VERSION}}"
           echo "VERSION=${VDEV/.dev/}" >> $GITHUB_OUTPUT
-
-      - name: Check Output Parameters
-        run: |
-          echo "version build flutter = ${{ steps.version_flutter.outputs.VERSION }}"
 
       #set up java 17
       - name: Set up Java
@@ -111,6 +101,17 @@ jobs:
       - name: install template
         run: melos pub
 
+      # --build-number 69
+      - name: build apk
+        working-directory: ./template
+        run: flutter build apk --release --flavor dev -t lib/main_dev.dart --build-name=${{steps.version_flutter.outputs.VERSION}}
+
+      - name: upload artifact apk
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: template/build/app/outputs/apk/release/app-dev-release.apk
+
 
       # - name: cache gradle
       #   uses: actions/cache@v3
@@ -130,11 +131,11 @@ jobs:
             --flavor dev \
             -t lib/main_dev.dart
 
-      # - name: save aab to artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: app-release.aab
-      #     path: ./build/app/outputs/bundle/release/app-release.aab
+      - name: upload artifact aab
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-aab
+          path: template/build/app/outputs/bundle/devRelease/app-dev-release.aab
 
       # - name: Create the Keystore
       #   run: echo -n "$ANDROID_KEY_STORE_BASE_64" | grep -v '^-' | tr -d '\n' | base64 -d > $RUNNER_TEMP/temp.keystore
