@@ -90,3 +90,10 @@ scripts:
       scope: "*template*"
       dependsOn: build_runner
     description: build_runner build all modules.
+  shared:
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    packageFilters:
+      scope: "*shared*"
+      dependsOn: build_runner
+    description: build_runner build all modules.

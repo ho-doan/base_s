@@ -95,6 +95,8 @@ jobs:
       - name: install dependencies
         run: melos pub
 
+      - name: build code gen shared
+        run: melos shared
       - name: build code gen
         run: melos build-all
 
@@ -110,7 +112,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: template/build/app/outputs/apk/release/app-dev-release.apk
+          path: ./template/build/app/outputs/apk/release/app-dev-release.apk
 
 
       # - name: cache gradle
@@ -135,7 +137,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-aab
-          path: template/build/app/outputs/bundle/devRelease/app-dev-release.aab
+          path: ./template/build/app/outputs/bundle/devRelease/app-dev-release.aab
 
       # - name: Create the Keystore
       #   run: echo -n "$ANDROID_KEY_STORE_BASE_64" | grep -v '^-' | tr -d '\n' | base64 -d > $RUNNER_TEMP/temp.keystore
