@@ -1,13 +1,5 @@
 name: build android
 
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       environment:
-#         type: environment
-#         description: 'Environment'
-#         required: true
-
 on:
   workflow_dispatch:
   push:
@@ -112,18 +104,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: ./template/build/app/outputs/flutter-apk/release/app-dev-release.apk
+          path: ./template/build/app/outputs/flutter-apk/app-dev-release.apk
 
 
-      # - name: cache gradle
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       ~/.gradle/caches
-      #       ~/.gradle/wrapper
-      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-gradle-
+      - name: cache gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: build aab
         working-directory: ./template
