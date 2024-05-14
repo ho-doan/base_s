@@ -98,7 +98,7 @@ jobs:
 
       - name: setup dart
         uses: dart-lang/setup-dart@v1
-        
+
       - name: setup melos
         uses: bluefireteam/melos-action@v2
 
@@ -107,6 +107,9 @@ jobs:
 
       - name: build code gen
         run: melos build-all
+
+      - name: install template
+        run: melos pub
 
 
       # - name: cache gradle
