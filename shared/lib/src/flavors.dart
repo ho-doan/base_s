@@ -16,9 +16,10 @@ class F {
 
   Env get env {
     return switch (appFlavor) {
-      Flavor.dev => $EnvDev.instance,
-      Flavor.test => $EnvTest.instance,
-      Flavor.stg => $EnvStg.instance,
+      Flavor.dev => $Env.instance,
+      // TODO(hodoan): change env
+      Flavor.test => $Env.instance,
+      Flavor.stg => $Env.instance,
       Flavor.prod => $Env.instance,
     };
   }

@@ -65,6 +65,11 @@ scripts:
     packageFilters:
       dependsOn: build_runner
     description: build_runner build all modules.
+  build-all:
+    concurrency: 1
+    run: melos exec --fail-fast --depends-on=build_runner dart pub run build_runner build --delete-conflicting-outputs
+    failFast: true
+    description: build_runner build all modules.
   domain:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
     failFast: true
