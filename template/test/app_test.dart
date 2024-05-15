@@ -32,8 +32,9 @@ void main() {
         await tester.pump();
 
         await tester.pumpAndSettle();
+        expect(true, true);
       } catch (e) {
-        print(e);
+        expect(true, false);
       }
     },
   );
