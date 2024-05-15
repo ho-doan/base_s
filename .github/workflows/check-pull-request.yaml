@@ -63,7 +63,7 @@ jobs:
         if: steps.test_app.outcome != 'success'
         run: |
           echo 'test_app<<EOF' >> $GITHUB_OUTPUT
-          cat ./coverage/log_run_app.txt >> $GITHUB_OUTPUT   
+          cat ./coverage/log_run_app.json >> $GITHUB_OUTPUT   
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Post Comment
@@ -78,6 +78,15 @@ jobs:
                 issue_number: context.issue.number,
                 body: `${{ steps.test_app_vars.outputs.test_app }}`,
                 });
+      # https://github.com/dorny/test-reporter
+      - name: report test
+        uses: dorny/test-reporter@v1
+        if: steps.test_app.outcome != 'success'
+        with:
+          name: 'flutter test'
+          path: './coverage/log_run_app.log'
+          reporter: 'flutter-json'
+          fail-on-error: 'false'
       - name: Read Comment Text from File
         if: steps.test_app.outcome != 'success'
         run: exit 1
