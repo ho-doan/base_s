@@ -100,8 +100,14 @@ scripts:
   # github actions
   test_app:
     run: |
-      melos exec --scope="*template*" --fail-fast -- flutter test test/app_test.dart --machine &> MELOS_ROOT_PATH/coverage/_log.txt
-      grep -Ev '{"|melos|flutter test|1 packages|exit code 1' MELOS_ROOT_PATH/coverage/_log.txt > MELOS_ROOT_PATH/coverage/log.txt
+      melos exec --scope="*template*" --fail-fast -- flutter test test/app_test.dart --machine &> MELOS_ROOT_PATH/__m.b
+      mlgrep=$(grep -Ev '{"|melos|flutter test|1 packages|exit code 1' MELOS_ROOT_PATH/__m.b)
+      mlawk=$(echo $mlgrep | awk '{ printf("%s\\\\\\\\n", $0) }')
+      secondString="\""
+      replaceString="\\\\\""
+      ssb=$(echo "${mlawk//$secondString/$replaceString}")
+      echo "{\"logs\":\"${ssb}\"}" > MELOS_ROOT_PATH/coverage/log_run_app.json
+      rm MELOS_ROOT_PATH/__m.b
     description: Run app test
   unit_test:
     run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
