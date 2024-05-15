@@ -55,7 +55,7 @@ jobs:
       # test app
       - name: run test_app
         id: test_app
-        run: melos run test_app
+        run: sh ./test.sh
         continue-on-error: true
 
       - name: Read coverage Text from File
