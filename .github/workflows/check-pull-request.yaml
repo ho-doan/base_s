@@ -52,12 +52,6 @@ jobs:
       - name: setup melos
         uses: bluefireteam/melos-action@v2
 
-      - name: setup coverde
-        run: dart pub global activate coverde
-
-      - name: install dependencies
-        run: melos pub
-
       # test app
       - name: run test_app
         id: test_app
@@ -88,6 +82,8 @@ jobs:
         if: steps.test_app.outcome != 'success'
         run: exit 1
       # analyze all packages
+      - name: install dependencies
+        run: melos pub
       - name: run all analize
         id: analize
         run: melos run analyze_report
@@ -117,6 +113,8 @@ jobs:
         if: steps.analize.outcome != 'success'
         run: exit 1
       # test all packages
+      - name: setup coverde
+        run: dart pub global activate coverde
       - name: run all test
         id: test
         run: melos run unit_test_and_coverage
