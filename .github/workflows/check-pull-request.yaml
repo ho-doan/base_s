@@ -69,7 +69,7 @@ jobs:
         if: steps.test_app.outcome != 'success'
         run: |
           echo 'test_app<<EOF' >> $GITHUB_OUTPUT
-          cat ./client/result_filter.txt >> $GITHUB_OUTPUT   
+          cat ./coverage/result_filter.txt >> $GITHUB_OUTPUT   
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Post Comment
