@@ -5,14 +5,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared/shared.dart';
 
-import '../../data/local_data_sources/local_data_sources.dart';
 import '../../data/remote_data_sources/remote_data_sources.dart';
 import '../../domain.dart';
 
 class ProductRepository {
-  ProductRepository(this._local, this._remote);
+  ProductRepository(this._remote);
 
-  final ProductLocalDataSource _local;
   final ProductRemoteDataSource _remote;
 
   Future<Either<ErrorState, List<ProductModel>>> fetch(
@@ -23,9 +21,9 @@ class ProductRepository {
     try {
       List<ProductLocal> cache;
       if (token == null) {
-        cache = await _local.getAll();
+        cache = [];
       } else {
-        cache = await _local.getAllTask(token);
+        cache = [];
       }
 
       final check = forceRefresh || cache.isEmpty;
@@ -36,15 +34,15 @@ class ProductRepository {
           final models = [
             for (final i in r) ProductLocal.fromRemote(i),
           ];
-          unawaited(
-            computeApp(
-              _local.insertAllTask,
-              LocalTaskList(
-                models: models,
-                token: !kIsWeb ? token ?? RootIsolateToken.instance! : null,
-              ),
-            ),
-          );
+          // unawaited(
+          //   computeApp(
+          //     _local.insertAllTask,
+          //     LocalTaskList(
+          //       models: models,
+          //       token: !kIsWeb ? token ?? RootIsolateToken.instance! : null,
+          //     ),
+          //   ),
+          // );
           return Right(
             [for (final i in r) ProductModel.fromRemote(i)],
           );
@@ -63,7 +61,7 @@ class ProductRepository {
 
   Future<Either<ErrorState, List<ProductRemote>?>> fetchLocal() async {
     try {
-      final cache = await _local.getAll();
+      final cache = [];
 
       return Right([for (final i in cache) ProductRemote.fromLocal(i)]);
     } on Exception catch (error, stackTrace) {

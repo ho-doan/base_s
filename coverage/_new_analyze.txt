@@ -1,0 +1,36 @@
+
+        └> template (with exit code 1)
+     └> FAILED (in 1 packages)
+     └> RUNNING (in 7 packages)
+  └> flutter analyze 
+$ melos analyze
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Analyzing command...                                            
+Analyzing common...                                             
+Analyzing core_generator...                                     
+Analyzing domain...                                             
+Analyzing mocks...                                              
+Analyzing shared...                                             
+Analyzing template...                                           
+No issues found! (ran in 0.6s)
+No issues found! (ran in 0.7s)
+No issues found! (ran in 0.8s)
+No issues found! (ran in 0.9s)
+No issues found! (ran in 1.2s)
+No issues found! (ran in 1.3s)
+No issues found! (ran in 1.5s)
+No issues found! (ran in 1.6s)
+common:
+common: SUCCESS
+core_clean_gen:
+core_clean_gen: SUCCESS
+core_generator:
+core_generator: SUCCESS
+domain:
+domain: SUCCESS
+mocks:
+mocks: SUCCESS
+shared:
+shared: SUCCESS
+template:
+warning • Unused import: '../../core/services/firebase/notifications/firebase_core_app.dart' • lib/feature/app/app.dart:10:8 • unused_import

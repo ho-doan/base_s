@@ -1,92 +1,147 @@
-# name: check pull request
+name: check pull request
 
-# on:
-#   pull_request:
+on:
+  pull_request:
 
-# env:
-#   RUBY_VERSION: 2.6
+jobs:
+  check:
+    runs-on: ubuntu-20.04
 
-# jobs:
-#   check:
-#     runs-on: ubuntu-20.04
+    timeout-minutes: 10
 
-#     timeout-minutes: 10
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+    permissions:
+      checks: write
+      contents: write
+      issues: write
+      pull-requests: write
 
-#     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
-#     permissions:
-#       checks: write
-#       contents: write
-#       issues: write
-#       pull-requests: write
+    steps:
+      # https://github.com/actions/checkout
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-#     steps:
-#       # https://github.com/actions/checkout
-#       - name: checkout
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0
+      # https://github.com/subosito/flutter-action
+      - name: set up flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ vars.FLUTTER_VERSION }}
+          channel: ${{ vars.FLUTTER_CHANNEL }}
+          cache: true
+          cache-key: ${{ vars.FLUTTER_VERSION }}-${{ vars.FLUTTER_CHANNEL }}
 
-#       # https://github.com/kuhnroyal/flutter-fvm-config-action
-#       - name: fetch flutter config
-#         uses: kuhnroyal/flutter-fvm-config-action@v1
+      # https://github.com/actions/cache
+      - name: cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/hostedtoolcache/flutter
+            ${{ github.workspace }}/.packages
+            ${{ github.workspace }}/.flutter-plugins
+            ${{ github.workspace }}/.flutter-plugin-dependencies
+            ${{ github.workspace }}/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
+          restore-keys: |
+            build-pubspec-
 
-#       # https://github.com/subosito/flutter-action
-#       - name: set up flutter
-#         uses: subosito/flutter-action@v2
-#         with:
-#           flutter-version: ${{ env.FLUTTER_VERSION }}
-#           channel: ${{ env.FLUTTER_CHANNEL }}
-#           cache: true
-#           cache-key: ${{ env.FLUTTER_VERSION }}-${{ env.FLUTTER_CHANNEL }}
+      - name: setup dart
+        uses: dart-lang/setup-dart@v1
 
-#       # https://github.com/actions/cache
-#       - name: cache dependencies
-#         uses: actions/cache@v3
-#         with:
-#           path: |
-#             ${{ env.PUB_CACHE }}
-#             ${{ github.workspace }}/.packages
-#             ${{ github.workspace }}/.flutter-plugins
-#             ${{ github.workspace }}/.flutter-plugin-dependencies
-#             ${{ github.workspace }}/.dart_tool/package_config.json
-#           key: build-pubspec-${{ hashFiles(format('{0}{1}', github.workspace, '/pubspec.lock')) }}
-#           restore-keys: |
-#             build-pubspec-
+      - name: setup melos
+        uses: bluefireteam/melos-action@v2
 
-#       - name: install dependencies
-#         run: flutter pub get
+      - name: setup coverde
+        run: dart pub global activate coverde
 
-#       - name: flutter analyze
-#         run: flutter analyze --no-pub > flutter_analyze_report.txt
-#         continue-on-error: true
+      - name: install dependencies
+        run: melos pub
 
-#       # https://github.com/ruby/setup-ruby
-#       - name: set up ruby
-#         uses: ruby/setup-ruby@v1
-#         with:
-#           ruby-version: ${{ env.RUBY_VERSION }}
-#           bundler-cache: true
+      # test app
+      - name: run test_app
+        id: test_app
+        run: melos run test_app
+        continue-on-error: true
 
-#       # https://github.com/MeilCli/danger-action
-#       - name: run danger
-#         uses: MeilCli/danger-action@v5
-#         with:
-#           install_path: 'vendor/bundle'
-#           plugins_file: '.github/danger/Gemfile'
-#           danger_file: '.github/danger/Dangerfile'
-#           danger_id: 'danger-pr'
-#         env:
-#           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Read coverage Text from File
+        id: test_app_vars
+        if: steps.test_app.outcome != 'success'
+        run: |
+          echo 'test_app<<EOF' >> $GITHUB_OUTPUT
+          cat ./client/result_filter.txt >> $GITHUB_OUTPUT   
+          echo 'EOF' >> $GITHUB_OUTPUT
 
-#       - name: run test
-#         run: flutter test --no-pub --machine > test_report.log
-#         continue-on-error: true
+      - name: Post Comment
+        uses: actions/github-script@v5
+        if: steps.test_app.outcome != 'success'
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+                await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `${{ steps.test_app_vars.outputs.test_app }}`,
+                });
+      - name: Read Comment Text from File
+        if: steps.test_app.outcome != 'success'
+        run: exit 1
+      # test all packages
+      - name: run all analize
+        id: analize
+        run: melos run analyze_report
+        continue-on-error: true
 
-#       # https://github.com/dorny/test-reporter
-#       - name: report test
-#         uses: dorny/test-reporter@v1
-#         with:
-#           name: 'flutter test'
-#           path: 'test_report.log'
-#           reporter: 'flutter-json'
-#           fail-on-error: 'false'
+      - name: Read coverage Text from File
+        id: analize_vars
+        if: steps.analize.outcome != 'success'
+        run: |
+          echo 'analize<<EOF' >> $GITHUB_OUTPUT
+          cat ./client/result_filter.txt >> $GITHUB_OUTPUT   
+          echo 'EOF' >> $GITHUB_OUTPUT
+
+      - name: Post Comment
+        uses: actions/github-script@v5
+        if: steps.analize.outcome != 'success'
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+                await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `${{ steps.analize_vars.outputs.analize }}`,
+                });
+      - name: Read Comment Text from File
+        if: steps.analize.outcome != 'success'
+        run: exit 1
+      # test all packages
+      - name: run all test
+        id: test
+        run: melos run unit_test_and_coverage
+        continue-on-error: true
+
+      - name: Read coverage Text from File
+        id: test_vars
+        if: steps.test.outcome != 'success'
+        run: |
+          echo 'test<<EOF' >> $GITHUB_OUTPUT
+          cat ./client/result_filter.txt >> $GITHUB_OUTPUT   
+          echo 'EOF' >> $GITHUB_OUTPUT
+
+      - name: Post Comment
+        uses: actions/github-script@v5
+        if: steps.test.outcome != 'success'
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+                await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `${{ steps.test_vars.outputs.test }}`,
+                });
+      - name: Read Comment Text from File
+        if: steps.test.outcome != 'success'
+        run: exit 1
