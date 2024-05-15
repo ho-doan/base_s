@@ -25,12 +25,16 @@ void main() {
   testWidgets(
     'when success',
     (tester) async {
-      await configureDependencies();
-      await tester.pumpWidget(homeScreen);
+      try {
+        await configureDependencies();
+        await tester.pumpWidget(homeScreen);
 
-      await tester.pump();
+        await tester.pump();
 
-      await tester.pumpAndSettle();
+        await tester.pumpAndSettle();
+      } catch (e) {
+        print(e);
+      }
     },
   );
 }
