@@ -9,7 +9,7 @@ else
     mlawk=$(echo $mlgrep | awk '{ printf("%s\\\\\\\\n", $0) }')
     secondString="\""
     replaceString="\\\\\""
-    ssb=$(echo "${mlawk//$secondString/$replaceString}")
+    ssb=$(echo $mlawk | sed -e "s/${secondString}/${replaceString}/g")
     echo "{\"logs\":\"${ssb}\"}" > ./log_run_app.json
     rm ./__m.b
 fi
