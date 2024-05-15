@@ -66,6 +66,7 @@ jobs:
           cat ./coverage/log_run_app.json >> $GITHUB_OUTPUT   
           echo 'EOF' >> $GITHUB_OUTPUT
 
+      # body: `${{ steps.test_app_vars.outputs.test_app }}`,
       - name: Post Comment
         uses: actions/github-script@v5
         if: steps.test_app.outcome != 'success'
@@ -76,7 +77,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `${{ steps.test_app_vars.outputs.test_app }}`,
+                body: `🚀🚀🚀 Run App failed 🚀🚀🚀`,
                 });
       # https://github.com/dorny/test-reporter
       - name: report test
