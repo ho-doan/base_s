@@ -1,21 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:common/common.dart';
-import 'package:domain/services/local_database/share_preference/share_preference_helper.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:shared/shared.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:notification_permissions/notification_permissions.dart';
-import 'package:template/core/services/dependency_injection/service_locator.dart';
-import 'package:template/feature/app/cubit/app_cubit.dart';
-
-import '../../../router/router.dart';
-import '../../notification/notification_in_app.dart';
-
 enum NotificationCategory { home, product }
 
 class NotificationModel {

@@ -45,6 +45,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.5
   build_runner: ^2.4.7
+  build_test: ^2.2.2
   envied_generator: ^0.5.3
   flutter_driver:
     sdk: flutter
