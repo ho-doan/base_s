@@ -47,7 +47,7 @@ scripts:
       dirExists: test
     description: test all modules.
   test_run:
-    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage >> report.log
     failFast: true
     concurrency: 1
     description: test all modules.
@@ -97,3 +97,43 @@ scripts:
       scope: "*shared*"
       dependsOn: build_runner
     description: build_runner build all modules.
+  # github actions
+  test_app:
+    run: |
+      mlexit=-1
+      if melos exec --scope="*template*" --fail-fast -- flutter test test/app_test.dart --machine --no-pub;
+      then
+          mlexit=0
+      else
+          mlexit=1
+          melos exec --scope="*template*" --fail-fast -- flutter test test/app_test.dart --machine --no-pub &> MELOS_ROOT_PATH/coverage/__m.b
+          mlgrep=$(grep -Ev '{"|melos|flutter test|1 packages|exit code 1' MELOS_ROOT_PATH/coverage/__m.b)
+          mlawk=$(echo $mlgrep | awk '{ printf("%s\\\\\\\\n", $0) }')
+          secondString="\""
+          replaceString="\\\\\""
+          # ssb=$(echo "${$mlawk//$secondString/$replaceString}")
+          ssb=$(echo $mlawk | sed -e "s/${secondString}/${replaceString}/g")
+          echo $ssb
+          echo "{\"logs\":\"${ssb}\"}" > MELOS_ROOT_PATH/coverage/log_run_app.json
+          rm MELOS_ROOT_PATH/coverage/__m.b
+      fi
+      echo $mlexit
+      exit $mlexit
+    description: Run app test
+  unit_test:
+    run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+    description: Run all Flutter tests in this project.
+  analyze_report:
+    description: analyze report
+    run: |
+      melos analyze >> MELOS_ROOT_PATH/coverage/_analyze.txt
+      grep pattern files | sort -u MELOS_ROOT_PATH/coverage/_analyze.txt > MELOS_ROOT_PATH/coverage/_new_analyze.txt
+      grep -Ev 'melos analyze|flutter analyze|common|template|RUNNING|FAILED|domain|mocks|shared|Analyzing|issues found|core_generator|core_clean_gen|---------------' MELOS_ROOT_PATH/coverage/_new_analyze.txt > MELOS_ROOT_PATH/coverage/analyze_filter.txt
+  unit_test_and_coverage:
+    description: Merge all packages coverage tracefiles ignoring data related to generated files.
+    run: |
+      melos exec rm -rf coverage
+      melos run unit_test
+      melos exec -c 1 --file-exists=coverage/lcov.info -- coverde filter --input ./coverage/lcov.info --output MELOS_ROOT_PATH/coverage/_filtered.lcov.info --filters \.g\.dart
+      coverde value -i coverage/_filtered.lcov.info > MELOS_ROOT_PATH/coverage/_result.txt
+      grep -v "100.00%" MELOS_ROOT_PATH/coverage/_result.txt > MELOS_ROOT_PATH/coverage/result_filter.txt

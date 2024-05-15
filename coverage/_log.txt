@@ -1,0 +1,46 @@
+$ melos exec
+  └> flutter test test/app_test.dart --machine
+     └> RUNNING (in 1 packages)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+template:
+{"protocolVersion":"0.1.1","runnerVersion":"1.24.9","pid":31225,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/Users/ominext/Documents/source/base_s/template/test/app_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /Users/ominext/Documents/source/base_s/template/test/app_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":0}
+{"count":1,"time":3,"type":"allSuites"}
+../domain/lib/services/dependency_injection/service_locator.config.dart:17:8: Error: Error when reading '../domain/lib/data/local_data_sources/product/product_local_data_source.dart': No such file or directory
+import '../../data/local_data_sources/product/product_local_data_source.dart'
+       ^
+
+../domain/lib/services/dependency_injection/service_locator.config.dart:43:18: Error: 'ProductLocalDataSource' isn't a type.
+  gh.factory<_i4.ProductLocalDataSource>(() => _i4.ProductLocalDataSource());
+                 ^^^^^^^^^^^^^^^^^^^^^^
+../domain/lib/services/dependency_injection/service_locator.config.dart:43:52: Error: Method not found: 'ProductLocalDataSource'.
+
+  gh.factory<_i4.ProductLocalDataSource>(() => _i4.ProductLocalDataSource());
+                                                   ^^^^^^^^^^^^^^^^^^^^^^
+
+../domain/lib/services/dependency_injection/service_locator.config.dart:53:16: Error: 'ProductLocalDataSource' isn't a type.
+        gh<_i9.ProductLocalDataSource>(),
+
+               ^^^^^^^^^^^^^^^^^^^^^^
+../domain/lib/services/dependency_injection/service_locator.config.dart:52:66: Error: Too many positional arguments: 1 allowed, but 2 found.
+Try removing the extra positional arguments.
+
+  gh.factory<_i11.ProductRepository>(() => _i11.ProductRepository(
+                                                                 ^
+
+../domain/lib/repositories/product/product_repository.dart:12:3: Context: Found this candidate, but the arguments don't match.
+  ProductRepository(this._remote);
+
+  ^^^^^^^^^^^^^^^^^
+
+{"testID":1,"error":"Failed to load \"/Users/ominext/Documents/source/base_s/template/test/app_test.dart\": Compilation failed for testPath=/Users/ominext/Documents/source/base_s/template/test/app_test.dart","stackTrace":"","isFailure":false,"type":"error","time":1511}
+{"testID":1,"result":"error","skipped":false,"hidden":false,"type":"testDone","time":1514}
+{"success":false,"type":"done","time":1515}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+$ melos exec
+  └> flutter test test/app_test.dart --machine
+     └> FAILED (in 1 packages)
+        └> template (with exit code 1)
