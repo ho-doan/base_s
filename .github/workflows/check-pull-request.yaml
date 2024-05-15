@@ -84,7 +84,7 @@ jobs:
         if: steps.test_app.outcome != 'success'
         with:
           name: 'flutter test'
-          path: './coverage/log_run_app.log'
+          path: './coverage/log_run_app.json'
           reporter: 'flutter-json'
           fail-on-error: 'false'
       - name: Read Comment Text from File
