@@ -45,6 +45,11 @@ void main(List<String> args) {
           'local data source, remote data source, repository, use case)',
     )
     ..addOption(
+      'clear',
+      help: 'Generated resource feature (local model, remote model, model, '
+          'local data source, remote data source, repository, use case)',
+    )
+    ..addOption(
       'repo',
       help: 'Generated repository',
     )
@@ -99,6 +104,14 @@ void main(List<String> args) {
       final modelName = safeCast<String>(results['all']);
       stdout.writeln(modelName ?? 'NONE');
       CoreGenerator(File(pubspecPath!).absolute).build(modelName!);
+      return;
+    } else if (results.wasParsed('clear')) {
+      final pubspecPath = safeCast<String>(results['config']);
+      stdout.writeln(pubspecPath ?? 'NONE');
+
+      final modelName = safeCast<String>(results['clear']);
+      stdout.writeln(modelName ?? 'NONE');
+      CoreGenerator(File(pubspecPath!).absolute).deleteBuild(modelName!);
       return;
     } else if (results.wasParsed('lds')) {
       final pubspecPath = safeCast<String>(results['config']);

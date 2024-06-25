@@ -74,6 +74,48 @@ class CoreGenerator {
     return (writer, fReader);
   }
 
+  FileWriter? _deleteBuild(
+    String modelName, {
+    required String? Function(ConfigModel) pathWork,
+    Config? config,
+    FileWriter? writer,
+  }) {
+    config ??= loadPubspecConfigOrNull(pubspecFile);
+    if (config == null) return null;
+
+    final coreConfig = config.pubspec.config;
+
+    final configPath = pathWork.call(coreConfig);
+
+    if (configPath == null) return null;
+
+    final parent = normalize(
+      join(
+        pubspecFile.parent.path,
+        configPath,
+      ),
+    );
+
+    void defaultWriter(String contents, String path, {bool export = false}) {
+      final file = File(normalize(join(parent, path)));
+      if (file.existsSync()) {
+        file.deleteSync(recursive: true);
+      }
+    }
+
+    writer ??= defaultWriter;
+
+    if (!parent.contains('.dart')) {
+      final absoluteOutput = Directory(parent);
+
+      if (absoluteOutput.existsSync()) {
+        absoluteOutput.deleteSync(recursive: true);
+      }
+    }
+
+    return writer;
+  }
+
   void buildModel(
     String modelName, {
     Config? config,
@@ -141,6 +183,29 @@ class CoreGenerator {
       fileExport,
       export: true,
     );
+    //#endregion
+  }
+
+  void _deleteBuildRemoteModel(
+    String modelName, {
+    Config? config,
+    FileWriter? writer,
+  }) {
+    final initial = _deleteBuild(
+      modelName,
+      pathWork: (c) => c.dirRemoteModel,
+    );
+    writer ??= initial;
+
+    final fileName = modelName.toSnakeCase();
+
+    //#region gen
+    writer?.call('', '$fileName/$fileName.dart');
+    //#endregion
+
+    //#region export
+    const fileExport = 'remote.dart';
+    writer?.call('', fileExport, export: true);
     //#endregion
   }
 
@@ -387,5 +452,15 @@ class CoreGenerator {
     buildRemoteDataSource(modelName);
     buildRepository(modelName);
     buildUseCase(modelName);
+  }
+
+  void deleteBuild(String modelName, {Config? config, FileWriter? writer}) {
+    _deleteBuildRemoteModel(modelName);
+    // buildLocalModel(modelName);
+    // buildModel(modelName);
+    // buildLocalDataSource(modelName);
+    // buildRemoteDataSource(modelName);
+    // buildRepository(modelName);
+    // buildUseCase(modelName);
   }
 }
