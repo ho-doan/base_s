@@ -42,7 +42,6 @@ class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
       fetch({
     bool? forceRefresh = false,
     _i5.RootIsolateToken? token,
-    _i5.RootIsolateToken? token2,
   }) =>
           (super.noSuchMethod(
             Invocation.method(
@@ -51,7 +50,6 @@ class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
               {
                 #forceRefresh: forceRefresh,
                 #token: token,
-                #token2: token2,
               },
             ),
             returnValue: _i4.Future<
@@ -65,7 +63,6 @@ class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
                 {
                   #forceRefresh: forceRefresh,
                   #token: token,
-                  #token2: token2,
                 },
               ),
             )),
@@ -80,7 +77,6 @@ class MockCategoryUseCase extends _i1.Mock implements _i3.CategoryUseCase {
                 {
                   #forceRefresh: forceRefresh,
                   #token: token,
-                  #token2: token2,
                 },
               ),
             )),

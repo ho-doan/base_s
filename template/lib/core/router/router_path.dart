@@ -1,6 +1,7 @@
 class $RouterPath {
   $RouterPath();
   static const String root = '/';
+  static const String login = '/login';
   static const home = 'home';
   static const profile = 'profile';
   static const setting = 'setting';

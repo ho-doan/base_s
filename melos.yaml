@@ -60,7 +60,7 @@ scripts:
     
     description: test all modules.
   build:
-    exec: dart pub run build_runner build --delete-conflicting-outputs
+    exec: flutter packages pub get && dart pub run build_runner build --delete-conflicting-outputs
     failFast: true
     packageFilters:
       dependsOn: build_runner

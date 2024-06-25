@@ -7,7 +7,6 @@ import 'package:template/core/services/dependency_injection/service_locator.dart
 import 'package:template/feature/app/cubit/app_cubit.dart';
 
 import '../../core/router/router.dart';
-import '../../core/services/firebase/notifications/firebase_core_app.dart';
 import '../../core/utils/utils.dart';
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {

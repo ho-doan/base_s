@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,13 +13,21 @@ part 'router.g.dart';
 @visibleForTesting
 GlobalKey<NavigatorState>? navigatorKeyTesting;
 
+// TODO(hodoan): mock
+final isAuthentication = true;
+
 class Routers {
   Routers._() {
-    log('==== key $navigatorKey');
     $router = GoRouter(
       routes: $appRoutes,
       navigatorKey: navigatorKeyTesting ?? navigatorKey,
       redirect: (_, state) {
+        if (!isAuthentication) {
+          return LoginRouter().location;
+        }
+        if (isAuthentication && state.fullPath == $RouterPath.login) {
+          return RootApp().location;
+        }
         return null;
       },
     );
@@ -52,6 +59,16 @@ class RootApp extends GoRouteData {
       child: const HomeScreen(),
     );
   }
+}
+
+@TypedGoRoute<LoginRouter>(path: $RouterPath.login)
+class LoginRouter extends GoRouteData {
+  const LoginRouter();
+  @override
+  Widget build(BuildContext context, GoRouterState state) => BlocProvider(
+        create: (context) => getIt<HomeBloc>()..add(const HomeEvent.started()),
+        child: const HomeScreen(),
+      );
 }
 
 class HomeRouter extends GoRouteData {
