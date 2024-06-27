@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../data/local_data_sources/local_data_sources.dart';
 import '../networks/api_client.dart';
 import 'service_locator.config.dart';
 
@@ -54,6 +55,7 @@ Future<void> configureDomainDependencies(GetIt getIt) async {
       () => SharedPreferenceHelper(getIt<SharedPreferences>()),
     )
     ..registerLazySingleton<ApiClient>(() => _apiClient);
+
   $initGetIt(getIt);
 }
 
