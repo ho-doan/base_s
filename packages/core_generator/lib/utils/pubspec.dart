@@ -31,6 +31,7 @@ class ConfigModel {
     this.dirRepository = 'domain/lib/repositories',
     this.dirUseCase = 'domain/lib/use_cases',
     this.webLocator,
+    this.service,
     this.replace = false,
   });
   factory ConfigModel.fromJson(Map json) => _$ConfigModelFromJson(json);
@@ -51,6 +52,8 @@ class ConfigModel {
   final String? webLocator;
   @JsonKey(name: 'local_schema')
   final String? localSchema;
+  @JsonKey(name: 'service')
+  final String? service;
   @JsonKey(name: 'replace')
   final bool? replace;
   @JsonKey(name: 'dir_use_case', required: true)

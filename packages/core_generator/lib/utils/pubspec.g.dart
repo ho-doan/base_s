@@ -61,6 +61,7 @@ ConfigModel _$ConfigModelFromJson(Map json) => $checkedCreate(
           dirUseCase: $checkedConvert(
               'dir_use_case', (v) => v as String? ?? 'domain/lib/use_cases'),
           webLocator: $checkedConvert('web_locator', (v) => v as String?),
+          service: $checkedConvert('service', (v) => v as String?),
           replace: $checkedConvert('replace', (v) => v as bool? ?? false),
         );
         return val;

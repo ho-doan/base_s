@@ -49,8 +49,8 @@ String generatedRemoteDataSource(String modelName) {
               [
                 'try {',
                 'final result = await _apiClient.getAll$className();',
-                "assert(result.list != null, 'Categories model server null');",
-                'return Right(result.list!);',
+                "assert(result.data != null, 'Categories model server null');",
+                'return Right(result.data!);',
                 '} on Exception catch (error, stackTrace) {',
                 "log('get all $className failed: \$error',",
                 ' stackTrace: stackTrace);',

@@ -99,16 +99,15 @@ String generatedExportLocalDataSource(
   return DartFormatter().format([file, export].join('\n'));
 }
 
-const hardLocal = "/// Don't remove comment - CORE GENERATED FOR WEB";
-
 String generatedExportLocalDataSourceLocator(String modelName, String file) {
   final classModel = modelName.toPascalCase();
 
   if (file.contains('..registerFactory<${classModel}LocalDataSource>')) {
     return file;
   }
-
-  final strs = file.split(hardLocal);
+  final reg = RegExp(r'\n.*\.\.register.*\)');
+  final str = reg.firstMatch(file)?[0];
+  final strs = file.split(reg);
 
   final export = '..registerFactory<${classModel}LocalDataSource>'
       '(${classModel}LocalDataSource.new)';
@@ -116,7 +115,7 @@ String generatedExportLocalDataSourceLocator(String modelName, String file) {
   return DartFormatter().format(
     [
       strs.first,
-      hardLocal,
+      str,
       export,
       strs.last,
     ].join('\n'),
